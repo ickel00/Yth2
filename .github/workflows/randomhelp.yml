@@ -1,0 +1,27 @@
+# 随机助力
+
+name: 随机助力
+
+on:
+  workflow_dispatch:
+  schedule:
+     - cron: '*/15 * * * *'
+  watch:
+    types: started
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: github.event.repository.owner.id == github.event.sender.id
+
+    steps:
+      - name: Use Node.js 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - name: npm install
+        run: |
+          npm install
+      - name: '运行 【随机助力】'
+        run: |
+          node Task/RandomHelp.js
+          
