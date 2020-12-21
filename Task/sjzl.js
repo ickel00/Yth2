@@ -16,7 +16,6 @@ $.result = []
   await createNc()
   await createMc()
   await createDd()
-  await createJx()
   await createJdzz()
   await showMsg()
 })()
