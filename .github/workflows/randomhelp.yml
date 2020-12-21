@@ -15,10 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event.repository.owner.id == github.event.sender.id
     env:
-        YOUTH_HEADER: ${{ secrets.YOUTH_HEADER }}
-        YOUTH_ARTBODY: ${{ secrets.YOUTH_ARTBODY }}
-        YOUTH_REDBODY: ${{ secrets.YOUTH_REDBODY }}
-        YOUTH_TIME: ${{ secrets.YOUTH_TIME }}
+        RandomHelp: ${{ secrets.RandomHelp }}
     steps:
       - uses: actions/checkout@v1
       - name: Use Node.js 14.x
@@ -26,7 +23,7 @@ jobs:
         with:
           node-version: 14.x
       - name: npm install
-        if: env.YOUTH_HEADER
+        if: env.RandomHelp
         run: |
           npm install
       - name: '运行 【随机助力】'
