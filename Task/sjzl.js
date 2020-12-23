@@ -3,7 +3,7 @@ const $ = new Env('互助码')
 $.zdUrl = 'http://api.turinglabs.net/api/v1/jd/bean/create/cldupvwbh35fgzjmruqqundnom/'  // 种豆得豆
 $.ncUrl = 'http://api.turinglabs.net/api/v1/jd/farm/create/5f7d914da1ab4afd963f5f94720551a8/'  // 农场
 $.mcUrl = 'http://api.turinglabs.net/api/v1/jd/pet/create/MTAxODc2NTEzMzAwMDAwMDAyMDQ3NjMwOQ==/'  // 萌宠
-$.ddUrl = 'http://api.turinglabs.net/api/v1/jd/ddfactory/create/P04z54XCjVWnYaS5nNbWzSt3A/'  // 东东
+$.ddUrl = 'http://api.turinglabs.net/api/v1/jd/ddfactory/create/T008-K4gFEsYCjVWnYaS5kRrbA/'  // 东东
 $.jdzzUrl = 'https://code.chiang.fun/api/v1/jd/jdzz/create/ATWYFy_iR/'  // 京东赚赚
 
 
