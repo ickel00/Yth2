@@ -4,7 +4,7 @@ $.zdUrl = 'http://api.turinglabs.net/api/v1/jd/bean/create/cldupvwbh35fgzjmruqqu
 $.ncUrl = 'http://api.turinglabs.net/api/v1/jd/farm/create/5f7d914da1ab4afd963f5f94720551a8/'  // 农场
 $.mcUrl = 'http://api.turinglabs.net/api/v1/jd/pet/create/MTAxODc2NTEzMzAwMDAwMDAyMDQ3NjMwOQ==/'  // 萌宠
 $.ddUrl = 'http://api.turinglabs.net/api/v1/jd/ddfactory/create/T008-K4gFEsYCjVWnYaS5kRrbA/'  // 东东
-$.jdzzUrl = 'https://code.chiang.fun/api/v1/jd/jdzz/create/ATWYFy_iR/'  // 京东赚赚
+$.jdzzUrl = 'https://code.chiang.fun/api/v1/jd/jdzz/create/S-K4gFEsY/'  // 京东赚赚
 $.cjUrl = 'https://code.chiang.fun/api/v1/jd/jdcrazyjoy/create/tF72H2xenkM=/'  // 疯狂的joy
 
 $.result = []
