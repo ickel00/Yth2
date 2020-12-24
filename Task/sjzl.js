@@ -5,7 +5,7 @@ $.ncUrl = 'http://api.turinglabs.net/api/v1/jd/farm/create/5f7d914da1ab4afd963f5
 $.mcUrl = 'http://api.turinglabs.net/api/v1/jd/pet/create/MTAxODc2NTEzMzAwMDAwMDAyMDQ3NjMwOQ==/'  // 萌宠
 $.ddUrl = 'http://api.turinglabs.net/api/v1/jd/ddfactory/create/T008-K4gFEsYCjVWnYaS5kRrbA/'  // 东东
 $.jdzzUrl = 'https://code.chiang.fun/api/v1/jd/jdzz/create/ATWYFy_iR/'  // 京东赚赚
-
+$.cjUrl = 'https://code.chiang.fun/api/v1/jd/jdcrazyjoy/create/tF72H2xenkM=/'  // 疯狂的joy
 
 $.result = []
 
@@ -17,6 +17,7 @@ $.result = []
   await createMc()
   await createDd()
   await createJdzz()
+  await createCj()
   await showMsg()
 })()
   .catch((e) => $.logErr(e))
@@ -132,6 +133,30 @@ function createJdzz() {
           $.result.push("京东赚赚互助码已存在")
         }else{
           $.result.push("京东赚赚互助码添加异常")
+        }
+      } catch (e) {
+        $.logErr(e, resp)
+      } finally {
+        resolve()
+      }
+    })
+  })
+}
+
+// 疯狂的joy
+function createCj() {
+  return new Promise((resolve) => {
+    const url = { url: $.cjUrl }
+    $.get(url, (err, resp, data) => {
+      try {
+         const obj = JSON.parse(data)
+        if (obj.code == 200) {
+          $.result.push("疯狂的joy互助码添加成功✅")
+        }else
+		if(obj.code == 400) {
+          $.result.push("疯狂的joy互助码已存在")
+        }else{
+          $.result.push("疯狂的joy互助码添加异常")
         }
       } catch (e) {
         $.logErr(e, resp)
