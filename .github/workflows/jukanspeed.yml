@@ -30,7 +30,7 @@ jobs:
       - name: '运行 【聚看点极速版】'
         if: env.JUKAN_COOKIE
         run: |
-          node Task/jukan.js
+          node Task/jukanspeed.js
         env:
           PUSH_KEY: ${{ secrets.PUSH_KEY }}
           BARK_PUSH: ${{ secrets.BARK_PUSH }}
