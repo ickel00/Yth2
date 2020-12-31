@@ -16,7 +16,7 @@ let wxname = $.getdata('jukan_name') || ""//微信真实名字，可以在双引
 let CookieArr=[],BodyArr=[];
 let cookie = $.getdata('jukan_ck')
 let bodys = $.getdata('jukan_body')
-let UA = 'QianZhuan/60.0.6 (iPhone; iOS 13.6.1; Scale/3.00)'
+let UA = 'JuKanDian/5.6.5 (iPhone; iOS 14.2; Scale/3.00)'
 
 if ($.isNode()) {
   if (process.env.JUKAN_COOKIE && process.env.JUKAN_COOKIE.indexOf('&') > -1) {
@@ -167,6 +167,44 @@ function getsign() {
   })
 }
 
+function signShare() {
+  return new Promise((resolve, reject) =>{
+   let profiturl =  {
+      url: `https://www.xiaodouzhuan.cn/jkd/account/signShareAccount.action`,
+      headers: {Cookie:cookieval,'User-Agent':UA}, body: bodyval
+      }
+   $.post(profiturl, async(error, resp, data) => {
+     //$.log(data+"\n")
+     let sign_share = JSON.parse(data)
+     if (sign_share.ret == "ok"){
+       $.log("签到分享收益: +"+sign_share.profit)
+        await Stimulate("23")
+        await invite()
+         }  else {
+       $.log(sign_share.rtn_msg)
+     }
+       resolve()
+    })
+  })
+}
+function WelfareCash() {
+  return new Promise((resolve, reject) =>{
+   let welurl =  {
+      url: `https://www.xiaodouzhuan.cn/jkd/activity/cashweal/noviceWelfareCash.action`,
+      headers: {Cookie:cookieval,'User-Agent':UA}
+      }
+   $.post(welurl, async(error, resp, data) => {
+     //$.log(data+"\n")
+     let _welfareCash = JSON.parse(data)
+     if (_welfareCash.ret == "ok"){
+       $.log("新手福利提现: 成功")
+         }  else {
+       $.log(_welfareCash.rtn_msg)
+     }
+       resolve()
+    })
+  })
+}
 function realname() {
   return new Promise((resolve, reject) =>{
    let realurl =  {
@@ -226,7 +264,7 @@ function userinfo() {
   })
 }
 
-function artList() {
+function artList(readbodyVal) {
   return new Promise((resolve, reject) =>{
    let infourl =  {
       url: `https://www.xiaodouzhuan.cn/jkd/newmobile/artlist.action`,
@@ -235,25 +273,26 @@ function artList() {
       }
    $.post(infourl, async(error, resp, data) => {
      let get_list = JSON.parse(data)
-      //$.log( data)
+       // $.log( data)
          $.log("【开始自动阅读】")
      if (get_list.ret == "ok"){
        for( lists of get_list.artlist){
+          if(lists.item_type=="article"){
           art_Title = lists.art_title
           artid =lists.art_id
           screen_Name = lists.screen_name
-          if(lists.item_type=="article"){
-          arttype = "1"
           $.log("正在阅读文章: "+art_Title +"  -------- <"+screen_Name +">\n ")
-         await readTask(lists.art_id,arttype)
+          await readTask(lists.art_id,"1")
           }
          if(lists.item_type=="video"){
-          arttype = "2"
+          art_Title = lists.art_title
+          artid =lists.art_id
+          screen_Name = lists.screen_name
          $.log("正在观看视频: "+art_Title +"  -------- <"+screen_Name +">\n ")
-          await readTask(lists.art_id,arttype)
+          await readTask(lists.art_id,"2")
           }
-        if(taskresult  == `R-ART-1002`|| taskresult ==`R-ART-0017`){
-         break 
+        if(taskresult == 'R-ART-1002'|| taskresult ==`R-ART-0011`){
+           break
           }
          }
        }  
