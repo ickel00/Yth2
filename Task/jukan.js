@@ -148,8 +148,9 @@ function getsign() {
       //$.log(data)
      if (get_sign.ret == "ok"){
          $.sub = `签到成功🎉`
-         $.desc = `签到收益: +${get_sign.todaySignProfit}${get_sign.todaySignProfitType}💰，明日 +${get_sign.tomorrowSignProfit}${get_sign.tomorrowSignProfitType} 已签到 ${get_sign.signDays} 天\n` ;
-           await signShare()
+         $.desc = `签到收益: +${get_sign.todaySignProfit}${get_sign.todaySignProfitType}💰，明日 +${get_sign.tomorrowSignProfit}${get_sign.tomorrowSignProfitType} 已签到 ${get_sign.signDays} 天` ;
+          $.log($.desc)
+           await invite()
          }  
      else if (get_sign.rtn_code == "R-ART-0008"){
          $.sub =  get_sign.rtn_msg
@@ -160,7 +161,7 @@ function getsign() {
          $.sub = `签到失败❌`
          $.desc = `说明: `+ get_sign.rtn_msg
          $.msg($.name,$.sub,$.desc)
-         $.done()
+         return
          }
      resolve()
     })
