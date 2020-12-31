@@ -1,5 +1,5 @@
 
-name: 聚看点
+name: 聚看点极速版
 
 on:
   workflow_dispatch:
