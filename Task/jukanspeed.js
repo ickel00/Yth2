@@ -135,20 +135,17 @@ function userinfo() {
      let get_info = JSON.parse(data)
       if( get_info.ret=="ok"){
        userName = get_info.userinfo.username
-       sumcash = get_info.userinfo.infoMeSumCashItem.title+get_info.userinfo.infoMeSumCashItem.value
-       curcash = get_info.userinfo.infoMeCurCashItem.title+get_info.userinfo.infoMeCurCashItem.value
-        gold = get_info.userinfo.infoMeGoldItem.title+": "+get_info.userinfo.infoMeGoldItem.value
+       sumcash = get_info.userinfo.infoMeSumCashItem.title+get_info.userinfo.infoMeCurCashItem.value
+     curcash = get_info.userinfo.infoMeCurCashItem.title+get_info.userinfo.infoMeCurCashItem.value
+    gold = get_info.userinfo.infoMeGoldItem.title+get_info.userinfo.infoMeGoldItem.value
     $.log("昵称:"+userName+"  "+gold +"\n"+sumcash + "/"+curcash )
-     $.sub += " "+gold
-     $.desc += sumcash + "/"+curcash 
-     $.msg($.name+" 昵称:"+userName, $.sub, $.desc+"\n")
      }
      resolve()
     })
   })
 }
 
-function artList() {
+function artList(readbodyVal) {
   return new Promise((resolve, reject) =>{
    let infourl =  {
       url: `https://www.xiaodouzhuan.cn/jkd/newmobile/artlist.action`,
@@ -157,25 +154,26 @@ function artList() {
       }
    $.post(infourl, async(error, resp, data) => {
      let get_list = JSON.parse(data)
-      //$.log( data)
+       // $.log( data)
          $.log("【开始自动阅读】")
      if (get_list.ret == "ok"){
        for( lists of get_list.artlist){
+          if(lists.item_type=="article"){
           art_Title = lists.art_title
           artid =lists.art_id
           screen_Name = lists.screen_name
-          if(lists.item_type=="article"){
-          arttype = "1"
           $.log("正在阅读文章: "+art_Title +"  -------- <"+screen_Name +">\n ")
-         await readTask(lists.art_id,arttype)
+          await readTask(lists.art_id,"1")
           }
          if(lists.item_type=="video"){
-          arttype = "2"
+          art_Title = lists.art_title
+          artid =lists.art_id
+          screen_Name = lists.screen_name
          $.log("正在观看视频: "+art_Title +"  -------- <"+screen_Name +">\n ")
-          await readTask(lists.art_id,arttype)
+          await readTask(lists.art_id,"2")
           }
-        if(taskresult  == `R-ART-1002`|| taskresult ==`R-ART-0017`){
-         break 
+        if(taskresult == 'R-ART-1002'|| taskresult ==`R-ART-0011`){
+           break
           }
          }
        }  
