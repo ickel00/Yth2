@@ -209,21 +209,18 @@ function readTask(artid,arttype) {
 
 function finishTask(artid,arttype) {
   return new Promise((resolve, reject) =>{
-    times = Date.parse(new Date())/1000
    let finishurl =  {
       url: `https://www.xiaodouzhuan.cn/jkd/account/readAccount.action`,
-      headers: {Cookie:cookieval,'User-Agent':UA},      
-      body: `jsondata={"appid":"xzwl","read_weal":0,"paytype":${arttype},"securitykey":"","channel":"iOS","psign":"92dea068b6c271161be05ed358b59932","appversioncode":"565","time":"${times}",${apptoken},"appversion":"5.6.5",${ID},"os":"iOS","artid":${artid},"accountType":"0","readmodel":"1"}`
+      headers: {Cookie:cookieval,'User-Agent':UA},      body: `jsondata={"read_weal":"0","appid":"xzwl","paytype":${arttype},"channel":"IOS-qianzhuan",${apptoken},"appversion":"60.0.6",${ID},"os":"iOS","artid":"${artid}","readmodel":"1"}`
       }
    $.post(finishurl, async(error, response, data) => {
-     //$.log(data+"\n")
+     $.log(data+"\n")
      let do_read = JSON.parse(data)
           taskresult = do_read.rtn_code
      if (do_read.ret == "ok"){
        $.log("获得收益: +"+do_read.profit +"\n")
-         }  else {
-      $.log(do_read.rtn_msg)
-    }
+        // $.desc += '获得总收益: +' + 
+         }  
        resolve()
     })
   })
