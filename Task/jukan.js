@@ -264,7 +264,7 @@ function userinfo() {
   })
 }
 
-function artList(readbodyVal) {
+function artList() {
   return new Promise((resolve, reject) =>{
    let infourl =  {
       url: `https://www.xiaodouzhuan.cn/jkd/newmobile/artlist.action`,
@@ -273,26 +273,25 @@ function artList(readbodyVal) {
       }
    $.post(infourl, async(error, resp, data) => {
      let get_list = JSON.parse(data)
-       // $.log( data)
+      //$.log( data)
          $.log("【开始自动阅读】")
      if (get_list.ret == "ok"){
        for( lists of get_list.artlist){
-          if(lists.item_type=="article"){
           art_Title = lists.art_title
           artid =lists.art_id
           screen_Name = lists.screen_name
+          if(lists.item_type=="article"){
+          arttype = "1"
           $.log("正在阅读文章: "+art_Title +"  -------- <"+screen_Name +">\n ")
-          await readTask(lists.art_id,"1")
+         await readTask(lists.art_id,arttype)
           }
          if(lists.item_type=="video"){
-          art_Title = lists.art_title
-          artid =lists.art_id
-          screen_Name = lists.screen_name
+          arttype = "2"
          $.log("正在观看视频: "+art_Title +"  -------- <"+screen_Name +">\n ")
-          await readTask(lists.art_id,"2")
+          await readTask(lists.art_id,arttype)
           }
-        if(taskresult == 'R-ART-1002'|| taskresult ==`R-ART-0011`){
-           break
+        if(taskresult  == `R-ART-1002`|| taskresult ==`R-ART-0017`){
+         break 
           }
          }
        }  
