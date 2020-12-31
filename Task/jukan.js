@@ -16,7 +16,7 @@ let wxname = $.getdata('jukan_name') || ""//微信真实名字，可以在双引
 let CookieArr=[],BodyArr=[];
 let cookie = $.getdata('jukan_ck')
 let bodys = $.getdata('jukan_body')
-let UA = 'QianZhuan/60.0.6 (iPhone; iOS 13.6.1; Scale/3.00)'
+let UA = 'JuKanDian/5.6.5 (iPhone; iOS 14.2; Scale/3.00)'
 
 if ($.isNode()) {
   if (process.env.JUKAN_COOKIE && process.env.JUKAN_COOKIE.indexOf('&') > -1) {
@@ -117,34 +117,21 @@ if (typeof $request !== 'undefined') {
     .finally(() => $.done())
 }
 //签到
-function getsign() {
+function sign() {
   return new Promise((resolve, reject) =>{
-   let signurl =  {
-      url:  `https://www.xiaodouzhuan.cn/jkd/user/usersign.action`,
-      headers: {Cookie:cookieval,'User-Agent':UA},
-      body: bodyval
+   let profiturl =  {
+      url: `https://www.xiaodouzhuan.cn/jkd/account/homeSignAccount.action`,
+      headers: {Cookie:cookieval,'User-Agent':UA}, body: bodyval
       }
-   $.post(signurl, async(error, response, data) => {
-     let get_sign = JSON.parse(data)
-      //$.log(data)
-     if (get_sign.ret == "ok"){
-         $.sub = `签到成功🎉`
-         $.desc = `签到收益: +${get_sign.todaySignProfit}${get_sign.todaySignProfitType}💰，明日 +${get_sign.tomorrowSignProfit}${get_sign.tomorrowSignProfitType} 已签到 ${get_sign.signDays} 天` ;
-          $.log($.desc)
-           await invite()
-         }  
-     else if (get_sign.rtn_code == "R-ART-0008"){
-         $.sub =  get_sign.rtn_msg
-         $.desc = ``
-         $.log($.sub)
-         }
-     else {
-         $.sub = `签到失败❌`
-         $.desc = `说明: `+ get_sign.rtn_msg
-         $.msg($.name,$.sub,$.desc)
-         return
-         }
-     resolve()
+   $.post(profiturl, async(error, resp, data) => {
+     //$.log(data+"\n")
+     let sign_res = JSON.parse(data)
+     if (sign_res.ret == "ok"&&sign_res.profit>0){
+       $.log("签到收益: +"+sign_res.profitDesc)
+         }  else {
+       $.log(sign_res.rtn_msg)
+     }
+       resolve()
     })
   })
 }
