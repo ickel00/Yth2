@@ -167,26 +167,6 @@ function getsign() {
   })
 }
 
-function signShare() {
-  return new Promise((resolve, reject) =>{
-   let profiturl =  {
-      url: `https://www.xiaodouzhuan.cn/jkd/account/signShareAccount.action`,
-      headers: {Cookie:cookieval,'User-Agent':UA}, body: bodyval
-      }
-   $.post(profiturl, async(error, resp, data) => {
-     //$.log(data+"\n")
-     let sign_share = JSON.parse(data)
-     if (sign_share.ret == "ok"){
-       $.log("签到分享收益: +"+sign_share.profit)
-        await Stimulate("23")
-        await invite()
-         }  else {
-       $.log(sign_share.rtn_msg)
-     }
-       resolve()
-    })
-  })
-}
 function WelfareCash() {
   return new Promise((resolve, reject) =>{
    let welurl =  {
