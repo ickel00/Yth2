@@ -149,7 +149,7 @@ function userinfo() {
   })
 }
 
-function artList() {
+function artList(readbodyVal) {
   return new Promise((resolve, reject) =>{
    let infourl =  {
       url: `https://www.xiaodouzhuan.cn/jkd/newmobile/artlist.action`,
@@ -223,48 +223,6 @@ function finishTask(artid,arttype) {
          }  else {
       $.log(do_read.rtn_msg)
     }
-       resolve()
-    })
-  })
-}
-
-//激励视频
-function Stimulate(position) {
-  return new Promise((resolve, reject) =>{
-   let stimurl =  {
-      url: `https://www.xiaodouzhuan.cn/jkd/account/stimulateAdvAccount.action`,
-      headers: {Cookie:cookieval,'User-Agent':UA},      
-      body: `jsondata={"read_weal":"0","appid":"xzwl", "position" : ${position},${apptoken},"appversion":"5.6.5",${ID},"os":"iOS","channel":"iOS"}`
-      }
-   $.post(stimurl, async(error, response, data) => {
-     //$.log(data+"\n")
-     let do_stim = JSON.parse(data)
-     if ( do_stim.ret == "ok"){
-          $.log( do_stim.profit_title+": +"+ do_stim.profit +"(以实际情况为准)")
-         }  
-       resolve()
-    })
-  })
-}
-
-function BoxProfit() {
-  return new Promise((resolve, reject) =>{
-   let profiturl =  {
-      url: `https://www.xiaodouzhuan.cn/jkd/task/getTaskBoxProfit.action`,
-      headers: {Cookie:cookieval,'User-Agent':UA}, body: `box_type=${boxtype}`
-      }
-   $.post(profiturl, async(error, resp, data) => {
-     //$.log(data+"\n")
-     let do_box = JSON.parse(data)
-     if (do_box.ret == "ok"&&do_box.profit>0){
-       $.log("获得收益: +"+do_box.profit)
-          position = do_box.advertPopup.position
-          await Stimulate(position)
-          $.log(position)
-         }  
-       else if (do_box.rtn_code=='TAS-A-1'){
-         $.log("计时金币"+do_box.rtn_msg)
-        }
        resolve()
     })
   })
