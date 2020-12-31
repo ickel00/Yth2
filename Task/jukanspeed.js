@@ -136,10 +136,13 @@ function userinfo() {
      let get_info = JSON.parse(data)
       if( get_info.ret=="ok"){
        userName = get_info.userinfo.username
-       sumcash = get_info.userinfo.infoMeSumCashItem.title+get_info.userinfo.infoMeCurCashItem.value
-     curcash = get_info.userinfo.infoMeCurCashItem.title+get_info.userinfo.infoMeCurCashItem.value
-    gold = get_info.userinfo.infoMeGoldItem.title+get_info.userinfo.infoMeGoldItem.value
+       sumcash = get_info.userinfo.infoMeSumCashItem.title+get_info.userinfo.infoMeSumCashItem.value
+       curcash = get_info.userinfo.infoMeCurCashItem.title+get_info.userinfo.infoMeCurCashItem.value
+        gold = get_info.userinfo.infoMeGoldItem.title+": "+get_info.userinfo.infoMeGoldItem.value
     $.log("昵称:"+userName+"  "+gold +"\n"+sumcash + "/"+curcash )
+     $.sub += " "+gold
+     $.desc += sumcash + "/"+curcash 
+     $.msg($.name+" 昵称:"+userName, $.sub, $.desc+"\n")
      }
      resolve()
     })
