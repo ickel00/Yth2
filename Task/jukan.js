@@ -167,24 +167,6 @@ function getsign() {
   })
 }
 
-function WelfareCash() {
-  return new Promise((resolve, reject) =>{
-   let welurl =  {
-      url: `https://www.xiaodouzhuan.cn/jkd/activity/cashweal/noviceWelfareCash.action`,
-      headers: {Cookie:cookieval,'User-Agent':UA}
-      }
-   $.post(welurl, async(error, resp, data) => {
-     //$.log(data+"\n")
-     let _welfareCash = JSON.parse(data)
-     if (_welfareCash.ret == "ok"){
-       $.log("新手福利提现: 成功")
-         }  else {
-       $.log(_welfareCash.rtn_msg)
-     }
-       resolve()
-    })
-  })
-}
 function realname() {
   return new Promise((resolve, reject) =>{
    let realurl =  {
