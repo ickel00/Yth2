@@ -117,25 +117,6 @@ if (typeof $request !== 'undefined') {
     .finally(() => $.done())
 }
 //签到
-function sign() {
-  return new Promise((resolve, reject) =>{
-   let profiturl =  {
-      url: `https://www.xiaodouzhuan.cn/jkd/account/homeSignAccount.action`,
-      headers: {Cookie:cookieval,'User-Agent':UA}, body: bodyval
-      }
-   $.post(profiturl, async(error, resp, data) => {
-     //$.log(data+"\n")
-     let sign_res = JSON.parse(data)
-     if (sign_res.ret == "ok"&&sign_res.profit>0){
-       $.log("签到收益: +"+sign_res.profitDesc)
-         }  else {
-       $.log(sign_res.rtn_msg)
-     }
-       resolve()
-    })
-  })
-}
-
 function getsign() {
   return new Promise((resolve, reject) =>{
    let signurl =  {
