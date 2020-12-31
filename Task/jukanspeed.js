@@ -149,7 +149,7 @@ function userinfo() {
   })
 }
 
-function artList(readbodyVal) {
+function artList() {
   return new Promise((resolve, reject) =>{
    let infourl =  {
       url: `https://www.xiaodouzhuan.cn/jkd/newmobile/artlist.action`,
@@ -192,13 +192,12 @@ function readTask(artid,arttype) {
    let rewurl =  {
       url: `https://www.xiaodouzhuan.cn/jkd/newmobile/artDetail.action`,
       headers: {Cookie:cookieval,'User-Agent':UA},
-      body: `jsondata={"appid":"xzwl","channel":"IOS","psign":"92dea068b6c271161be05ed358b59932","relate":1,"artid":"${artid}","os":"IOS",${ID},${apptoken},"appversion":"5.6.5"}`
+      body: `jsondata={"appid":"xzwl","channel":"IOS-qianzhuan","psign":"0cf94b87f584dfc81a87fa74dcb3757f","relate":1,"artid":"${artid}","os":"IOS",${ID},${apptoken},"appversion":"60.0.6"}`
       }
    $.post(rewurl, async(error, resp, data) => {
      //$.log(data)
      if(resp.statusCode ==200){
-        $.log("请等待30s\n")
-         await $.wait(30000) 
+         await $.wait(32000) 
          await finishTask(artid,arttype)
        } else {
         $.log("阅读失败: "+data)
