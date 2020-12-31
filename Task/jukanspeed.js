@@ -135,16 +135,20 @@ function userinfo() {
      let get_info = JSON.parse(data)
       if( get_info.ret=="ok"){
        userName = get_info.userinfo.username
-       sumcash = get_info.userinfo.infoMeSumCashItem.title+get_info.userinfo.infoMeCurCashItem.value
-     curcash = get_info.userinfo.infoMeCurCashItem.title+get_info.userinfo.infoMeCurCashItem.value
-    gold = get_info.userinfo.infoMeGoldItem.title+get_info.userinfo.infoMeGoldItem.value
+       sumcash = get_info.userinfo.infoMeSumCashItem.title+get_info.userinfo.infoMeSumCashItem.value
+       curcash = get_info.userinfo.infoMeCurCashItem.title+get_info.userinfo.infoMeCurCashItem.value
+        gold = get_info.userinfo.infoMeGoldItem.title+": "+get_info.userinfo.infoMeGoldItem.value
     $.log("昵称:"+userName+"  "+gold +"\n"+sumcash + "/"+curcash )
+     $.sub += " "+gold
+     $.desc += sumcash + "/"+curcash 
+     $.msg($.name+" 昵称:"+userName, $.sub, $.desc+"\n")
      }
      resolve()
     })
   })
 }
-function artList() {
+
+function artList(readbodyVal) {
   return new Promise((resolve, reject) =>{
    let infourl =  {
       url: `https://www.xiaodouzhuan.cn/jkd/newmobile/artlist.action`,
@@ -153,25 +157,26 @@ function artList() {
       }
    $.post(infourl, async(error, resp, data) => {
      let get_list = JSON.parse(data)
-      //$.log( data)
+       // $.log( data)
          $.log("【开始自动阅读】")
      if (get_list.ret == "ok"){
        for( lists of get_list.artlist){
+          if(lists.item_type=="article"){
           art_Title = lists.art_title
           artid =lists.art_id
           screen_Name = lists.screen_name
-          if(lists.item_type=="article"){
-          arttype = "1"
           $.log("正在阅读文章: "+art_Title +"  -------- <"+screen_Name +">\n ")
-         await readTask(lists.art_id,arttype)
+          await readTask(lists.art_id,"1")
           }
          if(lists.item_type=="video"){
-          arttype = "2"
+          art_Title = lists.art_title
+          artid =lists.art_id
+          screen_Name = lists.screen_name
          $.log("正在观看视频: "+art_Title +"  -------- <"+screen_Name +">\n ")
-          await readTask(lists.art_id,arttype)
+          await readTask(lists.art_id,"2")
           }
-        if(taskresult  == `R-ART-1002`|| taskresult ==`R-ART-0017`){
-         break 
+        if(taskresult == 'R-ART-1002'|| taskresult ==`R-ART-0011`){
+           break
           }
          }
        }  
@@ -186,12 +191,13 @@ function readTask(artid,arttype) {
    let rewurl =  {
       url: `https://www.xiaodouzhuan.cn/jkd/newmobile/artDetail.action`,
       headers: {Cookie:cookieval,'User-Agent':UA},
-      body: `jsondata={"appid":"xzwl","channel":"IOS-qianzhuan","psign":"0cf94b87f584dfc81a87fa74dcb3757f","relate":1,"artid":"${artid}","os":"IOS",${ID},${apptoken},"appversion":"60.0.6"}`
+      body: `jsondata={"appid":"xzwl","channel":"IOS","psign":"92dea068b6c271161be05ed358b59932","relate":1,"artid":"${artid}","os":"IOS",${ID},${apptoken},"appversion":"5.6.5"}`
       }
    $.post(rewurl, async(error, resp, data) => {
      //$.log(data)
      if(resp.statusCode ==200){
-         await $.wait(32000) 
+        $.log("请等待30s\n")
+         await $.wait(30000) 
          await finishTask(artid,arttype)
        } else {
         $.log("阅读失败: "+data)
@@ -203,29 +209,65 @@ function readTask(artid,arttype) {
 
 function finishTask(artid,arttype) {
   return new Promise((resolve, reject) =>{
+    times = Date.parse(new Date())/1000
    let finishurl =  {
       url: `https://www.xiaodouzhuan.cn/jkd/account/readAccount.action`,
-      headers: {Cookie:cookieval,'User-Agent':UA},      body: `jsondata={"read_weal":"0","appid":"xzwl","paytype":${arttype},"channel":"IOS-qianzhuan",${apptoken},"appversion":"60.0.6",${ID},"os":"iOS","artid":"${artid}","readmodel":"1"}`
+      headers: {Cookie:cookieval,'User-Agent':UA},      
+      body: `jsondata={"appid":"xzwl","read_weal":0,"paytype":${arttype},"securitykey":"","channel":"iOS","psign":"92dea068b6c271161be05ed358b59932","appversioncode":"565","time":"${times}",${apptoken},"appversion":"5.6.5",${ID},"os":"iOS","artid":${artid},"accountType":"0","readmodel":"1"}`
       }
    $.post(finishurl, async(error, response, data) => {
-     $.log(data+"\n")
+     //$.log(data+"\n")
      let do_read = JSON.parse(data)
           taskresult = do_read.rtn_code
      if (do_read.ret == "ok"){
        $.log("获得收益: +"+do_read.profit +"\n")
-        // $.desc += '获得总收益: +' + 
+         }  else {
+      $.log(do_read.rtn_msg)
+    }
+       resolve()
+    })
+  })
+}
+
+//激励视频
+function Stimulate(position) {
+  return new Promise((resolve, reject) =>{
+   let stimurl =  {
+      url: `https://www.xiaodouzhuan.cn/jkd/account/stimulateAdvAccount.action`,
+      headers: {Cookie:cookieval,'User-Agent':UA},      
+      body: `jsondata={"read_weal":"0","appid":"xzwl", "position" : ${position},${apptoken},"appversion":"5.6.5",${ID},"os":"iOS","channel":"iOS"}`
+      }
+   $.post(stimurl, async(error, response, data) => {
+     //$.log(data+"\n")
+     let do_stim = JSON.parse(data)
+     if ( do_stim.ret == "ok"){
+          $.log( do_stim.profit_title+": +"+ do_stim.profit +"(以实际情况为准)")
          }  
        resolve()
     })
   })
 }
 
-function invite() {
-   let rewurl =  {
-      url: `http://a.app.qq.com/o/simple.jsp?pkgname=com.xiangzi.jukandian&ckey=CK1416436838701`,
-      headers: {Cookie:cookieval}
+function BoxProfit() {
+  return new Promise((resolve, reject) =>{
+   let profiturl =  {
+      url: `https://www.xiaodouzhuan.cn/jkd/task/getTaskBoxProfit.action`,
+      headers: {Cookie:cookieval,'User-Agent':UA}, body: `box_type=${boxtype}`
       }
-   $.get(rewurl, (error, response, data) => {
+   $.post(profiturl, async(error, resp, data) => {
+     //$.log(data+"\n")
+     let do_box = JSON.parse(data)
+     if (do_box.ret == "ok"&&do_box.profit>0){
+       $.log("获得收益: +"+do_box.profit)
+          position = do_box.advertPopup.position
+          await Stimulate(position)
+          $.log(position)
+         }  
+       else if (do_box.rtn_code=='TAS-A-1'){
+         $.log("计时金币"+do_box.rtn_msg)
+        }
+       resolve()
+    })
   })
 }
 
