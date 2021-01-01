@@ -3,8 +3,9 @@ name: 聚看点极速版
 
 on:
   workflow_dispatch:
+      types: 聚看点极速版
   schedule:
-     - cron: '*/28 */4 * * *'
+     - cron: '*/28 * * * *'
   watch:
     types: started
 jobs:
@@ -35,7 +36,7 @@ jobs:
       - name: '运行 【聚看点极速版】'
         if: env.JKD_COOKIE
         run: |
-          node Task/jkd.js
+          node jkd.js
         env:
           PUSH_KEY: ${{ secrets.PUSH_KEY }}
           BARK_PUSH: ${{ secrets.BARK_PUSH }}
