@@ -28,7 +28,7 @@ jobs:
       - name: '运行 【聚看点】'
         if: env.JKD_COOKIE
         run: |
-          node Task/jkd.js
+          node jkd.js
         env:
           PUSH_KEY: ${{ secrets.PUSH_KEY }}
           BARK_PUSH: ${{ secrets.BARK_PUSH }}
