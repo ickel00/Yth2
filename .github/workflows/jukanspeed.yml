@@ -12,8 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event.repository.owner.id == github.event.sender.id
     env:
-        JUKAN_COOKIE: ${{ secrets.JUKAN_COOKIE }}
-        JUKAN_BODY: ${{ secrets.JUKAN_BODY }}
+        JKD_COOKIE: ${{ secrets.JKD_COOKIE }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -34,9 +33,9 @@ jobs:
         run: |
           npm install
       - name: '运行 【聚看点极速版】'
-        if: env.JUKAN_COOKIE
+        if: env.JKD_COOKIE
         run: |
-          node Task/jukanspeed.js
+          node Task/jkd.js
         env:
           PUSH_KEY: ${{ secrets.PUSH_KEY }}
           BARK_PUSH: ${{ secrets.BARK_PUSH }}
