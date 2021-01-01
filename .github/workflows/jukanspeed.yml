@@ -3,11 +3,12 @@ name: 聚看点极速版
 
 on:
   workflow_dispatch:
-      types: 聚看点极速版
   schedule:
      - cron: '*/28 * * * *'
   watch:
     types: started
+  repository_dispatch:
+    types: jkd
 jobs:
   build:
     runs-on: ubuntu-latest
