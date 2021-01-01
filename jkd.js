@@ -10,8 +10,7 @@ hostname = www.xiaodouzhuan.cn
 const API_HOST = 'https://www.xiaodouzhuan.cn'
 const UA = 'Mozilla/5.0 (iPhone; CPU iPhone OS 13_4_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148'
 const $ = new Env("聚看点")
-let cookiesArr = [
-  
+let cookiesArr = [JSESSIONID=BF46936C719C86254685CCB321F204DD; SERVERID=e2e52ee42199401ef190e9b9166db76a|1609396257|1609396229; CNZZDATA1274871401=581428269-1609395051-https%253A%252F%252Fwww.xiaodouzhuan.cn%252F%7C1609395051; CNZZDATA1275507390=2128699176-1609394449-%7C1609394449; CNZZDATA1278669085=1652153649-1609395694-%7C1609395694; UM_distinctid=176b7754f86d8-0a7dcc949cf0bd8-3c176b50-3d10d-176b7754f8710a
 ], cookie = '', message;
 
 if ($.isNode()) {
