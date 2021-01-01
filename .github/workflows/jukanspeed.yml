@@ -35,7 +35,7 @@ jobs:
       - name: '运行 【聚看点极速版】'
         if: env.JKD_COOKIE
         run: |
-          node jkd.js
+          node Task/jkd.js
         env:
           PUSH_KEY: ${{ secrets.PUSH_KEY }}
           BARK_PUSH: ${{ secrets.BARK_PUSH }}
