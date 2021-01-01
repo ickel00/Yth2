@@ -1,65 +1,94 @@
 /*
 聚看点，所有任务+阅读
 欢迎填写邀请码：24224873
-打开'我的'获取Cookie
-https:\/\/www\.xiaodouzhuan\.cn\/jkd\/newMobileMenu\/infoMe\.action url script-request-body https://raw.githubusercontent.com/shylocks/Loon/main/jkd.js
+阅读一篇文章获取Cookie
+================Qx==============
+[task_local]
+0,30 * * * * https://raw.githubusercontent.com/shylocks/Loon/main/jkd.js, tag=聚看点
+[rewrite_local]
+https:\/\/www\.xiaodouzhuan\.cn\/jkd\/minfo\/call\.action url script-request-body https://raw.githubusercontent.com/shylocks/Loon/main/jkd.js
 
+================Loon==============
+[Script]
+http-request https:\/\/www\.xiaodouzhuan\.cn\/jkd\/minfo\/call\.action script-path=https://raw.githubusercontent.com/shylocks/Loon/main/jkd.js, requires-body=true, timeout=100, tag=聚看点
+cron "0,30 * * * *" script-path=https://raw.githubusercontent.com/shylocks/Loon/main/jkd.js
+
+===============Surge=================
+[Script]
+聚看点 = type=http-request,pattern=https:\/\/www\.xiaodouzhuan\.cn\/jkd\/minfo\/call\.action,script-path=https://raw.githubusercontent.com/shylocks/Loon/main/jkd.js
+聚看点 = type=cron,cronexp="0,30 * * * *",wake-system=1,timeout=900,script-path=https://raw.githubusercontent.com/shylocks/Loon/main/jkd.js
+
+===============MITM=================
+[MITM]
 hostname = www.xiaodouzhuan.cn
-~~~~~~~~~~~~~~~~
 */
 const API_HOST = 'https://www.xiaodouzhuan.cn'
 const UA = 'Mozilla/5.0 (iPhone; CPU iPhone OS 13_4_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148'
 const $ = new Env("聚看点")
-let cookiesArr = [
-  
-], cookie = '', message;
+let cookiesArr = [], cookie = '', message;
 
-if ($.isNode()) {
-  let JKCookie = []
-  if (process.env.JKD_COOKIE && process.env.JKD_COOKIE.indexOf('@') > -1) {
-    JKCookie = process.env.JKD_COOKIE.split('@');
-  }
-  else if (process.env.JKD_COOKIE && process.env.JKD_COOKIE.indexOf('&') > -1) {
-    JKCookie = process.env.JKD_COOKIE.split('&');
-  }
-  else if (process.env.JKD_COOKIE && process.env.JKD_COOKIE.indexOf('\n') > -1) {
-    JKCookie = process.env.JKD_COOKIE.split('\n');
-  } else if (process.env.JKD_COOKIE){
-    JKCookie = process.env.JKD_COOKIE.split()
-  }
-    Object.keys(JKCookie).forEach((item) => {
-    if (JKCookie[item]) {
-      cookiesArr.push(JKCookie[item])
+async function getCookie() {
+  if ($request && $request.method !== `OPTIONS`) {
+    const bodyVal = $request.body
+    let cks = $.getdata('CookiesJKD2') || "[]"
+    cks = jsonParse(cks);
+    const Cookieval = $request.headers['Cookie']
+    $.log(`Cookie:${Cookieval}`)
+    $.log(`bodyVal:${bodyVal}`)
+    if (Cookieval) {
+      let os = []
+      for (let i = 0; i < cks.length; ++i) {
+        cookie = cks[i]
+        await getOpenId()
+        os.push($.openId)
+      }
+      cookie = Cookieval
+      await getOpenId()
+      if ($.openId && !os.includes($.openId)) {
+        await getUserInfo()
+        cks.push(Cookieval)
+        $.setdata(JSON.stringify(cks), "CookiesJKD2")
+        $.msg($.name, `获取Cookie ${$.userName} 成功`)
+      } else {
+        $.msg($.name, `${$.userName}已存在，请注释脚本`)
+      }
     }
-  })
-  if (process.env.JKD_DEBUG && process.env.JKD_DEBUG === 'false') console.log = () => {
-  };
-} else {
-  let cookiesData = $.getdata('CookiesJKD') || "[]";
-  cookiesData = jsonParse(cookiesData);
-  cookiesArr = cookiesData.map(item => item.cookie);
-  cookiesArr.reverse();
-  cookiesArr.reverse();
-  cookiesArr = cookiesArr.filter(item => item !== "" && item !== null && item !== undefined);
+  }
 }
 
 if (typeof $request !== 'undefined') {
-  if ($request && $request.method != `OPTIONS`) {
-    const  bodyVal = $request.body
-    let cks = $.getdata('CookiesJKD') || "[]"
-    cks = jsonParse(cks);
-    const Cookieval = $request.headers['Cookie']
-    if(Cookieval){
-      cks.push(Cookieval)
-      $.setdata(JSON.stringify(cks),"CookiesJKD")
-    }
-    $.log(`Cookie:${Cookieval}`)
-    $.log(`bodyVal:${bodyVal}`)
-    $.msg($.name,`获取Cookie${cks.length}成功`)
+  getCookie().then(r => {
     $.done()
-  }
+  }).finally(() => {
+    $.done()
+  })
 } else {
   !(async () => {
+    if ($.isNode()) {
+      let JKCookie = []
+      if (process.env.JKD_COOKIE && process.env.JKD_COOKIE.indexOf('@') > -1) {
+        JKCookie = process.env.JKD_COOKIE.split('@');
+      } else if (process.env.JKD_COOKIE && process.env.JKD_COOKIE.indexOf('&') > -1) {
+        JKCookie = process.env.JKD_COOKIE.split('&');
+      } else if (process.env.JKD_COOKIE && process.env.JKD_COOKIE.indexOf('\n') > -1) {
+        JKCookie = process.env.JKD_COOKIE.split('\n');
+      } else if (process.env.JKD_COOKIE) {
+        JKCookie = process.env.JKD_COOKIE.split()
+      }
+      Object.keys(JKCookie).forEach((item) => {
+        if (JKCookie[item]) {
+          cookiesArr.push(JKCookie[item])
+        }
+      })
+      if (process.env.JKD_DEBUG && process.env.JKD_DEBUG === 'false') console.log = () => {
+      };
+    } else {
+      let cookiesData = $.getdata('CookiesJKD2') || "[]";
+      cookiesData = jsonParse(cookiesData);
+      cookiesArr = cookiesData;
+      cookiesArr.reverse();
+      cookiesArr = cookiesArr.filter(item => item !== "" && item !== null && item !== undefined);
+    }
     if (!cookiesArr[0]) {
       $.msg($.name, '【提示】请先获取聚看点账号一cookie');
       return;
@@ -67,27 +96,38 @@ if (typeof $request !== 'undefined') {
     for (let i = 0; i < cookiesArr.length; i++) {
       if (cookiesArr[i]) {
         cookie = cookiesArr[i];
+        $.uuid = cookie.match(/UM_distinctid=(\S*);/)[1]
         await getOpenId()
         $.index = i + 1;
-        if (!$.openId) {
+        if (!$.openId || !$.uuid) {
           console.log(`Cookies${$.index}已失效！`)
           break
         }
         await getUserInfo()
         console.log(`\n******开始【聚看点账号${$.index}】${$.userName || $.openId}*********\n`);
+        console.log(`${$.gold}，${$.current}，${$.sum}`)
         await jkd()
       }
     }
   })()
     .catch((e) => $.logErr(e))
     .finally(() => $.done())
-  }
+}
 
 async function jkd() {
   $.profit = 0
   if (!$.isSign) await sign() // 签到
   $.log(`去领取阶段奖励`)
   await getStageState() // 阶段奖励
+  if ($.luckyDrawNum > 0) {
+    $.log(`去转转盘，剩余${$.luckyDrawNum} 次`)
+    for (let i = 0; i < 10 && $.luckyDrawNum > 0; ++i) {
+      await getLuckyLevel()
+      await luckyDraw()
+      await luckyProfit()
+      await $.wait(1000)
+    }
+  }
   // await getTaskList() // 任务
   for (let i = 0; i < $.videoPacketNum; ++i) {
     $.log(`去看激励视频`)
@@ -102,10 +142,9 @@ async function jkd() {
   for (let i = 0; i < $.artList.length; ++i) {
     const art = $.artList[i]
     if (art['art_id']) {
-      let uuid = generateUUID().toUpperCase()
       let artId = art['art_id']
       $.log(`去看视频：${artId}`)
-      await call2(uuid)
+      await call2($.uuid)
       if ($.videocount === 0) {
         $.log(`观看视屏次数已满，跳出`)
         break
@@ -125,15 +164,14 @@ async function jkd() {
   for (let i = 0; i < $.artList.length; ++i) {
     const art = $.artList[i]
     if (art['art_id']) {
-      let uuid = generateUUID().toUpperCase()
-      await call2(uuid)
+      await call2($.uuid)
       if ($.artcount === 0) {
         $.log(`观看文章次数已满，跳出`)
         break
       }
       let artId = art['art_id']
       await getArticle(artId)
-      await call1(uuid, artId)
+      await call1($.uuid, artId)
       await article(artId)
       await openArticle(artId)
       await $.wait(31 * 1000)
@@ -301,6 +339,7 @@ function getOpenId() {
           $.isSign = data.match(/var issign = parseInt\("(.*)"\)/)[1]
           $.videoPacketNum = data.match(/var videoPacketNum = (\S*);/)[1]
           $.newsTaskNum = data.match(/var newsTaskNum = (\S*);/)[1]
+          $.luckyDrawNum = (data.match(/var luckDrawTaskNum = (\S*);/)[1])
         }
       } catch (e) {
         $.logErr(e, resp)
@@ -338,7 +377,6 @@ function getUserInfo() {
               $.sum = data.userinfo.infoMeSumCashItem.title + data.userinfo.infoMeSumCashItem.value
               $.current = data.userinfo.infoMeCurCashItem.title + data.userinfo.infoMeCurCashItem.value
               $.gold = data.userinfo.infoMeGoldItem.title + ": " + data.userinfo.infoMeGoldItem.value
-              console.log(`${$.gold}，${$.current}，${$.sum}`)
             } else {
               $.log(`个人信息获取失败，错误信息：${JSON.stringify(data)}`)
             }
@@ -996,6 +1034,137 @@ function videoAccount(artId) {
   })
 }
 
+function luckyDraw() {
+  return new Promise(resolve => {
+    $.post(taskPostUrl("jkd/activity/advluckdraw/getLuckDrawGold.action"),
+      async (err, resp, data) => {
+        try {
+          if (err) {
+            $.log(`${JSON.stringify(err)}`)
+            $.log(`${$.name} API请求失败，请检查网路重试`)
+          } else {
+            if (safeGet(data)) {
+              data = JSON.parse(data);
+              if (data['ret'] === 'ok') {
+                $.log(`luckyDraw记录成功`)
+              } else if (data['ret'] === 'fail') {
+                $.log(`luckyDraw记录失败，错误信息：${data.rtn_msg}`)
+              } else {
+                $.log(`未知错误：${JSON.stringify(data)}`)
+              }
+            }
+          }
+        } catch (e) {
+          $.logErr(e, resp)
+        } finally {
+          resolve(data);
+        }
+      })
+  })
+}
+
+function luckyProfit() {
+  return new Promise(resolve => {
+    $.post(taskPostUrl("jkd/activity/advluckdraw/getTotalLuckProfit.action",),
+      async (err, resp, data) => {
+        try {
+          if (err) {
+            $.log(`${JSON.stringify(err)}`)
+            $.log(`${$.name} API请求失败，请检查网路重试`)
+          } else {
+            if (safeGet(data)) {
+              data = JSON.parse(data);
+              if (data['ret'] === 'ok') {
+                $.log(`转盘获取成功，共计 ${data.data.totalProfit} 金币`)
+              } else if (data['ret'] === 'fail') {
+                $.log(`视频阅读失败，错误信息：${data.rtn_msg}`)
+              } else {
+                $.log(`未知错误：${JSON.stringify(data)}`)
+              }
+            }
+          }
+        } catch (e) {
+          $.logErr(e, resp)
+        } finally {
+          resolve(data);
+        }
+      })
+  })
+}
+
+function getLuckyLevel() {
+  return new Promise(resolve => {
+    $.post(taskPostUrl("jkd/activity/advluckdraw/getLuckDrawLevel.action",),
+      async (err, resp, data) => {
+        try {
+          if (err) {
+            $.log(`${JSON.stringify(err)}`)
+            $.log(`${$.name} API请求失败，请检查网路重试`)
+          } else {
+            if (safeGet(data)) {
+              data = JSON.parse(data);
+              if (data['ret'] === 'ok') {
+                console.log(`转盘记录成功，剩余 ${data.data.unFinishNum} 次`)
+                $.unFinishNum = data.data.unFinishNum
+                let states = JSON.parse(data.data.list)
+                for (let i = 0; i < states.length; ++i) {
+                  const vo = states[i]
+                  if (vo['status'] === 1) {
+                    console.log(`去领取开宝箱阶段奖励：${vo['level']}`)
+                    await getLuckyDrawBox(i)
+                  }
+                }
+                if (data['data']['luckName'] === "神秘宝箱") {
+                  console.log(`去领取神秘宝箱奖励`)
+                  await adv(11)
+                }
+              } else if (data['ret'] === 'fail') {
+                $.log(`开宝箱失败，错误信息：${data.rtn_msg}`)
+              } else {
+                $.log(`未知错误：${JSON.stringify(data)}`)
+              }
+            }
+          }
+        } catch (e) {
+          $.logErr(e, resp)
+        } finally {
+          resolve(data);
+        }
+      })
+  })
+}
+
+function getLuckyDrawBox(i) {
+  let body = `num=${i}`
+  return new Promise(resolve => {
+    $.post(taskPostUrl("jkd/activity/advluckdraw/getLuckDrawBox.action", body),
+      async (err, resp, data) => {
+        try {
+          if (err) {
+            $.log(`${JSON.stringify(err)}`)
+            $.log(`${$.name} API请求失败，请检查网路重试`)
+          } else {
+            if (safeGet(data)) {
+              data = JSON.parse(data);
+              if (data['ret'] === 'ok') {
+                console.log(`阶段奖励领取成功，获得 ${data.data} 金币`)
+                $.profit += data.data
+              } else if (data['ret'] === 'fail') {
+                $.log(`阶段奖励领取失败，错误信息：${data.rtn_msg}`)
+              } else {
+                $.log(`未知错误：${JSON.stringify(data)}`)
+              }
+            }
+          }
+        } catch (e) {
+          $.logErr(e, resp)
+        } finally {
+          resolve(data);
+        }
+      })
+  })
+}
+
 function safeGet(data) {
   try {
     if (typeof JSON.parse(data) == "object") {
@@ -1049,15 +1218,4 @@ function taskPostUrl(function_id, body) {
   }
 }
 
-function generateUUID() {
-  var d = new Date().getTime();
-  var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-    var r = (d + Math.random() * 16) % 16 | 0;
-    d = Math.floor(d / 16);
-    return (c == 'x' ? r : (r & 0x7 | 0x8)).toString(16);
-  });
-  return uuid;
-}
-
 function Env(t,e){class s{constructor(t){this.env=t}send(t,e="GET"){t="string"==typeof t?{url:t}:t;let s=this.get;return"POST"===e&&(s=this.post),new Promise((e,i)=>{s.call(this,t,(t,s,r)=>{t?i(t):e(s)})})}get(t){return this.send.call(this.env,t)}post(t){return this.send.call(this.env,t,"POST")}}return new class{constructor(t,e){this.name=t,this.http=new s(this),this.data=null,this.dataFile="box.dat",this.logs=[],this.isMute=!1,this.isNeedRewrite=!1,this.logSeparator="\n",this.startTime=(new Date).getTime(),Object.assign(this,e),this.log("",`\ud83d\udd14${this.name}, \u5f00\u59cb!`)}isNode(){return"undefined"!=typeof module&&!!module.exports}isQuanX(){return"undefined"!=typeof $task}isSurge(){return"undefined"!=typeof $httpClient&&"undefined"==typeof $loon}isLoon(){return"undefined"!=typeof $loon}toObj(t,e=null){try{return JSON.parse(t)}catch{return e}}toStr(t,e=null){try{return JSON.stringify(t)}catch{return e}}getjson(t,e){let s=e;const i=this.getdata(t);if(i)try{s=JSON.parse(this.getdata(t))}catch{}return s}setjson(t,e){try{return this.setdata(JSON.stringify(t),e)}catch{return!1}}getScript(t){return new Promise(e=>{this.get({url:t},(t,s,i)=>e(i))})}runScript(t,e){return new Promise(s=>{let i=this.getdata("@chavy_boxjs_userCfgs.httpapi");i=i?i.replace(/\n/g,"").trim():i;let r=this.getdata("@chavy_boxjs_userCfgs.httpapi_timeout");r=r?1*r:20,r=e&&e.timeout?e.timeout:r;const[o,h]=i.split("@"),a={url:`http://${h}/v1/scripting/evaluate`,body:{script_text:t,mock_type:"cron",timeout:r},headers:{"X-Key":o,Accept:"*/*"}};this.post(a,(t,e,i)=>s(i))}).catch(t=>this.logErr(t))}loaddata(){if(!this.isNode())return{};{this.fs=this.fs?this.fs:require("fs"),this.path=this.path?this.path:require("path");const t=this.path.resolve(this.dataFile),e=this.path.resolve(process.cwd(),this.dataFile),s=this.fs.existsSync(t),i=!s&&this.fs.existsSync(e);if(!s&&!i)return{};{const i=s?t:e;try{return JSON.parse(this.fs.readFileSync(i))}catch(t){return{}}}}}writedata(){if(this.isNode()){this.fs=this.fs?this.fs:require("fs"),this.path=this.path?this.path:require("path");const t=this.path.resolve(this.dataFile),e=this.path.resolve(process.cwd(),this.dataFile),s=this.fs.existsSync(t),i=!s&&this.fs.existsSync(e),r=JSON.stringify(this.data);s?this.fs.writeFileSync(t,r):i?this.fs.writeFileSync(e,r):this.fs.writeFileSync(t,r)}}lodash_get(t,e,s){const i=e.replace(/\[(\d+)\]/g,".$1").split(".");let r=t;for(const t of i)if(r=Object(r)[t],void 0===r)return s;return r}lodash_set(t,e,s){return Object(t)!==t?t:(Array.isArray(e)||(e=e.toString().match(/[^.[\]]+/g)||[]),e.slice(0,-1).reduce((t,s,i)=>Object(t[s])===t[s]?t[s]:t[s]=Math.abs(e[i+1])>>0==+e[i+1]?[]:{},t)[e[e.length-1]]=s,t)}getdata(t){let e=this.getval(t);if(/^@/.test(t)){const[,s,i]=/^@(.*?)\.(.*?)$/.exec(t),r=s?this.getval(s):"";if(r)try{const t=JSON.parse(r);e=t?this.lodash_get(t,i,""):e}catch(t){e=""}}return e}setdata(t,e){let s=!1;if(/^@/.test(e)){const[,i,r]=/^@(.*?)\.(.*?)$/.exec(e),o=this.getval(i),h=i?"null"===o?null:o||"{}":"{}";try{const e=JSON.parse(h);this.lodash_set(e,r,t),s=this.setval(JSON.stringify(e),i)}catch(e){const o={};this.lodash_set(o,r,t),s=this.setval(JSON.stringify(o),i)}}else s=this.setval(t,e);return s}getval(t){return this.isSurge()||this.isLoon()?$persistentStore.read(t):this.isQuanX()?$prefs.valueForKey(t):this.isNode()?(this.data=this.loaddata(),this.data[t]):this.data&&this.data[t]||null}setval(t,e){return this.isSurge()||this.isLoon()?$persistentStore.write(t,e):this.isQuanX()?$prefs.setValueForKey(t,e):this.isNode()?(this.data=this.loaddata(),this.data[e]=t,this.writedata(),!0):this.data&&this.data[e]||null}initGotEnv(t){this.got=this.got?this.got:require("got"),this.cktough=this.cktough?this.cktough:require("tough-cookie"),this.ckjar=this.ckjar?this.ckjar:new this.cktough.CookieJar,t&&(t.headers=t.headers?t.headers:{},void 0===t.headers.Cookie&&void 0===t.cookieJar&&(t.cookieJar=this.ckjar))}get(t,e=(()=>{})){t.headers&&(delete t.headers["Content-Type"],delete t.headers["Content-Length"]),this.isSurge()||this.isLoon()?(this.isSurge()&&this.isNeedRewrite&&(t.headers=t.headers||{},Object.assign(t.headers,{"X-Surge-Skip-Scripting":!1})),$httpClient.get(t,(t,s,i)=>{!t&&s&&(s.body=i,s.statusCode=s.status),e(t,s,i)})):this.isQuanX()?(this.isNeedRewrite&&(t.opts=t.opts||{},Object.assign(t.opts,{hints:!1})),$task.fetch(t).then(t=>{const{statusCode:s,statusCode:i,headers:r,body:o}=t;e(null,{status:s,statusCode:i,headers:r,body:o},o)},t=>e(t))):this.isNode()&&(this.initGotEnv(t),this.got(t).on("redirect",(t,e)=>{try{if(t.headers["set-cookie"]){const s=t.headers["set-cookie"].map(this.cktough.Cookie.parse).toString();this.ckjar.setCookieSync(s,null),e.cookieJar=this.ckjar}}catch(t){this.logErr(t)}}).then(t=>{const{statusCode:s,statusCode:i,headers:r,body:o}=t;e(null,{status:s,statusCode:i,headers:r,body:o},o)},t=>{const{message:s,response:i}=t;e(s,i,i&&i.body)}))}post(t,e=(()=>{})){if(t.body&&t.headers&&!t.headers["Content-Type"]&&(t.headers["Content-Type"]="application/x-www-form-urlencoded"),t.headers&&delete t.headers["Content-Length"],this.isSurge()||this.isLoon())this.isSurge()&&this.isNeedRewrite&&(t.headers=t.headers||{},Object.assign(t.headers,{"X-Surge-Skip-Scripting":!1})),$httpClient.post(t,(t,s,i)=>{!t&&s&&(s.body=i,s.statusCode=s.status),e(t,s,i)});else if(this.isQuanX())t.method="POST",this.isNeedRewrite&&(t.opts=t.opts||{},Object.assign(t.opts,{hints:!1})),$task.fetch(t).then(t=>{const{statusCode:s,statusCode:i,headers:r,body:o}=t;e(null,{status:s,statusCode:i,headers:r,body:o},o)},t=>e(t));else if(this.isNode()){this.initGotEnv(t);const{url:s,...i}=t;this.got.post(s,i).then(t=>{const{statusCode:s,statusCode:i,headers:r,body:o}=t;e(null,{status:s,statusCode:i,headers:r,body:o},o)},t=>{const{message:s,response:i}=t;e(s,i,i&&i.body)})}}time(t){let e={"M+":(new Date).getMonth()+1,"d+":(new Date).getDate(),"H+":(new Date).getHours(),"m+":(new Date).getMinutes(),"s+":(new Date).getSeconds(),"q+":Math.floor(((new Date).getMonth()+3)/3),S:(new Date).getMilliseconds()};/(y+)/.test(t)&&(t=t.replace(RegExp.$1,((new Date).getFullYear()+"").substr(4-RegExp.$1.length)));for(let s in e)new RegExp("("+s+")").test(t)&&(t=t.replace(RegExp.$1,1==RegExp.$1.length?e[s]:("00"+e[s]).substr((""+e[s]).length)));return t}msg(e=t,s="",i="",r){const o=t=>{if(!t)return t;if("string"==typeof t)return this.isLoon()?t:this.isQuanX()?{"open-url":t}:this.isSurge()?{url:t}:void 0;if("object"==typeof t){if(this.isLoon()){let e=t.openUrl||t.url||t["open-url"],s=t.mediaUrl||t["media-url"];return{openUrl:e,mediaUrl:s}}if(this.isQuanX()){let e=t["open-url"]||t.url||t.openUrl,s=t["media-url"]||t.mediaUrl;return{"open-url":e,"media-url":s}}if(this.isSurge()){let e=t.url||t.openUrl||t["open-url"];return{url:e}}}};this.isMute||(this.isSurge()||this.isLoon()?$notification.post(e,s,i,o(r)):this.isQuanX()&&$notify(e,s,i,o(r)));let h=["","==============\ud83d\udce3\u7cfb\u7edf\u901a\u77e5\ud83d\udce3=============="];h.push(e),s&&h.push(s),i&&h.push(i),console.log(h.join("\n")),this.logs=this.logs.concat(h)}log(...t){t.length>0&&(this.logs=[...this.logs,...t]),console.log(t.join(this.logSeparator))}logErr(t,e){const s=!this.isSurge()&&!this.isQuanX()&&!this.isLoon();s?this.log("",`\u2757\ufe0f${this.name}, \u9519\u8bef!`,t.stack):this.log("",`\u2757\ufe0f${this.name}, \u9519\u8bef!`,t)}wait(t){return new Promise(e=>setTimeout(e,t))}done(t={}){const e=(new Date).getTime(),s=(e-this.startTime)/1e3;this.log("",`\ud83d\udd14${this.name}, \u7ed3\u675f! \ud83d\udd5b ${s} \u79d2`),this.log(),(this.isSurge()||this.isQuanX()||this.isLoon())&&$done(t)}}(t,e)}
-
