@@ -1,7 +1,7 @@
 /*
 聚看点签到任务，不支持Actions跑阅读任务，其他任务可运行
 打开'我的'获取Cookie
-更新时间: 2021-01-02 17:38
+更新时间: 2021-01-03 12:03
 https:\/\/www\.xiaodouzhuan\.cn\/jkd\/newMobileMenu\/infoMe\.action url script-request-body jukan.js
 
 可自动提现，提现需填写微信真实姓名，设置提现金额，默认30，此设置可以boxjs内完成，也可本地配置
@@ -85,7 +85,7 @@ if (typeof $request !== 'undefined') {
       await Stimulate(x)
      }
   if (curcash >= drawcash && wxname){
-      await realname();
+     // await realname();
       //await Withdraw() //实名未通过，强制提现，可取消此注释，不保证成功
    }
    if (signtimes&&signtimes<5){
@@ -244,7 +244,7 @@ function LuckDrawGold() {
       headers: {Cookie:cookieval,'User-Agent':UA}, body: bodyval
       }
    $.post(DrawGoldurl, async(error, resp, data) => {
-      $.log(data+"\n")
+      //$.log(data+"\n")
      let get_drawGold = JSON.parse(data)
      if (get_drawGold.ret == "ok"){
        $.log(get_drawGold.return_msg)
@@ -280,13 +280,13 @@ function LuckProfit() {
   return new Promise((resolve, reject) =>{
    let LuckProfiturl =  {
       url: `https://www.xiaodouzhuan.cn/jkd/activity/advluckdraw/getTotalLuckProfit.action`,
-      headers: {Cookie:cookieval,'User-Agent':UA}, 
+      headers: {Cookie:cookieval,'User-Agent':UA}, body: bodyval
       }
    $.post(LuckProfiturl, async(error, resp, data) => {
-     $.log(data+"\n")
+     //$.log(data+"\n")
      let luckProfit = JSON.parse(data)
      if (luckProfit.ret == "ok"){
-       ltotalProfit = luckProfit.data.totalProfit
+       lktotalProfit = luckProfit.data.totalProfit
        $.log("转盘任务成功，总计金币: "+ lktotalProfit+ luckProfit.return_msg)
        }  else if (luckProfit.ret =="failed"){
        $.log(`转盘抽奖失败`)  
@@ -365,8 +365,8 @@ function Withdraw() {
       headers: {Cookie:cookieval,'User-Agent':UA}, body: `type=wx&sum=${sumcash}&mobile=&pid=0`
       }
    $.post(drawurl, async(error, resp, data) => {
-       $.log("提现"+sumcash+"元\n"+data)
-       $.desc += "\n提现"+sumcash+"元  "+data
+       $.log("提现"+drawcash+"元"+data+"\n")
+       $.desc += "提现"+drawcash+"元  "+data+"\n"
        resolve()
     })
   })
@@ -390,7 +390,7 @@ function userinfo() {
        gold = get_info.userinfo.infoMeGoldItem.title+": "+get_info.userinfo.infoMeGoldItem.value
     $.log("昵称:"+userName+"  "+gold +"\n"+sumcash + "/"+curcashtitle+curcash )
      $.sub += " "+gold
-     $.desc += sumcash + " ~~~~ "+curcashtitle+curcash 
+     $.desc += sumcash + " ~~~~ "+curcashtitle+curcash+"\n"
      }
      } catch (e) {
         $.logErr(e, data)
@@ -415,8 +415,8 @@ function artTotal() {
       videocoin =  data.match(/\d+金币/g)[7]
       readtotal = data.match(/\d+金币/g)[8]
       sharetotal = data.match(/\d+金币/g)[9]
-      $.desc += "\n【今日阅读统计】\n  文章: " +Number(artcount) + "次 收益: "+artcoin+"\n  视频: " +Number(videocount)  + "次 收益: "+videocoin+"\n"
-      $.desc += "【昨日阅读统计】\n  自阅收益: " +readtotal +"  分享收益: "+sharetotal 
+      $.desc += "【今日阅读统计】\n  文章: " +Number(artcount) + "次 收益: "+artcoin+"\n  视频: " +Number(videocount)  + "次 收益: "+videocoin+"\n"
+      $.desc += "【昨日阅读统计】\n  自阅收益: " +readtotal +"  分享收益: "+sharetotal +"\n"
       $.log( "当前阅读次数"+artcount+"次，视频次数"+videocount+"次\n")
        if(150-artcount > 0 ){
        readbodyVal = bodyval.replace(/time%22%20%3A%20%22\d+%22/, `time%22%20%3A%20%22${times}%22%2C%20`+'%22cateid%22%20%3A%203')
@@ -425,7 +425,7 @@ function artTotal() {
           $.log("今日阅读任务已完成，本次跳过")
        };
        if(50-videocount > 0 ){
-           readbodyVal = bodyval.replace(/time%22%20%3A%20%22\d+%22/,`time%22%20%3A%20%22${times+31000}%22%2C%20`+'%22cateid%22%20%3A%2053')
+         readbodyVal = bodyval.replace(/time%22%20%3A%20%22\d+%22/,`time%22%20%3A%20%22${times+31000}%22%2C%20`+'%22cateid%22%20%3A%2053')
         await artList(readbodyVal)
         }  else if ( artcount == 0  ){
         $.log("今日视频任务已完成，本次跳过")
@@ -462,7 +462,7 @@ function artList(readbodyVal) {
           art_Title = lists.art_title
           artid =lists.art_id
           screen_Name = lists.screen_name
-         $.log("【观看视频】: "+art_Title +"  -------- <"+screen_Name +">\n ")
+         $.log(" 【观看视频】: "+art_Title +"  -------- <"+screen_Name +">\n ")
           await readTask(lists.art_id,"2")
           }
         if(taskresult == 'R-ART-1002'|| taskresult ==`R-ART-0011`){
@@ -485,9 +485,11 @@ function readTask(artid,arttype) {
       }
    $.post(rewurl, async(error, resp, data) => {
      if(resp.statusCode ==200){
-        $.log("请等待30s\n")
+     for(s=0;s<2;++s){
+        $.log(`   开始第${s+1}次阅读，请等待30s\n`)
          await $.wait(30000) 
          await finishTask(artid,arttype)
+       }
        } else {
         $.log("阅读失败: "+data)
       }
@@ -507,12 +509,10 @@ function finishTask(artid,arttype) {
      //$.log(data+"\n")
      let do_read = JSON.parse(data)
          taskresult = do_read.rtn_code
-         $.log(do_read.rtn_msg)
      if (do_read.ret == "ok"){
-       $.log("获得收益: +"+do_read.profit +"\n")
-         }  else if (arttype == 1 ){
-         sumnotify = do_read.rtn_msg
-           $.log(sumnotify)
+       $.log("   获得收益: +"+do_read.profit +"\n")
+         }  else {
+           $.log(do_read.rtn_msg)
         }
        resolve()
     })
@@ -573,7 +573,7 @@ function BoxProfit(boxtype) {
         //$.log(data+"\n")
      let do_box = JSON.parse(data)
      if (do_box.ret == "ok"&&do_box.profit>0){
-        $.log("计时宝箱获得收益: +"+do_box.profit)
+          $.log("计时宝箱获得收益: +"+do_box.profit)
           position = do_box.advertPopup.position
           await Stimulate(position)
          // $.log(position)
