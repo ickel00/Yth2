@@ -16,7 +16,7 @@ const wxname = $.getdata('jukan_name') || ""//微信真实名字，可以在双�
 let CookieArr=[],BodyArr=[];
 let bodys = $.getdata('jukan_body')
 let signtimes = $.getdata('jukan_times')
-let UA = 'QianZhuan/60.0.6 (iPhone; iOS 13.6.1; Scale/3.00)'
+let UA = 'JuKanDian/5.6.5 (iPhone; iOS 14.2; Scale/3.00)'
 let taskresult = "",sumnotify ="";
 
 if ($.isNode()) {
