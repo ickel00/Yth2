@@ -11,7 +11,7 @@ const $ = new Env('聚看点极速')
 let CookieArr=[],BodyArr=[];
 let cookie = $.getdata('jukan_ck')
 let bodys = $.getdata('jukan_body')
-let UA = 'QianZhuan/60.0.6 (iPhone; iOS 13.6.1; Scale/3.00)'
+let UA = 'QianZhuan/60.0.6 (iPhone; iOS 13.7; Scale/3.00)'
 
 if ($.isNode()) {
   if (process.env.JUKAN_COOKIE && process.env.JUKAN_COOKIE.indexOf('&') > -1) {
