@@ -487,7 +487,7 @@ function readTask(artid,arttype) {
      if(resp.statusCode ==200){
      for(s=0;s<2;++s){
         $.log(`   开始第${s+1}次阅读，请等待30s\n`)
-         await $.wait(30000) 
+         await $.wait(29755) 
          await finishTask(artid,arttype)
        }
        } else {
