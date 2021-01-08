@@ -26,6 +26,8 @@ jobs:
         run: |
           cd ~/Scripts
           npm install
+      - name: 'Install requirements'
+        run: pip install -r ./requirements.txt 
       - name: '运行 【聚看点】'
         if: env.JUKAN_BODY
         run: |
