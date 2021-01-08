@@ -191,7 +191,7 @@ function readTask(artid,arttype) {
    $.post(rewurl, async(error, resp, data) => {
      //$.log(data)
      if(resp.statusCode ==200){
-         await $.wait(35000) 
+         await $.wait(29817) 
          await finishTask(artid,arttype)
        } else {
         $.log("阅读失败: "+data)
