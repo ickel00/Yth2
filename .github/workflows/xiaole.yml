@@ -1,5 +1,5 @@
 ﻿
-name: 小乐打印
+name: 小乐优券
 
 on:
   workflow_dispatch:
