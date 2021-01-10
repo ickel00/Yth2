@@ -7,7 +7,7 @@ boxjs链接  https://raw.githubusercontent.com/ziye12/JavaScript/main/Task/ziye.
 
 转载请备注个名字，谢谢
 
-⚠️小乐
+⚠️小乐 脚本签到无视规则  脚本签到无视规则  脚本签到无视规则
 一共1个位置 1个ck  2条 Secrets 
 多账号换行
 
@@ -30,7 +30,7 @@ hostname=minapp.xqrobot.net,
 
 ############## 圈x
 #小乐获取ck
-https:\/\/minapp\.xqrobot\.net\/* url script-request-header https://raw.githubusercontent.com/ziye12/JavaScript/main/Task/xiaole.js
+https:\/\/minapp\.xqrobot\.net\/* url script-request-body https://raw.githubusercontent.com/ziye12/JavaScript/main/Task/xiaole.js
 
 ############## loon
 
@@ -129,14 +129,14 @@ if ($.isNode()) {
 
 } else {	
   xiaoleurlArr.push($.getdata("xiaoleurl"));	
-  xiaoleheaderArr.push($.getdata("xiaoleheader"));  
+  xiaoleheaderArr.push($.getdata("xiaolehd"));  
   
   // 根据boxjs中设置的额外账号数，添加存在的账号数据进行任务处理
   let xlCount = ($.getval('xlCount') || '1') - 0;
   for (let i = 2; i <= xlCount; i++) {
     if ($.getdata(`xiaoleurl${i}`)) {	
   xiaoleurlArr.push($.getdata(`xiaoleurl${i}`));	
-  xiaoleheaderArr.push($.getdata(`xiaoleheader${i}`));  
+  xiaoleheaderArr.push($.getdata(`xiaolehd${i}`));  
   
     }
   }
@@ -154,7 +154,7 @@ if ($request && $request.url.indexOf("/user.php?mod=sign&") >= 0) {
     );
     $.msg($.name + $.idx, `获取签到url: 成功🎉`, ``);		
     const xiaoleheaderVal = JSON.stringify($request.headers);
-    if (xiaoleheaderVal) $.setdata(xiaoleheaderVal, "xiaoleheader" + $.idx);
+    if (xiaoleheaderVal) $.setdata(xiaoleheaderVal, "xiaolehd" + $.idx);
     $.log(
       `[${$.name + $.idx}] 获取签到header✅: 成功,xiaoleheaderVal: ${xiaoleheaderVal}`
     );
@@ -205,7 +205,7 @@ if (!Length) {
   for (let i = 0; i < Length; i++) {
 	if (COOKIE.xiaoleurlVal) {
   xiaoleurlVal = XL_COOKIES.xiaoleurlVal[i];		
-  xiaoleheaderVal = XL_COOKIES.xiaoleheaderVal[i];  
+  xiaoleheaderVal = XL_COOKIES.xiaoleheader[i];  
   
     }
     if (!COOKIE.xiaoleurlVal) {
