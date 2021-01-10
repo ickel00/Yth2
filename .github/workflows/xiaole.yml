@@ -1,8 +1,10 @@
 ﻿
-name: 小乐on:
+name: 小乐
+
+on:
   workflow_dispatch:
   schedule:
-     - cron: '*/30 23,0-15 * * *'
+     - cron: '*/30 23,0-16 * * *'
   watch:
     types: started
 jobs:
