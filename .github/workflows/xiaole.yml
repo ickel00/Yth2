@@ -12,8 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event.repository.owner.id == github.event.sender.id
     env:
-        XIAOLEURLVAL: ${{ secrets.XIAOLEURLVAL }}
-        XIAOLEHEADERVAL: ${{ secrets.XIAOLEHEADERVAL }}
+        XL_URL: ${{ secrets.XL_URL }}
+        XL_HEADER: ${{ secrets.XL_HEADER }}
         TZ: Asia/shanghai
     steps:
       - name: Checkout
@@ -26,7 +26,7 @@ jobs:
         run: |
           npm install
       - name: '运行 【小乐】'
-        if: env.XIAOLEHEADERVAL
+        if: env.XL_HEADER
         run: |
           node Task/xiaole.js
         env:
