@@ -17,17 +17,20 @@ jobs:
         TZ: Asia/shanghai
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        run: |
+          git clone https://github.com/ziye12/JavaScript.git ~/Scripts
       - name: Use Node.js 12.x
         uses: actions/setup-node@v1
         with:
           node-version: 12.x
       - name: npm install
         run: |
+          cd ~/Scripts
           npm install
       - name: '运行 【小乐】'
         if: env.XL_HEADER
         run: |
+          cd ~/Scripts
           node Task/xiaole.js
         env:
           PUSH_KEY: ${{ secrets.PUSH_KEY }}
