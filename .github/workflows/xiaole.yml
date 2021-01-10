@@ -2,7 +2,7 @@
 name: 小乐on:
   workflow_dispatch:
   schedule:
-     - cron: '0,10,20,30,40,50 23,0-16 * * *'
+     - cron: '*/30 23,0-15 * * *'
   watch:
     types: started
 jobs:
@@ -10,7 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event.repository.owner.id == github.event.sender.id
     env:
-        JUKAN_BODY: ${{ secrets.JUKAN_BODY }}
+        xiaoleurlVal: ${{ secrets.XIAOLEURLVAL }}
+        xiaoleheaderVal: ${{ secrets.XIAOLEHEADERVAL }}
         TZ: Asia/shanghai
     steps:
       - name: Checkout
@@ -22,10 +23,10 @@ jobs:
       - name: npm install
         run: |
           npm install
-      - name: '运行 【聚看点】'
-        if: env.JUKAN_BODY
+      - name: '运行 【小乐】'
+        if: env.XIAOLEHEADERVAL
         run: |
-          node Task/jukan.js
+          node Task/xiaole.js
         env:
           PUSH_KEY: ${{ secrets.PUSH_KEY }}
           BARK_PUSH: ${{ secrets.BARK_PUSH }}
