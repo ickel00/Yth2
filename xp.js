@@ -25,7 +25,7 @@ http-request https:\/\/veishop\.iboxpay\.com\/nf_gateway\/nf_customer_activity\/
 const jsname='笑谱'
 const $ = Env(jsname)
 const notify = $.isNode() ?require('./sendNotify') : '';
-$.idx = ($.idx = ($.getval("dyjsbcount") || "1") - 1) > 0 ? `${$.idx + 1}` : ""; // 账号扩展字符
+$.idx = ($.idx = ($.getval("xpsetting") || "1") - 1) > 0 ? `${$.idx + 1}` : ""; // 账号扩展字符
 const videoheaderArr = [],videobodyArr=[]
 let videoheader = $.getdata('videoheader')
 let videobody = $.getdata('videobody')
@@ -99,7 +99,7 @@ if (!videoheaderArr[0]) {
   for (let i = 0; i < videoheaderArr.length; i++) {
     if (videoheaderArr[i]) {
       message = ''
-      signheader = videoheaderArr[i];
+      videoheader = videoheaderArr[i];
       videobody = videobodyArr[i];
       $.index = i + 1;
       console.log(`\n开始【笑谱${$.index}】`)
