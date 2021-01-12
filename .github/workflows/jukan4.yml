@@ -4,7 +4,7 @@ name: 聚看点4
 on:
   workflow_dispatch:
   schedule:
-     - cron: '5,15,25,35,45,55 23,0-16 * * *'
+     - cron: '*/30 23,0-16 * * *'
   watch:
     types: started
 jobs:
