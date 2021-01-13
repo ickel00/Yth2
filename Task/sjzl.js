@@ -6,6 +6,7 @@ $.mcUrl = 'http://api.turinglabs.net/api/v1/jd/pet/create/MTAxODc2NTEzMzAwMDAwMD
 $.ddUrl = 'http://api.turinglabs.net/api/v1/jd/ddfactory/create/T008-K4gFEsYCjVWnYaS5kRrbA/'  // 东东
 $.jdzzUrl = 'https://code.chiang.fun/api/v1/jd/jdzz/create/S-K4gFEsY/'  // 京东赚赚
 $.cjUrl = 'https://code.chiang.fun/api/v1/jd/jdcrazyjoy/create/tF72H2xenkM=/'  // 疯狂的joy
+$.lxjUrl = 'https://code.chiang.fun/api/v1/jd/jdcash/create/ZUhkOLmz/'  // 领现金
 
 $.result = []
 
@@ -18,6 +19,7 @@ $.result = []
   await createDd()
   await createJdzz()
   await createCj()
+  await showLxj()
   await showMsg()
 })()
   .catch((e) => $.logErr(e))
@@ -157,6 +159,30 @@ function createCj() {
           $.result.push("疯狂的joy互助码已存在")
         }else{
           $.result.push("疯狂的joy互助码添加异常")
+        }
+      } catch (e) {
+        $.logErr(e, resp)
+      } finally {
+        resolve()
+      }
+    })
+  })
+}
+
+// 领现金
+function createLxj() {
+  return new Promise((resolve) => {
+    const url = { url: $.lxjUrl }
+    $.get(url, (err, resp, data) => {
+      try {
+         const obj = JSON.parse(data)
+        if (obj.code == 200) {
+          $.result.push("领现金互助码添加成功✅")
+        }else
+		if(obj.code == 400) {
+          $.result.push("领现金互助码已存在")
+        }else{
+          $.result.push("领现金互助码添加异常")
         }
       } catch (e) {
         $.logErr(e, resp)
