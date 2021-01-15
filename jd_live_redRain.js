@@ -45,7 +45,7 @@ const JD_API_HOST = 'https://api.m.jd.com/api';
     return;
   }
   //await getRedRain();
-  $.activityId = 'RRA3rXe2sGUJ5435B2nWo7zv7eweq8'
+  $.activityId = 'RRA42SucXFqAPggaoYP4c3JYZLHGbkG'
   if(!$.activityId) return
   for (let i = 0; i < cookiesArr.length; i++) {
     if (cookiesArr[i]) {
