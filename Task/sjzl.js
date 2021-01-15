@@ -1,9 +1,5 @@
 
 const $ = new Env('互助码')
-$.zdUrl = 'http://api.turinglabs.net/api/v1/jd/bean/create/cldupvwbh35fgzjmruqqundnom/'  // 种豆得豆
-$.ncUrl = 'http://api.turinglabs.net/api/v1/jd/farm/create/5f7d914da1ab4afd963f5f94720551a8/'  // 农场
-$.mcUrl = 'http://api.turinglabs.net/api/v1/jd/pet/create/MTAxODc2NTEzMzAwMDAwMDAyMDQ3NjMwOQ==/'  // 萌宠
-$.ddUrl = 'http://api.turinglabs.net/api/v1/jd/ddfactory/create/T008-K4gFEsYCjVWnYaS5kRrbA/'  // 东东
 $.jdzzUrl = 'https://code.chiang.fun/api/v1/jd/jdzz/create/S-K4gFEsY/'  // 京东赚赚
 $.cjUrl = 'https://code.chiang.fun/api/v1/jd/jdcrazyjoy/create/tF72H2xenkM=/'  // 疯狂的joy
 $.lxjUrl = 'https://code.chiang.fun/api/v1/jd/jdcash/create/ZUhkOLmz/'  // 领现金
@@ -13,10 +9,6 @@ $.result = []
 
 
 !(async () => {
-  await createZd()
-  await createNc()
-  await createMc()
-  await createDd()
   await createJdzz()
   await createCj()
   await showLxj()
@@ -24,102 +16,6 @@ $.result = []
 })()
   .catch((e) => $.logErr(e))
   .finally(() => $.done())
-
-// 种豆得豆
-function createZd() {
-  return new Promise((resolve) => {
-    const url = { url: $.zdUrl }
-    $.get(url, (err, resp, data) => {
-      try {
-        const obj = JSON.parse(data)
-        if (obj.code == 200) {
-          $.result.push("种豆互助码添加成功✅")
-        }else
-		if(obj.code == 400) {
-          $.result.push("种豆互助码已存在")
-        }else{
-          $.result.push("种豆互助码添加异常")
-        }
-      } catch (e) {
-        $.logErr(e, resp)
-      } finally {
-        resolve()
-      }
-    })
-  })
-}
-
-// 京东农场
-function createNc() {
-  return new Promise((resolve) => {
-    const url = { url: $.ncUrl }
-    $.get(url, (err, resp, data) => {
-      try {
-         const obj = JSON.parse(data)
-        if (obj.code == 200) {
-          $.result.push("农场互助码添加成功✅")
-        }else
-		if(obj.code == 400) {
-          $.result.push("农场互助码已存在")
-        }else{
-          $.result.push("农场互助码添加异常")
-        }
-      } catch (e) {
-        $.logErr(e, resp)
-      } finally {
-        resolve()
-      }
-    })
-  })
-}
-
-// 京东萌宠
-function createMc() {
-  return new Promise((resolve) => {
-    const url = { url: $.mcUrl }
-    $.get(url, (err, resp, data) => {
-      try {
-         const obj = JSON.parse(data)
-        if (obj.code == 200) {
-          $.result.push("萌宠互助码添加成功✅")
-        }else
-		if(obj.code == 400) {
-          $.result.push("萌宠互助码已存在")
-        }else{
-          $.result.push("萌宠互助码添加异常")
-        }
-      } catch (e) {
-        $.logErr(e, resp)
-      } finally {
-        resolve()
-      }
-    })
-  })
-}
-
-// 东东工厂
-function createDd() {
-  return new Promise((resolve) => {
-    const url = { url: $.ddUrl }
-    $.get(url, (err, resp, data) => {
-      try {
-         const obj = JSON.parse(data)
-        if (obj.code == 200) {
-          $.result.push("东东工厂互助码添加成功✅")
-        }else
-		if(obj.code == 400) {
-          $.result.push("东东工厂互助码已存在")
-        }else{
-          $.result.push("东东工厂互助码添加异常")
-        }
-      } catch (e) {
-        $.logErr(e, resp)
-      } finally {
-        resolve()
-      }
-    })
-  })
-}
 
 // 京东赚赚
 function createJdzz() {
