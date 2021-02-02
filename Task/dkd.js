@@ -46,12 +46,12 @@ hostname = dkd-api.dysdk.com
 */
 const $ = new Env('多看点');
 let dkdurl = $.getdata('dkdurl'),
-let dkdhd = [],
-let dkdbody = [],
-let dkdtxurl = $.getdata('dkdtxurl'),
-let dkdtxhd = $.getdata('dkdtxhd'),
-let dkdtxbody = $.getdata('dkdtxbody'),
-let COOKIES_SPLIT = "",
+let dkdhd = [];
+let dkdbody = [];
+let dkdtxurl = $.getdata('dkdtxurl')
+let dkdtxhd = $.getdata('dkdtxhd')
+let dkdtxbody = $.getdata('dkdtxbody')
+let COOKIES_SPLIT = ""
 let HDArr=[],BodyArr=[];
 !(async () => {
   if (typeof $request !== "undefined") {
