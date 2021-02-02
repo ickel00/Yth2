@@ -46,8 +46,8 @@ hostname = dkd-api.dysdk.com
 */
 const $ = new Env('多看点');
 let dkdurl = $.getdata('dkdurl')
-let dkdhd = $.getdata('dkdhd')
-let dkdbody = $.getdata('dkdbody')
+let dkdhd = [];
+let dkdbody = [];
 let dkdtxurl = $.getdata('dkdtxurl')
 let dkdtxhd = $.getdata('dkdtxhd')
 let dkdtxbody = $.getdata('dkdtxbody')
