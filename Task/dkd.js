@@ -88,6 +88,20 @@ $.log(dkdtxbody)
    
     }
   }
+//ac
+if ($.isNode()) {
+  if (process.env.DKDHD && process.env.DKDHD.indexOf('&') > -1) {
+  DKDHD = process.env.DKDHD.split('&');
+  } else {
+      DKDHD = process.env.DKDHD.split()
+  };
+
+  if (process.env.DKDBODY && process.env.DKDBODY.indexOf('&') > -1) {
+  DKDBODY = process.env.DKDBODY.split('&');
+  } else {
+      DKDBODY = process.env.DKDBODY.split()
+  };
+}
 
 //多看点广告视频     
 function dkdgg(timeout = 0) {
