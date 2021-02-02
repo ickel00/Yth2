@@ -45,14 +45,13 @@ TG电报群: https://t.me/hahaha8028
 hostname = dkd-api.dysdk.com
 */
 const $ = new Env('多看点');
-let dkdurl = $.getdata('dkdurl'),
+let COOKIES_SPLIT = ""
+let dkdurl = $.getdata('dkdurl')
 let dkdhd = [];
 let dkdbody = [];
 let dkdtxurl = $.getdata('dkdtxurl')
 let dkdtxhd = $.getdata('dkdtxhd')
 let dkdtxbody = $.getdata('dkdtxbody')
-let COOKIES_SPLIT = ""
-let HDArr=[],BodyArr=[];
 !(async () => {
   if (typeof $request !== "undefined") {
     await dkdck()
