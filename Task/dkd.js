@@ -46,11 +46,12 @@ hostname = dkd-api.dysdk.com
 */
 const $ = new Env('多看点');
 let dkdurl = $.getdata('dkdurl')
-let dkdhd = [];
-let dkdbody = [];
+let dkdhd = $.getdata('dkdhd')
+let dkdbody = $.getdata('dkdbody')
 let dkdtxurl = $.getdata('dkdtxurl')
 let dkdtxhd = $.getdata('dkdtxhd')
 let dkdtxbody = $.getdata('dkdtxbody')
+let HDArr=[],BodyArr=[];
 !(async () => {
   if (typeof $request !== "undefined") {
     await dkdck()
@@ -63,19 +64,54 @@ let dkdtxbody = $.getdata('dkdtxbody')
   .catch((e) => $.logErr(e))
   .finally(() => $.done())
 
-//ac
 if ($.isNode()) {
   if (process.env.DKDHD && process.env.DKDHD.indexOf('&') > -1) {
-  DKDHD = process.env.DKDHD.split('&');
+  dkdhd = process.env.DKDHD.split('&');
+  }
+  else if (process.env.DKDHD && process.env.DKDHD.indexOf('\n') > -1) {
+  dkdhd = process.env.DKDHD.split('\n');
   } else {
-      DKDHD = process.env.DKDHD.split()
-  };
+  dkdhd = process.env.DKDHD.split()
+  }
+  Object.keys(dkdhd).forEach((item) => {
+        if (dkdhd[item]) {
+          BodyArr.push(dkdhd[item])
+        } 
+    })
+} else if (dkdhd.indexOf('&')>-1){
+  Object.keys(dkdhd.split('&')).forEach((item) => {
+      HDArr.push(dkdhd.split('&')[item])
+    })
+} else {
+   HDArr.push(dkdhd)
+}
 
+if ($.isNode()) {
   if (process.env.DKDBODY && process.env.DKDBODY.indexOf('&') > -1) {
-  DKDBODY = process.env.DKDBODY.split('&');
+  dkdbody = process.env.DKDBODY.split('&');
+  }
+  else if (process.env.DKDBODY && process.env.DKDBODY.indexOf('\n') > -1) {
+  dkdbody = process.env.DKDBODY.split('\n');
   } else {
-      DKDBODY = process.env.DKDBODY.split()
-  };
+  dkdbody = process.env.DKDBODY.split()
+  }
+  Object.keys(dkdbody).forEach((item) => {
+        if (dkdbody[item]) {
+          BodyArr.push(dkdbody[item])
+        } 
+    })
+} else if (dkdbody.indexOf('&')>-1){
+  Object.keys(dkdbody.split('&')).forEach((item) => {
+      BodyArr.push(dkdbody.split('&')[item])
+    })
+} else {
+   BodyArr.push(dkdbody)
+}
+
+
+if ($.isNode()) {
+      console.log(`============ 脚本执行-国际标准时间(UTC)：${new Date().toLocaleString()}  =============\n`)
+      console.log(`============ 脚本执行-北京时间(UTC+8)：${new Date(new Date().getTime() + 8 * 60 * 60 * 1000).toLocaleString()}  =============\n`)
 }
 
 
