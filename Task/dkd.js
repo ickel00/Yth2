@@ -45,12 +45,13 @@ TG电报群: https://t.me/hahaha8028
 hostname = dkd-api.dysdk.com
 */
 const $ = new Env('多看点');
-let dkdurl = $.getdata('dkdurl')
-let dkdhd = $.getdata('dkdhd')
-let dkdbody = $.getdata('dkdbody')
-let dkdtxurl = $.getdata('dkdtxurl')
-let dkdtxhd = $.getdata('dkdtxhd')
-let dkdtxbody = $.getdata('dkdtxbody')
+let dkdurl = $.getdata('dkdurl'),
+let dkdhd = [],
+let dkdbody = [],
+let dkdtxurl = $.getdata('dkdtxurl'),
+let dkdtxhd = $.getdata('dkdtxhd'),
+let dkdtxbody = $.getdata('dkdtxbody'),
+let COOKIES_SPLIT = "",
 let HDArr=[],BodyArr=[];
 !(async () => {
   if (typeof $request !== "undefined") {
@@ -65,47 +66,24 @@ let HDArr=[],BodyArr=[];
   .finally(() => $.done())
 
 if ($.isNode()) {
-  if (process.env.DKDHD && process.env.DKDHD.indexOf('&') > -1) {
-  dkdhd = process.env.DKDHD.split('&');
-  }
-  else if (process.env.DKDHD && process.env.DKDHD.indexOf('\n') > -1) {
-  dkdhd = process.env.DKDHD.split('\n');
+  if (
+    process.env.DKDHD &&
+    process.env.DKDHD.indexOf(COOKIES_SPLIT) > -1
+  ) {
+    dkdhd = process.env.DKDHD.split(COOKIES_SPLIT);
   } else {
-  dkdhd = process.env.DKDHD.split()
+    dkdhd = process.env.DKDHD.split();
   }
-  Object.keys(dkdhd).forEach((item) => {
-        if (dkdhd[item]) {
-          BodyArr.push(dkdhd[item])
-        } 
-    })
-} else if (dkdhd.indexOf('&')>-1){
-  Object.keys(dkdhd.split('&')).forEach((item) => {
-      HDArr.push(dkdhd.split('&')[item])
-    })
-} else {
-   HDArr.push(dkdhd)
-}
 
-if ($.isNode()) {
-  if (process.env.DKDBODY && process.env.DKDBODY.indexOf('&') > -1) {
-  dkdbody = process.env.DKDBODY.split('&');
-  }
-  else if (process.env.DKDBODY && process.env.DKDBODY.indexOf('\n') > -1) {
-  dkdbody = process.env.DKDBODY.split('\n');
+  if (
+    process.env.DKDBODY &&
+    process.env.DKDBODY.indexOf(COOKIES_SPLIT) > -1
+  ) {
+    dkdbody = process.env.DKDBODY.split(COOKIES_SPLIT);
   } else {
-  dkdbody = process.env.DKDBODY.split()
+    dkdbody = process.env.DKDBODY.split();
   }
-  Object.keys(dkdbody).forEach((item) => {
-        if (dkdbody[item]) {
-          BodyArr.push(dkdbody[item])
-        } 
-    })
-} else if (dkdbody.indexOf('&')>-1){
-  Object.keys(dkdbody.split('&')).forEach((item) => {
-      BodyArr.push(dkdbody.split('&')[item])
-    })
-} else {
-   BodyArr.push(dkdbody)
+
 }
 
 
