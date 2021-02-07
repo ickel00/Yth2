@@ -2,11 +2,14 @@
 
 name: 多看点
 on:
-    push:
-        branches:
-            - master
-    schedule:
-        - cron: '27 * * * *'
+  workflow_dispatch:
+  schedule:
+     - cron: '*37 * * * *'
+  watch:
+    types: started
+env:
+  TZ: Asia/Shanghai
+
 jobs:
     build:
         runs-on: ubuntu-latest
