@@ -4,7 +4,7 @@ name: 多看点
 on:
   workflow_dispatch:
   schedule:
-     - cron: '37 * * * *'
+     - cron: '37 23,0-15 * * *'
   watch:
     types: started
 env:
