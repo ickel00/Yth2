@@ -63,8 +63,6 @@ TG电报群: https://t.me/hahaha8028
 [MITM]
 hostname = dkd-api.dysdk.com
 */
-const $ = new Env('多看点');
-
 const exec = require('child_process').execSync
 const fs = require('fs')
 const got = require('got')
