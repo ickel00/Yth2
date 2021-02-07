@@ -17,10 +17,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     if: github.event.repository.owner.id == github.event.sender.id
-    env:
-        dkdurl: ${{ secrets.DKDURL }}
-        dkdbody: ${{ secrets.DKDBODY }}
-        dkdhd: ${{ secrets.DKDHD }}
     steps:
       - uses: actions/checkout@v1
       - name: Use Node.js 14.x
@@ -28,14 +24,15 @@ jobs:
         with:
           node-version: 14.x
       - name: npm install
-        if: env.DKDHD
         run: |
           npm install
       - name: '运行 【多看点】'
-        if: env.DKDHD
         run: |
           node dkd_coin.js
         env:
+          dkdurl: ${{ secrets.DKDURL }}
+          dkdbody: ${{ secrets.DKDBODY }}
+          dkdhd: ${{ secrets.DKDHD }}
           PUSH_KEY: ${{ secrets.PUSH_KEY }}
           BARK_PUSH: ${{ secrets.BARK_PUSH }}
           TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
