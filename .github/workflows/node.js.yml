@@ -2,6 +2,7 @@
 
 name: Github dkd-auto-coin
 on:
+ workflow_dispatch:
     push:
         branches:
             - master
