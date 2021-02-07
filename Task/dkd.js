@@ -73,9 +73,9 @@ const $ = new Env('多看点');
 //let dkdurl = $.getdata('dkdurl')
 //let dkdhd = dkdhd
 //let dkdbody = $.getdata('dkdbody')
-//let dkdtxurl = $.getdata('dkdtxurl')
-//let dkdtxhd = $.getdata('dkdtxhd')
-//let dkdtxbody = $.getdata('dkdtxbody')
+let dkdtxurl = $.getdata('dkdtxurl')
+let dkdtxhd = $.getdata('dkdtxhd')
+let dkdtxbody = $.getdata('dkdtxbody')
 
 const dkdurl = process.env.dkdurl;
 const dkdhd = process.env.dkdhd;
