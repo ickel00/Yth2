@@ -121,30 +121,6 @@ if(result.status_code == 10020){
   })
 }
 
-function dkdyq(timeout = 0) {
-  return new Promise((resolve) => {
-let url = {
-        url : 'http://dkd-api.dysdk.com/inviter/bind',
-        headers : JSON.parse(dkdhd),
-         body : 'code=3209301&' + dkdbody,}
-      $.post(url, async (err, resp, data) => {
-        try {
-           //$.log(dkdbody)
-    const result = JSON.parse(data)
-        if(result.status_code == 200){
-        console.log('视频宝箱回执:成功🌝 '+result.data.award)
-}
-if(result.status_code == 10020){
-        console.log('视频宝箱回执:失败🚫 '+result.message)}
-        } catch (e) {
-          //$.logErr(e, resp);
-        } finally {
-          resolve()
-        }
-    },timeout)
-  })
-}
-
 //多看点视频宝箱翻倍     
 function dkdbxfb(timeout = 0) {
   return new Promise((resolve) => {
@@ -169,6 +145,7 @@ if(result.status_code == 10020){
     },timeout)
   })
 }
+
 //多看点转盘抽奖   
 function dkdcj(timeout = 0) {
   return new Promise((resolve) => {
@@ -193,6 +170,7 @@ if(result.status_code == 10020){
     },timeout)
   })
 }
+
 //多看点分享
 function dkdfx(timeout = 0) {
   return new Promise((resolve) => {
@@ -437,12 +415,12 @@ await dkdgg()
 await dkdbxsx()
 await dkdbx()
 await dkdbxfb()
-//await dkdsxzp()
+await dkdsxzp()
 await dkdcj()
 await dkdfx()
 await dkdyq()
-//await dkdz()        
-//await dkdxs()
+await dkdz()        
+await dkdxs()
 await dkdxx()
 await dkdtx() 
 
