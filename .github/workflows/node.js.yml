@@ -4,7 +4,7 @@ name: 多看点
 on:
   workflow_dispatch:
   schedule:
-     - cron: '*37 * * * *'
+     - cron: '37 * * * *'
   watch:
     types: started
 env:
@@ -21,11 +21,13 @@ jobs:
               uses: actions/setup-node@v1
               with:
                 node-version: '12.x'
-            - name: Run
-              run: npm install
-            - run: node dkd_coin.js
+            - name: '安装依赖包'
+              run: |
+               npm install
+            - name: '运行 【多看点】'
+            - run: |
+               node dkd_coin.js
               env:
-                dkdurl: ${{ secrets.dkdurl }}
-                dkdbody: ${{ secrets.dkdbody }}
-                sckey: ${{ secrets.sckey }}
-                dkdhd: ${{ secrets.dkdhd }}
+                dkdurl: ${{ secrets.DKDURL }}
+                dkdbody: ${{ secrets.DKDBODY }}
+                dkdhd: ${{ secrets.DKDHD }}
