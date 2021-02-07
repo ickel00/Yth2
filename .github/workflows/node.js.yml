@@ -25,7 +25,7 @@ jobs:
               run: |
                npm install
             - name: '运行 【多看点】'
-            - run: |
+              run: |
                node dkd_coin.js
               env:
                 dkdurl: ${{ secrets.DKDURL }}
