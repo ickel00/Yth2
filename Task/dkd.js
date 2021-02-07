@@ -64,12 +64,25 @@ TG电报群: https://t.me/hahaha8028
 hostname = dkd-api.dysdk.com
 */
 const $ = new Env('多看点');
-let dkdurl = $.getdata('dkdurl')
-let dkdhd = $.getdata('dkdhd')
-let dkdbody = $.getdata('dkdbody')
-let dkdtxurl = $.getdata('dkdtxurl')
-let dkdtxhd = $.getdata('dkdtxhd')
-let dkdtxbody = $.getdata('dkdtxbody')
+
+const exec = require('child_process').execSync
+const fs = require('fs')
+const got = require('got')
+const axios = require('axios')
+const path = require('path') 
+const cktouch = require('tough-cookie')
+const $ = new Env('多看点');
+//let dkdurl = $.getdata('dkdurl')
+//let dkdhd = dkdhd
+//let dkdbody = $.getdata('dkdbody')
+//let dkdtxurl = $.getdata('dkdtxurl')
+//let dkdtxhd = $.getdata('dkdtxhd')
+//let dkdtxbody = $.getdata('dkdtxbody')
+
+const dkdurl = process.env.dkdurl;
+const dkdhd = process.env.dkdhd;
+const dkdbody = process.env.dkdbody;
+
 !(async () => {
   if (typeof $request !== "undefined") {
     await dkdck()
