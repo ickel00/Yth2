@@ -242,6 +242,84 @@ if(result.status_code == 10020){
     })
   }
   
+  //多看点视频时长
+  function dkdsc(timeout = 0) {
+    return new Promise((resolve) => {
+  let url = {
+          url : 'http://dkd-api.dysdk.com/task/get_ad_award',
+          headers : JSON.parse(dkdhd),
+          body : 'adType=2&'+dkdbody+'&type=1&overLimit',}
+        $.post(url, async (err, resp, data) => {
+          try {
+             //$.log(dkdbody)
+      const result = JSON.parse(data)
+          if(result.status_code == 200){
+          console.log('时长任务回执:成功🌝 '+result.data.award)
+  }
+  if(result.status_code == 10020){
+          console.log('时长任务回执:失败🚫 '+result.message)}
+          } catch (e) {
+            //$.logErr(e, resp);
+          } finally {
+            resolve()
+          }
+      },timeout)
+    })
+  }
+  
+//+'&headerInfo='+sx.replace('headerInfo":"',"")
+  //多看点刷新转盘
+function dkdsxzp(timeout = 0) {
+  return new Promise((resolve) => {
+let sx = dkdtxhd.match(/headerInfo":"\w+/)+''
+let url = {
+        url : 'http://dkd-api.dysdk.com/lotto/index?'+dkdbody+'&headerInfo='+sx.replace('headerInfo":"',""),
+        headers : JSON.parse(dkdhd),
+        body : '',}
+      $.post(url, async (err, resp, data) => {
+        try {
+         //$.log(str.replace('headerInfo":"',""))
+    const result = JSON.parse(data)
+        if(result.status_code == 200){
+        console.log('开始刷新转抽奖页面，回执:成功🌝 剩余抽奖次数: '+result.data.times)
+}
+if(result.status_code == 10020){
+        console.log('开始刷新抽奖页面，回执:失败🚫 '+result.message)}
+        } catch (e) {
+          //$.logErr(e, resp);
+        } finally {
+          resolve()
+        }
+    },timeout)
+  })
+}
+  
+ //多看点小说时段奖励
+function dkdsdjl(timeout = 0) {
+  return new Promise((resolve) => {
+
+let url = {
+        url : 'http://dkd-api.dysdk.com/video/extra_get',
+        headers : JSON.parse(dkdhd),
+        body : dkdbody,}
+      $.post(url, async (err, resp, data) => {
+        try {
+         //$.log(str.replace('headerInfo":"',""))
+    const result = JSON.parse(data)
+        if(result.status_code == 200){
+        console.log('开始领取小说时段奖励，回执:成功🌝    '+result.data.award)
+}
+if(result.status_code == 10020){
+        console.log('开始领取小说时段奖励，回执:失败🚫 '+result.message)}
+        } catch (e) {
+          //$.logErr(e, resp);
+        } finally {
+          resolve()
+        }
+    },timeout)
+  })
+}
+  
   //多看点
   function dkdyq(timeout = 0) {
     return new Promise((resolve) => {
@@ -333,41 +411,6 @@ if(result.status_code == 10020){
   })
 }
  
-function server(msg) {
-
-    return new Promise(async (resolve) => {
-
-        try {
-
-  let url = `https://sc.ftqq.com/${sckey}.send`
-
-  let res = await axios.post(url, `text=多看点(づ ●─● )づ${msg}&desp=${msg}`)
-
-  if (res.data.errmsg == 'success') {
-
-    console.log('server酱:发送成功')
-
-  } else {
-
-    console.log('server酱:发送失败')
-
-    console.log(res.data)
-
-  }
-
- 
-
-        } catch (err) {
-
-            console.log(err);
-
-        }
-
-        resolve();
-
-    });
-
-}
 
 //多看点签到
 function dkdqd(timeout = 0) {
