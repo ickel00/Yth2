@@ -21,11 +21,11 @@ jobs:
               with:
                 node-version: '12.x'
             - name: npm install
-              if: env.DKDBODY
+              if: env.DKDHD
               run: |
                  npm install
             - name: '运行 【多看点】'
-              if: env.DKDBODY
+              if: env.DKDHD
               run: |
                 node dkd_coin.js
               env:
