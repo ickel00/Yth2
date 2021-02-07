@@ -1,10 +1,14 @@
 name: 多看点
+
 on:
-    push:
-        branches:
-            - main
-    schedule:
-        - cron: '27 * * * *'
+  workflow_dispatch:
+  schedule:
+     - cron: '27 23,0-15 * * *'
+  watch:
+    types: started
+env:
+    TZ: Asia/Shanghai
+
 jobs:
     build:
         runs-on: ubuntu-latest
@@ -16,11 +20,16 @@ jobs:
               uses: actions/setup-node@v1
               with:
                 node-version: '12.x'
-            - name: Run
-              run: npm install
-            - run: node dkd_coin.js
+            - name: npm install
+              if: env.DKDBODY
+              run: |
+                 npm install
+            - name: '运行 【多看点】'
+              if: env.DKDBODY
+              run: |
+                node dkd_coin.js
               env:
-                dkdurl: ${{ secrets.dkdurl }}
-                dkdbody: ${{ secrets.dkdbody }}
-                dkdhd: ${{ secrets.dkdhd }}
+                dkdurl: ${{ secrets.DKDURL }}
+                dkdbody: ${{ secrets.DKDBODY }}
+                dkdhd: ${{ secrets.DKDHD }}
 
