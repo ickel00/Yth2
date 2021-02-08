@@ -157,12 +157,12 @@ let url = {
         body : 'adType=2&' + dkdbody,}
       $.post(url, async (err, resp, data) => {
         try {
+          await $.wait(15000);
            //$.log(dkdhd)
     const result = JSON.parse(data)
         if(result.status_code == 200){
         console.log('开始视频红包，回执:成功🌝 '+result.data.award)
 readscore += result.data.award;
-await $.wait(15000);
 }
 if(result.status_code == 10020){
         console.log('开始视频红包，回执:失败🚫 '+result.message)}
