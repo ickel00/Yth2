@@ -42,14 +42,21 @@ TG电报群: https://t.me/hahaha8028
 多看点视频body = type=^http://dkd-api.dysdk.com/android_video/getaward,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/age174/-/main/dkdbody.js,script-update-interval=0
 
 */
-
-const $ = new Env("多看点视频")
-let dkdbody = process.env.dkdbody;
+const exec = require('child_process').execSync
+const fs = require('fs')
+const got = require('got')
+const axios = require('axios')
+const path = require('path') 
+const cktouch = require('tough-cookie')
+const $ = new Env("多看点视频");
 // let dkdbody = $.getdata('dkdbody')
-let dkdhd = process.env.dkdhd;
 // let dkdhd = $.getdata('dkdhd')
-let bodys = process.env.dkdvd_body;
 // let bodys = $.getdata("dkdvd_body");
+
+const dkdbody = process.env.dkdbody;
+const dkdhd = process.env.dkdhd;
+const bodys = process.env.dkdvd_body;
+
 let ReadArr = [], YouthBody = "", readscore = 0;
 if (!(bodys && bodys != '')) {
   $.msg("", "", '请先刷视频获取多body获取越多，脚本可获得金币越多')
