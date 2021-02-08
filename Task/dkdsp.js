@@ -55,7 +55,7 @@ const $ = new Env("多看点视频");
 
 const dkdbody = process.env.dkdbody;
 const dkdhd = process.env.dkdhd;
-// const bodys = process.env.dkdvd_body;
+const bodys = process.env.dkdvd_body;
 
 let ReadArr = [], YouthBody = "", readscore = 0;
 if (!(bodys && bodys != '')) {
@@ -65,14 +65,14 @@ if (!(bodys && bodys != '')) {
 
 if ($.isNode()) {
   if (process.env.dkdvd_body && process.env.dkdvd_body.indexOf('&') > -1) {
-  bodys = process.env.dkdvd_body.split('&');
+  YouthBody = bodys.split('&');
   } else {
-      bodys = process.env.dkdvd_body.split()
+      YouthBody = bodys.split.split()
   };
  
 }
 
-YouthBody = bodys.split('&');
+// YouthBody = bodys.split('&');
 
 Object.keys(YouthBody).forEach((item) => {
   if (YouthBody[item]) {
