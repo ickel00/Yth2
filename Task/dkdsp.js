@@ -126,13 +126,12 @@ function AutoRead() {
         console.log(`\n本次视频获得${readres.data.award}个金币，即将开始下次视频👏🏻\n`)
         readscore += readres.data.award;
         await $.wait(30000);
-      
       }
-         if (readres.message == '请先领取大额红包再来！') {
+      else if (readres.message == '请先领取大额红包再来！') {
         console.log(`\n检测到红包，，即将开始领取👏🏻\n`)     
-await dkdhbsp();
-      
+    await dkdhbsp();
 }
+
 if (readres.status_code == 200&&readres.data.award == 0) {
         $.msg("","","今日多看点视频收益已满，自动结束运行!")
 $.done()  
@@ -142,7 +141,7 @@ $.done()
    
 await $.wait(30000);
       }
-
+      
       resolve()
     })
 
@@ -157,7 +156,7 @@ let url = {
         body : 'adType=2&'+dkdbody,}
       $.post(url, async (err, resp, data) => {
         try {
-          await $.wait(30000);
+          await $.wait(20000);
            //$.log(dkdhd)
     const result = JSON.parse(data)
         if(result.status_code == 200){
