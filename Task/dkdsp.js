@@ -44,10 +44,13 @@ TG电报群: https://t.me/hahaha8028
 */
 
 const $ = new Env("多看点视频")
-let dkdbody = $.getdata('dkdbody')
-let dkdhd = $.getdata('dkdhd')
+const dkdbody = process.env.dkdbody;
+// let dkdbody = $.getdata('dkdbody')
+const dkdhd = process.env.dkdhd;
+// let dkdhd = $.getdata('dkdhd')
+const bodys = process.env.dkdvd_body;
+// let bodys = $.getdata("dkdvd_body");
 let ReadArr = [], YouthBody = "", readscore = 0;
-let bodys = $.getdata("dkdvd_body");
 if (!(bodys && bodys != '')) {
   $.msg("", "", '请先刷视频获取多body获取越多，脚本可获得金币越多')
   $.done()
@@ -95,7 +98,7 @@ function AutoRead() {
   return new Promise((resolve, reject) => {
     let url = {
       url: `http://dkd-api.dysdk.com/android_video/getaward`,
-      headers:JSON.parse($.getdata('dkdhd')),
+      headers:JSON.parse(dkdhd),
       body: articlebody
     };
     $.post(url, async (error, response, data) => {
@@ -139,7 +142,7 @@ function dkdhbsp(timeout = 0) {
   return new Promise((resolve) => {
 let url = {
         url : 'http://dkd-api.dysdk.com/video/red_getaward',
-        headers : JSON.parse($.getdata('dkdhd')),
+        headers : JSON.parse(dkdhd),
         body : 'adType=2&' + dkdbody,}
       $.post(url, async (err, resp, data) => {
         try {
