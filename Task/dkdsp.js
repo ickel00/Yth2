@@ -136,7 +136,7 @@ function AutoRead() {
 						 }
 						 else if (readres.status_code == 10020) {
 							 console.log(`第${$.index}次视频请求失败,回执🚫: `+readres.message+'等待30秒执行下次视频')
-							 wait $.wait(30000);
+							 await $.wait(30000);
 							 }
 							 resolve()
 					    }
