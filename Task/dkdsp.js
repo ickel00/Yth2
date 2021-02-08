@@ -53,23 +53,27 @@ const $ = new Env("多看点视频");
 // let dkdhd = $.getdata('dkdhd')
 // let bodys = $.getdata("dkdvd_body");
 
-const dkdbody = process.env.dkdbody;
-const dkdhd = process.env.dkdhd;
-const bodys = process.env.dkdvd_body;
+const dkdbody = process.env.DKDBODY;
+const dkdhd = process.env.DKDHD;
+const bodys = process.env.DKDVD_BODY;
 
-let ReadArr = [], YouthBody = "", readscore = 0;
-if (!(bodys && bodys != '')) {
-  $.msg("", "", '请先刷视频获取多body获取越多，脚本可获得金币越多')
-  $.done()
-}
-
-YouthBody = bodys.split('&');
-
-Object.keys(YouthBody).forEach((item) => {
-  if (YouthBody[item]) {
-    ReadArr.push(YouthBody[item])
+let ReadArr = [], YouthBody = "",readscore = 0;
+  if (process.env.DKDVD_BODY && process.env.DKDVD_BODY.indexOf('&') > -1) {
+  YouthBody = process.env.DKDVD_BODY.split('&');
+  console.log(`您选择的是用"&"隔开\n`)
   }
-})
+  else if (process.env.DKDVD_BODY && process.env.DKDVD_BODY.indexOf('\n') > -1) {
+  YouthBody = process.env.DKDVD_BODY.split('\n');
+  console.log(`您选择的是用换行隔开\n`)
+  } else {
+  YouthBody = process.env.DKDVD_BODY.split()
+  }
+  Object.keys(YouthBody).forEach((item) => {
+        if (YouthBody[item]) {
+          ReadArr.push(YouthBody[item])
+        }
+    })
+
 let indexLast = $.getdata('dkdvd_body_index');
 $.begin = indexLast ? parseInt(indexLast,10) : 1;
 
