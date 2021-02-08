@@ -64,8 +64,8 @@ if (!(bodys && bodys != '')) {
 }
 
 if ($.isNode()) {
-  if (process.env.dkdvd_body && process.env.dkdvd_body.indexOf('#') > -1) {
-  bodys = process.env.dkdvd_body.split('#');
+  if (process.env.dkdvd_body && process.env.dkdvd_body.indexOf('&') > -1) {
+  bodys = process.env.dkdvd_body.split('&');
   } else {
       bodys = process.env.dkdvd_body.split()
   };
