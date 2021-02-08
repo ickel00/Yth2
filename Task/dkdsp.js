@@ -59,20 +59,12 @@ const bodys = process.env.dkdvd_body;
 
 let ReadArr = [], bodyArr = "", readscore = 0;
 
-if ($.isNode()) {
-  if (process.env.dkdvd_body && process.env.dkdvd_body.indexOf('&') > -1) {
-  bodyArr = bodys.split('&'); 
-  } else {
-      bodyArr = bodys.split()
-  };
-}
+bodyArr = bodys.split('&'); 
 
 if (!(bodys && bodys != '')) {
   $.msg("", "", '请先刷视频获取多body获取越多，脚本可获得金币越多')
   $.done()
 }
-
-// YouthBody = bodys.split('&');
 
 Object.keys(bodyArr).forEach((item) => {
   if (bodyArr[item]) {
