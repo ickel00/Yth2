@@ -55,12 +55,21 @@ const $ = new Env("多看点视频");
 
 const dkdbody = process.env.dkdbody;
 const dkdhd = process.env.dkdhd;
-const bodys = process.env.dkdvd_body;
+// const bodys = process.env.dkdvd_body;
 
 let ReadArr = [], YouthBody = "", readscore = 0;
 if (!(bodys && bodys != '')) {
   $.msg("", "", '请先刷视频获取多body获取越多，脚本可获得金币越多')
   $.done()
+}
+
+if ($.isNode()) {
+  if (process.env.dkdvd_body && process.env.dkdvd_body.indexOf('#') > -1) {
+  bodys = process.env.dkdvd_body.split('#');
+  } else {
+      bodys = process.env.dkdvd_body.split()
+  };
+ 
 }
 
 YouthBody = bodys.split('&');
