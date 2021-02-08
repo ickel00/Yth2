@@ -44,11 +44,11 @@ TG电报群: https://t.me/hahaha8028
 */
 
 const $ = new Env("多看点视频")
-const dkdbody = process.env.dkdbody;
+let dkdbody = process.env.dkdbody;
 // let dkdbody = $.getdata('dkdbody')
-const dkdhd = process.env.dkdhd;
+let dkdhd = process.env.dkdhd;
 // let dkdhd = $.getdata('dkdhd')
-const bodys = process.env.dkdvd_body;
+let bodys = process.env.dkdvd_body;
 // let bodys = $.getdata("dkdvd_body");
 let ReadArr = [], YouthBody = "", readscore = 0;
 if (!(bodys && bodys != '')) {
