@@ -57,18 +57,26 @@ const dkdbody = process.env.dkdbody;
 const dkdhd = process.env.dkdhd;
 const bodys = process.env.dkdvd_body;
 
-let ReadArr = [], YouthBody = "", readscore = 0;
+let ReadArr = [], bodyArr = [], readscore = 0;
 
-const YouthBody = bodys.split('&'); 
+if ($.isNode()) {
+  if (process.env.dkdvd_body && process.env.dkdvd_body.indexOf('#') > -1) {
+  bodyArr = bodys.split('&');
+  } else {
+      bodyArr = bodys.split()
+  };
+}
+
+// YouthBody = bodys.split('&'); 
 
 if (!(bodys && bodys != '')) {
   $.msg("", "", '请先刷视频获取多body获取越多，脚本可获得金币越多')
   $.done()
 }
 
-Object.keys(YouthBody).forEach((item) => {
-  if (YouthBody[item]) {
-    ReadArr.push(YouthBody[item])
+Object.keys(bodyArr).forEach((item) => {
+  if (bodyArr[item]) {
+    ReadArr.push(bodyArr[item])
   }
 })
 let indexLast = $.getdata('dkdvd_body_index');
