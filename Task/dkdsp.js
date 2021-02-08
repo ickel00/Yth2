@@ -55,7 +55,7 @@ const $ = new Env("多看点视频");
 
 const dkdbody = process.env.dkdbody;
 const dkdhd = process.env.dkdhd;
-// const bodys = process.env.dkdvd_body;
+const bodys = process.env.dkdvd_body;
 
 let ReadArr = [], bodyArr = "", readscore = 0;
 if (!(bodys && bodys != '')) {
