@@ -1,30 +1,32 @@
 {
-  "name": "Sunert",
+  "name": "dkd-auto-coin",
   "version": "1.0.0",
-  "description": "",
-  "main": "jingxi.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "description": "多看点自动刷金币",
+  "main": "dkd_coin.js",
+  "license": "UNLICENSED",
+  "keywords": [
+    "多看点, 看视频、抽奖、刷金币、小说等等"
+  ],
+  "author": {
+    "name": "qianx443"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Sunert/Scripts.git"
+    "url": ""
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Sunert/Scripts/issues"
+  "updates": "",
+  "contributes": {
+    "search": null
   },
-  "homepage": "https://github.com/Sunert/Scripts#readme",
+  "homepage": "",
   "dependencies": {
     "crypto-js": "^4.0.0",
     "download": "^8.0.0",
-    "got": "^11.7.0",
+    "got": "^11.5.1",
     "http-server": "^0.12.3",
     "qrcode-terminal": "^0.12.0",
     "request": "^2.88.2",
-    "axios": "^0.19.2",
+     "axios": "^0.19.2",
     "tough-cookie": "^4.0.0"
   }
 }
