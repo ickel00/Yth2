@@ -157,7 +157,7 @@ let url = {
         body : 'adType=2&' + dkdbody,}
       $.post(url, async (err, resp, data) => {
         try {
-          await $.wait(15000);
+          await $.wait(30000);
            //$.log(dkdhd)
     const result = JSON.parse(data)
         if(result.status_code == 200){
