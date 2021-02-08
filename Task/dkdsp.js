@@ -154,7 +154,7 @@ function dkdhbsp(timeout = 0) {
 let url = {
         url : 'http://dkd-api.dysdk.com/video/red_getaward',
         headers : JSON.parse(dkdhd),
-        body : 'adType=2&' + dkdbody,}
+        body : 'adType=2&'+dkdbody,}
       $.post(url, async (err, resp, data) => {
         try {
           await $.wait(30000);
