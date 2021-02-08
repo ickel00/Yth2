@@ -63,7 +63,7 @@ if ($.isNode()) {
   if (process.env.dkdvd_body && process.env.dkdvd_body.indexOf('&') > -1) {
   bodyArr = bodys.split('&');
   } else {
-      bodyArr = process.env.dkdvd_body.split( )
+      bodyArr = process.env.dkdvd_body.split('&')
   };
 }
 
