@@ -57,7 +57,7 @@ const dkdbody = process.env.dkdbody;
 const dkdhd = process.env.dkdhd;
 const bodys = process.env.dkdvd_body;
 
-let ReadArr = [], bodyArr = [], readscore = 0;
+let ReadArr = [], bodyArr = "", readscore = 0;
 
 if ($.isNode()) {
   if (process.env.dkdvd_body && process.env.dkdvd_body.indexOf('&') > -1) {
