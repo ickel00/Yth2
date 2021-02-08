@@ -57,9 +57,9 @@ const dkdbody = process.env.dkdbody;
 const dkdhd = process.env.dkdhd;
 const bodys = process.env.dkdvd_body;
 
-let ReadArr = [], YouthBody = '', readscore = 0;
+let ReadArr = [], YouthBody = "", readscore = 0;
 
-YouthBody = bodys.split('&'); 
+const YouthBody = bodys.split('&'); 
 
 if (!(bodys && bodys != '')) {
   $.msg("", "", '请先刷视频获取多body获取越多，脚本可获得金币越多')
