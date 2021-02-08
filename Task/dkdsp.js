@@ -60,7 +60,7 @@ const bodys = process.env.dkdvd_body;
 let ReadArr = [], bodyArr = [], readscore = 0;
 
 if ($.isNode()) {
-  if (process.env.dkdvd_body && process.env.dkdvd_body.indexOf('#') > -1) {
+  if (process.env.dkdvd_body && process.env.dkdvd_body.indexOf('&') > -1) {
   bodyArr = bodys.split('&');
   } else {
       bodyArr = bodys.split()
