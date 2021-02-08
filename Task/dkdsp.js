@@ -104,49 +104,47 @@ $.done()
   .catch((e) => $.logErr(e))
   .finally(() => $.done())
 
-
 function AutoRead() {
-  return new Promise((resolve, reject) => {
-    let url = {
-      url: `http://dkd-api.dysdk.com/android_video/getaward`,
-      headers:JSON.parse(dkdhd),
-      body: articlebody
-    };
-    $.post(url, async (error, response, data) => {
-      $.begin=$.begin+1;
-      let res=$.begin%ReadArr.length
-      $.setdata(res+"", 'dkdvd_body_index');
-      let readres = JSON.parse(data);
-      if (readres.status_code == 200) {
-        console.log(`\n本次自动刷视频获得${readres.data.award}个金币，30秒后进行下次自动刷视频🌝\n`);
-        readscore += readres.data.award;
-        await $.wait(30000);
-      }
-      else if (readres.status_code == 200) {
-        console.log(`\n本次视频获得${readres.data.award}个金币，即将开始下次视频👏🏻\n`)
-        readscore += readres.data.award;
-        await $.wait(30000);
-      }
-      else if (readres.message == '请先领取大额红包再来！') {
-        console.log(`\n检测到红包，，即将开始领取👏🏻\n`)     
-    await dkdhbsp();
-}
+	return new Promise((resolve, reject) => {
+		let url = {
+			url: `http://dkd-api.dysdk.com/android_video/getaward`,
+			headers:JSON.parse(dkdhd),
+			body: articlebody
+			 };
+			 $.post(url, async (error, response, data) => {
+				 $.begin=$.begin+1;
+				 let res=$.begin%ReadArr.length
+				 $.setdata(res+"", 'dkdvd_body_index');
+				 let readres = JSON.parse(data);
+				 if (readres.status_code == 200) {
+					 console.log(`\n本次自动刷视频获得${readres.data.award}个金币，30秒后进行下次自动刷视频🌝\n`);
+					 readscore += readres.data.award;
+					 await $.wait(30000);
+					 }
+					 else if (readres.status_code == 200) {
+						 console.log(`\n本次视频获得${readres.data.award}个金币，即将开始下次视频👏🏻\n`)
+						 readscore += readres.data.award;
+						 await $.wait(30000);
+						 }
+						 else if (readres.message == '请先领取大额红包再来！') {
+							 console.log(`\n检测到红包，，即将开始领取👏🏻\n`)
+							 await dkdhbsp();
+							 }
+				if (readres.status_code == 200&&readres.data.award == 0) {
+					$.msg("","","今日多看点视频收益已满，自动结束运行!")
+						 $.done()
+						 }
+						 else if (readres.status_code == 10020) {
+							 console.log(`第${$.index}次视频请求失败,回执🚫: `+readres.message+'等待30秒执行下次视频')
+							 wait $.wait(30000);
+							 }
+							 resolve()
+					    }
+					)
+				}
+			)
+		}
 
-if (readres.status_code == 200&&readres.data.award == 0) {
-        $.msg("","","今日多看点视频收益已满，自动结束运行!")
-$.done()  
-      }
-      else if (readres.status_code == 10020) {
-        console.log(`第${$.index}次视频请求失败,回执🚫: `+readres.message+'等待30秒执行下次视频')
-   
-await $.wait(30000);
-      }
-      
-      resolve()
-    })
-
-  })
-}
 //多看点红包视频
 function dkdhbsp(timeout = 0) {
   return new Promise((resolve) => {
