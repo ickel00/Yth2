@@ -434,22 +434,19 @@ if(result.status_code == 10020){
         console.log('签到回执:失败🚫 '+result.message)
 
 }
-await dkdgg()
-await dkdsc()
-await dkdbx()
-await dkdbxfb()
-
-await dkdfreshLott()
-await dkdlott()
-await dkdshare()
-await dkdarticle()
-
-await dkddjs()
-await dkdsdjl()
-await dkdxx()
-
-await dkdz()
-await dkdtx()
+await dkdgg();
+await dkdsc();
+await dkdbx();
+await dkdbxfb();
+await dkdfreshLott();
+await dkdlott();
+await dkdshare();
+await dkdarticle();
+await dkddjs();
+await dkdsdjl();
+await dkdxx();
+await dkdz();
+await dkdtx();
 
 
         } catch (e) {
