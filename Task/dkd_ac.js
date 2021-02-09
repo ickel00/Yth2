@@ -196,7 +196,7 @@ if(result.status_code == 10020){
   })
 }
 //多看点转盘抽奖   
-function dkdbxfb(timeout = 0) {
+function dkdcj(timeout = 0) {
   return new Promise((resolve) => {
 let url = {
         url : 'http://dkd-api.dysdk.com/lotto/start',
@@ -244,9 +244,9 @@ if(result.status_code == 10020){
   })
 }
   //多看点小说
-  function dkdxs(timeout = 0) {
-    return new Promise((resolve) => {
-  let url = {
+function dkdxs(timeout = 0) {
+  return new Promise((resolve) => {
+let url = {
           url : 'http://dkd-api.dysdk.com/task/get_award',
           headers : JSON.parse(dkdhd),
           body : 'id=51&'+dkdbody,}
@@ -294,10 +294,10 @@ if(result.status_code == 10020){
   }
 //+'&headerInfo='+sx.replace('headerInfo":"',"")
   //多看点刷新转盘
-function dkdsxzp(timeout = 0) {
+ function dkdsxzp(timeout = 0) {
   return new Promise((resolve) => {
-let sx = dkdtxhd.match(/headerInfo":"\w+/)+''
-let url = {
+  let sx = dkdtxhd.match(/headerInfo":"\w+/)+''
+  let url = {
         url : 'http://dkd-api.dysdk.com/lotto/index?'+dkdbody+'&headerInfo='+sx.replace('headerInfo":"',""),
         headers : JSON.parse(dkdhd),
         body : '',}
