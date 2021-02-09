@@ -220,7 +220,7 @@ if(result.status_code == 10020){
   })
 }
 //多看点分享
-function dkdshare(timeout = 0) {
+function dkdfx(timeout = 0) {
   return new Promise((resolve) => {
 let url = {
         url : 'http://dkd-api.dysdk.com/task/get_award',
@@ -244,7 +244,7 @@ if(result.status_code == 10020){
   })
 }
   //多看点小说
-function dkdarticle(timeout = 0) {
+function dkdxs(timeout = 0) {
   return new Promise((resolve) => {
 let url = {
           url : 'http://dkd-api.dysdk.com/task/get_award',
@@ -434,18 +434,18 @@ if(result.status_code == 10020){
         console.log('签到回执:失败🚫 '+result.message)
 
 }
-await dkdfreshLott();
-await dkdlott();
 await dkdGG();
 await dkdsc();
 await dkdbx();
 await dkdbxfb();
-await dkdshare();
-await dkdarticle();
+await dkdfx();
+await dkdxs();
 await dkddjs();
 await dkdsdjl();
-await dkdInfo();
 await dkdz();
+await dkdlott();
+await dkdfreshLott();
+await dkdInfo();
 await dkdtx();
 
 
