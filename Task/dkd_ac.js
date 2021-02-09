@@ -124,7 +124,7 @@ $.log(dkdtxbody)
   }
 
 //多看点广告视频     
-function dkdgg(timeout = 0) {
+function dkdGG(timeout = 0) {
   return new Promise((resolve) => {
 let url = {
         url : 'http://dkd-api.dysdk.com/task/get_ad_award',
@@ -434,7 +434,7 @@ if(result.status_code == 10020){
         console.log('签到回执:失败🚫 '+result.message)
 
 }
-await dkdgg();
+await dkdGG();
 await dkdsc();
 await dkdbx();
 await dkdbxfb();
@@ -444,7 +444,7 @@ await dkdshare();
 await dkdarticle();
 await dkddjs();
 await dkdsdjl();
-await dkdxx();
+await dkdInfo();
 await dkdz();
 await dkdtx();
 
@@ -460,7 +460,7 @@ await dkdtx();
 }
 
 //多看点用户信息     
-function dkdxx(timeout = 0) {
+function dkdInfo(timeout = 0) {
   return new Promise((resolve) => {
 let url = {
         url : 'http://dkd-api.dysdk.com/user/index',
