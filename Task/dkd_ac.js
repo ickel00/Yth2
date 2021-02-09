@@ -296,7 +296,7 @@ let url = {
   //多看点刷新转盘
  function dkdfreshLott(timeout = 0) {
   return new Promise((resolve) => {
-  let sx = dkdtxhd.match(/headerInfo":"\w+/)+''
+  let sx = dkdhd.match(/headerInfo":"\w+/)+''
   let url = {
         url : 'http://dkd-api.dysdk.com/lotto/index?'+dkdbody+'&headerInfo='+sx.replace('headerInfo":"',""),
         headers : JSON.parse(dkdhd),
@@ -444,8 +444,8 @@ await dkddjs();
 await dkdsdjl();
 await dkdz();
 await dkdlott();
-await dkdfreshLott();
 await dkdInfo();
+await dkdfreshLott();
 await dkdtx();
 
 
