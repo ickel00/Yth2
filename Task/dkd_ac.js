@@ -434,12 +434,12 @@ if(result.status_code == 10020){
         console.log('签到回执:失败🚫 '+result.message)
 
 }
+await dkdfreshLott();
+await dkdlott();
 await dkdGG();
 await dkdsc();
 await dkdbx();
 await dkdbxfb();
-await dkdfreshLott();
-await dkdlott();
 await dkdshare();
 await dkdarticle();
 await dkddjs();
