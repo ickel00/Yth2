@@ -196,7 +196,7 @@ if(result.status_code == 10020){
   })
 }
 //多看点转盘抽奖   
-function dkdcj(timeout = 0) {
+function dkdbxfb(timeout = 0) {
   return new Promise((resolve) => {
 let url = {
         url : 'http://dkd-api.dysdk.com/lotto/start',
