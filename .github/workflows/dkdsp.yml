@@ -6,7 +6,7 @@ name: 多看点视频
 on:
   workflow_dispatch:
   schedule:
-     - cron: '26 4-9/2 * * *'
+     - cron: '26 5-10/2 * * *'
   watch:
     types: started
 
@@ -28,7 +28,7 @@ jobs:
         if: env.DKDHD
         run: |
           npm install
-      - name: '运行 【多看点】'
+      - name: '运行 【多看点视频】'
         if: env.DKDHD
         run: |
           node Task/dkdsp.js
