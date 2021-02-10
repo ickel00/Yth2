@@ -3,6 +3,13 @@
 基于肥皂的多看点视频基础上修改成自己的版本...谢谢肥皂大佬！
 
 */
+const exec = require('child_process').execSync
+const fs = require('fs')
+const got = require('got')
+const axios = require('axios')
+const path = require('path') 
+const cktouch = require('tough-cookie')
+
 const jsname = '🧿多看点'
 const $ = Env(jsname)
 //0为关闭日志，1为开启,默认为0
@@ -84,10 +91,14 @@ if ($.isNode()) {
   dkdtokenkeyArr.push($.getdata('dkdtokenkey'));
 }
 
-let dkdurl = $.getdata('dkdurl')
-let dkdtxurl = $.getdata('dkdtxurl')
-let dkdtxhd = $.getdata('dkdtxhd')
-let dkdtxbody = $.getdata('dkdtxbody')
+const dkdurl = process.env.DKDURL;
+const dkdtokenkey = process.env.DKDHD;
+const dkdtokenbody = process.env.DKDBODY;
+
+// let dkdurl = $.getdata('dkdurl')
+// let dkdtxurl = $.getdata('dkdtxurl')
+// let dkdtxhd = $.getdata('dkdtxhd')
+// let dkdtxbody = $.getdata('dkdtxbody')
 
 //////////////////////////////////////////////////////////////////
 async function dayindex() {
