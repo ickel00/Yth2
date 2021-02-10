@@ -16,8 +16,8 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event.repository.owner.id == github.event.sender.id
     env:
-        DKDHD: ${{ secrets.DKDHD }}
-        DKDBODY: ${{ secrets.DKDBODY }}
+        dkdtokenkey: ${{ secrets.DKDHD }}
+        dkdtokenbody: ${{ secrets.DKDBODY }}
         DKDURL: ${{ secrets.DKDURL }}
     steps:
       - uses: actions/checkout@v1
@@ -32,7 +32,7 @@ jobs:
       - name: '运行 【多看点】'
         if: env.DKDHD
         run: |
-          node Task/dkd_ac.js
+          node Task/dkdvideo.js
         env:
           PUSH_KEY: ${{ secrets.PUSH_KEY }}
           BARK_PUSH: ${{ secrets.BARK_PUSH }}
