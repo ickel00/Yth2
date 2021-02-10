@@ -18,7 +18,7 @@ jobs:
     env:
         dkdtokenkey: ${{ secrets.DKDHD }}
         dkdtokenbody: ${{ secrets.DKDBODY }}
-        DKDURL: ${{ secrets.DKDURL }}
+        getawardbody_index: ${{ secrets.DKDURL }}
     steps:
       - uses: actions/checkout@v1
       - name: Use Node.js 14.x
