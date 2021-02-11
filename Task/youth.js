@@ -47,12 +47,6 @@ if ($.isNode()) {
       READTIME = process.env.YOUTH_TIME.split()
   };
     
-  if (process.env.YOUTH_WITHDRAWBODY && process.env.YOUTH_WITHDRAWBODY.indexOf('&') > -1) {
-  withdrawBody = process.env.YOUTH_WITHDRAWBODY.split('&');
-  }else {
-      withdrawBody = process.env.YOUTH_WITHDRAWBODY.split()
-  };
-    
 }
     
 if ($.isNode()) {
