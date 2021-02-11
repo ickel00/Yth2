@@ -75,11 +75,11 @@ if ($.isNode()) {
     CASH = process.env.XP_CASH || 50;
 }
 if ($.isNode() && process.env.DKD_duokandianHEADER) {
-    COOKIES_SPLIT = process.env.COOKIES_SPLIT || "\n";
+    COOKIES_SPLIT = process.env.COOKIES_SPLIT || "&";
     console.log(
         `============ cookies分隔符为：${JSON.stringify(
       COOKIES_SPLIT
-    )} =============\n`
+    )} =============&`
     );
     if (
         process.env.DKD_duokandianBODY &&
