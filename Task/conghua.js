@@ -9,6 +9,12 @@
 说明详情请见：https://raw.githubusercontent.com/CenBoMin/GithubSync/main/CONGHUA/readme.js
 
 */
+const exec = require('child_process').execSync
+const fs = require('fs')
+const got = require('got')
+const axios = require('axios')
+const path = require('path') 
+const cktouch = require('tough-cookie')
 
 const jsname = '葱花视频'
 const $ = Env(jsname)
