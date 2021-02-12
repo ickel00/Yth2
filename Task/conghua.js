@@ -108,6 +108,9 @@ let sharescore = 0;
 // let bodys2 = $.getdata("chgetbody_share");
 const bodys = process.env.readbodyVal;
 const bodys2 = process.env.sharebodyVal;
+const chgetbody_taskcenter = process.env.taskcenterbodyVal;
+const chgetbody_sharereward = process.env.sharerewardbodyVal;
+const chgetbody_timered = process.env.timeredbodyVal;
 
 let indexLast = $.getdata('chgetbody_video_index');
 
@@ -189,12 +192,9 @@ if ($.isNode()) {
 } else {
   //readbodyArr.push($.getdata('chgetbody_video'));
   //sharebodyArr.push($.getdata('chgetbody_share'));
-  //taskcenterbodyArr.push($.getdata('chgetbody_taskcenter'));
-  //sharerewardbodyArr.push($.getdata('chgetbody_sharereward'));
-  //timeredbodyArr.push($.getdata('chgetbody_timered'));
-  taskcenterbodyArr.push(process.env.taskcenterbodyVal);
-  sharerewardbodyArr.push(process.env.sharerewardbodyVal);
-  timeredbodyArr.push(process.env.timeredbodyVal);
+  taskcenterbodyArr.push($.getdata('chgetbody_taskcenter'));
+  sharerewardbodyArr.push($.getdata('chgetbody_sharereward'));
+  timeredbodyArr.push($.getdata('chgetbody_timered'));
   callbackkeyArr.push($.getdata('callbackkey'));
   cashbodyArr.push($.getdata('cashbody'));
   cashkeyArr.push($.getdata('cashkey'));
