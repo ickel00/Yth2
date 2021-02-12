@@ -15,10 +15,10 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event.repository.owner.id == github.event.sender.id
     env:
-        taskcenterbodyVal: ${{ secrets.taskcenterbodyVal }}
+        chgetbody_taskcenter: ${{ secrets.taskcenterbodyVal }}
         bodys2: ${{ secrets.sharebodyVal }}
-        sharerewardbodyVal: ${{ secrets.sharerewardbodyVal }}
-        timeredbodyVal: ${{ secrets.timeredbodyVal }}
+        chgetbody_sharereward: ${{ secrets.sharerewardbodyVal }}
+        chgetbody_timered: ${{ secrets.timeredbodyVal }}
         bodys: ${{ secrets.readbodyVal }}
     steps:
       - uses: actions/checkout@v1
