@@ -16,10 +16,10 @@ jobs:
     if: github.event.repository.owner.id == github.event.sender.id
     env:
         taskcenterbodyVal: ${{ secrets.taskcenterbodyVal }}
-        sharebodyVal: ${{ secrets.sharebodyVal }}
+        bodys2: ${{ secrets.sharebodyVal }}
         sharerewardbodyVal: ${{ secrets.sharerewardbodyVal }}
         timeredbodyVal: ${{ secrets.timeredbodyVal }}
-        readbodyVal: ${{ secrets.readbodyVal }}
+        bodys: ${{ secrets.readbodyVal }}
     steps:
       - uses: actions/checkout@v1
       - name: Use Node.js 14.x
