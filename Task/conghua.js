@@ -69,28 +69,23 @@ async function showmsg() {
 }
 
 const taskcenterbodyArr = [];
-//let taskcenterbodyVal = "";
-const taskcenterbodyVal = process.env.taskcenterbodyVal;
+let taskcenterbodyVal = "";
 let TASKCENTERBODY = [];
 
 const sharebodyArr = [];
-//let sharebodyVal = "";
-const sharebodyVal = process.env.sharebodyVal;
+let sharebodyVal = "";
 let SHAREBODY = [];
 
 const sharerewardbodyArr = [];
-//let sharerewardbodyVal = "";
-const sharerewardbodyVal = process.env.sharerewardbodyVal;
+let sharerewardbodyVal = "";
 let SHAREREWARDBODY = [];
 
 const timeredbodyArr = [];
-//let timeredbodyVal = "";
-const timeredbodyVal = process.env.timeredbodyVal;
+let timeredbodyVal = "";
 let TIMEREDBODY = [];
 
 const readbodyArr = [];
-//let readbodyVal = "";
-const readbodyVal = process.env.readbodyVal;
+let readbodyVal = "";
 let READBODY = [];
 
 const callbackurlArr = [];
