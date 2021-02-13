@@ -36,9 +36,7 @@ let cookieArr = [], cookie = '',
     } else {
         ARTBODYs = [process.env.YOUTH_ARTBODY]
     };
-	    if (process.env.YOUTH_SHARE && process.env.YOUTH_SHARE.indexOf('&') > -1) {
-        SHAREBODYs = process.env.YOUTH_SHARE.split('&');
-    } else if (process.env.YOUTH_SHARE && process.env.YOUTH_SHARE.indexOf('\n') > -1) {
+	    if (process.env.YOUTH_SHARE && process.env.YOUTH_SHARE.indexOf('\n') > -1) {
         SHAREBODYs = process.env.YOUTH_SHARE.split('\n');
     } else {
         SHAREBODYs = [process.env.YOUTH_SHARE]
