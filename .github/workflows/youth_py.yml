@@ -1,4 +1,4 @@
-name: 中青阅读
+name: 中青阅读py
 
 on:
   schedule:
@@ -23,14 +23,14 @@ jobs:
 
       - name: 'run 中青阅读'
         # youth_read.py目录自己修改
-        run: python3 quanx/youth.py
+        run: python3 youth.py
         # 目前最大5个账号，可按格式继续填写
         env:
-            YOUTH_HEADER1: ${{ secrets.YOUTH_HEADER1 }}  #必须 账号1 body1
-            YOUTH_READBODY1: ${{ secrets.YOUTH_READBODY1 }}  #必须 账号1 body1
-            YOUTH_REDBODY1: ${{ secrets.YOUTH_REDBODY1 }}  #必须 账号1 body1
-            YOUTH_READTIMEBODY1: ${{ secrets.YOUTH_READTIMEBODY1 }}  #必须 账号1 body1
-            YOUTH_WITHDRAWBODY1: ${{ secrets.YOUTH_READTIMEBODY1 }}  #非必须 账号1提现 body1
+            YOUTH_HEADER1: ${{ secrets.YOUTH_HEADER }}  #必须 账号1 body1
+            YOUTH_READBODY1: ${{ secrets.YOUTH_ARTBODY }}  #必须 账号1 body1
+            YOUTH_REDBODY1: ${{ secrets.YOUTH_REDBODY }}  #必须 账号1 body1
+            YOUTH_READTIMEBODY1: ${{ secrets.YOUTH_TIME }}  #必须 账号1 body1
+            YOUTH_WITHDRAWBODY1: ${{ secrets.YOUTH_WITHDRAWBODY }}  #非必须 账号1提现 body1
             YOUTH_HEADER2: ${{ secrets.YOUTH_HEADER2 }}  #非必须 账号2 body2
             YOUTH_READBODY2: ${{ secrets.YOUTH_READBODY2 }}  #非必须 账号2 body2
             YOUTH_REDBODY2: ${{ secrets.YOUTH_REDBODY2 }}  #非必须 账号2 body2
