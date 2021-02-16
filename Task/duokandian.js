@@ -298,6 +298,7 @@ async function all() {
             await lotto(); //转盘抽奖
         }
         if ($.lottoindex.data && $.lottoindex.data.chip >= 4) {
+			await $.wait(2000);
             await chip(); //碎片兑换
         }
 
