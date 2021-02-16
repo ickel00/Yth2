@@ -77,7 +77,7 @@ if ($.isNode()) {
     // 没有设置 DKD_duokandianCASH 则默认为 0 不提现
     CASH = process.env.DKD_duokandianCASH || 50;
 }
-if ($.isNode() && process.env.duokandianheaderVal) {
+if ($.isNode() && process.env.DKD_duokandianBODY) {
     COOKIES_SPLIT = process.env.COOKIES_SPLIT || "&";
     console.log(
         `============ cookies分隔符为：${JSON.stringify(
@@ -309,7 +309,6 @@ async function all() {
             if ($.extratime.data && $.extratime.data.status == 1) {
 				await $.wait(2000);
                 await timeaward(); //时段奖励
-				await $.wait(1000);
                 await timeawardsss(); //时段翻倍
             }
             await extrabox(); //宝箱刷新
