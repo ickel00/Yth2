@@ -75,14 +75,14 @@ duokandianheaderVal = {
 };
 if ($.isNode()) {
     // 没有设置 DKD_duokandianCASH 则默认为 0 不提现
-    CASH = process.env.DKD_duokandianCASH || 0;
+    CASH = process.env.DKD_duokandianCASH || 50;
 }
 if ($.isNode() && process.env.DKD_duokandianHEADER) {
-    COOKIES_SPLIT = process.env.COOKIES_SPLIT || "\n";
+    COOKIES_SPLIT = process.env.COOKIES_SPLIT || "&";
     console.log(
         `============ cookies分隔符为：${JSON.stringify(
       COOKIES_SPLIT
-    )} =============\n`
+    )} =============&`
     );
     if (
         process.env.DKD_duokandianBODY &&
@@ -294,6 +294,7 @@ async function all() {
         await days(); //任务列表
         await lottoindex(); //转盘查询
         if ($.lottoindex.data && $.lottoindex.data.times >= 1) {
+			await $.wait(35000);
             await lotto(); //转盘抽奖
         }
         if ($.lottoindex.data && $.lottoindex.data.chip >= 4) {
@@ -301,13 +302,17 @@ async function all() {
         }
 
         if (gg && gg.status != 2) {
+			await $.wait(8000);
             await advideo(); //广告视频
             await extratime(); //时段刷新
             if ($.extratime.data && $.extratime.data.status == 1) {
+				await $.wait(2000);
                 await timeaward(); //时段奖励
+				await $.wait(1000);
                 await timeawardsss(); //时段翻倍
             }
             await extrabox(); //宝箱刷新
+			await $.wait(3500);
             await boxaward(); //宝箱奖励
             await boxbox(); //宝箱翻倍
         }
