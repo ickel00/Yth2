@@ -21,7 +21,6 @@ jobs:
         YOUTH_ARTBODY: ${{ secrets.YOUTH_ARTBODY }}
         YOUTH_REDBODY: ${{ secrets.YOUTH_REDBODY }}
         YOUTH_TIME: ${{ secrets.YOUTH_TIME }}
-        YOUTH_WITHDRAWBODY: ${{ secrets.YOUTH_WITHDRAWBODY }}
     steps:
       - uses: actions/checkout@v1
       - name: Use Node.js 14.x
