@@ -16,8 +16,7 @@ boxjs链接  https://raw.githubusercontent.com/ziye66666/JavaScript/main/Task/zi
 2.12 增加碎片显示以及兑换
 2.14 修复宝箱问题
 2.16 修复报错
-2.18 修复碎片兑换问题
-2.19 调整
+2.19 修复碎片兑换问题
 
 ⚠️一共1个位置 1个ck  👉 2条 Secrets
 多账号换行
@@ -76,6 +75,21 @@ duokandianheaderVal = {
     'User-Agent': `duokandian/3.0.2 (com.duoyou.duokandian1; build:0; iOS 14.2.0) Alamofire/5.4.0`,
     'Accept-Language': `zh-Hans-CN;q=1.0`
 };
+
+duokandianspdhheaderVal = {
+    "Accept": "application/json, text/plain, */*",
+    "Accept-Encoding": "gzip, deflate",
+    "Accept-Language": "zh-cn",
+    "Connection": "close",
+    "Content-Length": "8",
+    "Content-Type": "application/json;charset=utf-8",
+    "Host": "dkd-api.dysdk.com",
+    "Origin": "http://dkd-api.dysdk.com",
+    "Referer": "http://dkd-api.dysdk.com/index.html",
+    "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 14_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148"
+};
+
+
 if ($.isNode()) {
     // 没有设置 DKD_duokandianCASH 则默认为 0 不提现
     CASH = process.env.DKD_duokandianCASH || 50;
@@ -623,10 +637,12 @@ function lotto(timeout = 0) {
 function chip(timeout = 0) {
     return new Promise((resolve) => {
         setTimeout(() => {
+
             let url = {
                 url: `http://dkd-api.dysdk.com/lotto/convert?${duokandianbodyVal}`,
-                headers: duokandianheaderVal,
-                body: `{"id": 4}`,
+                headers: duokandianspdhheaderVal,
+                body: `{"id":4}`,
+
             }
             $.post(url, async (err, resp, data) => {
                 try {
@@ -974,7 +990,7 @@ function video(timeout = 0) {
                     console.log(`【红包奖励】：共领取${ABB}次红包奖励,共${ADD}金币\n`);
                     $.message += `【红包奖励】：共领取${ABB}次红包奖励,共${ADD}金币\n`
                 }
-                if ($.videoyz&&$.videoyz.data.status == 4) {
+                if ($.videoyz && $.videoyz.data.status == 4) {
                     console.log(`【红包奖励】：已完成\n`);
                     $.message += `【红包奖励】：已完成\n`
                 }
