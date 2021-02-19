@@ -1,8 +1,8 @@
 /* ziye 
-github地址 https://github.com/ziye12
+github地址 https://github.com/ziye66666
 TG频道地址  https://t.me/ziyescript
 TG交流群   https://t.me/joinchat/AAAAAE7XHm-q1-7Np-tF3g
-boxjs链接  https://raw.githubusercontent.com/ziye12/JavaScript/main/Task/ziye.boxjs.json
+boxjs链接  https://raw.githubusercontent.com/ziye66666/JavaScript/main/Task/ziye.boxjs.json
 
 转载请备注个名字，谢谢
 ⚠️多看点APP
@@ -16,6 +16,8 @@ boxjs链接  https://raw.githubusercontent.com/ziye12/JavaScript/main/Task/ziye.
 2.12 增加碎片显示以及兑换
 2.14 修复宝箱问题
 2.16 修复报错
+2.18 修复碎片兑换问题
+2.19 调整
 
 ⚠️一共1个位置 1个ck  👉 2条 Secrets
 多账号换行
@@ -38,13 +40,13 @@ hostname=dkd-api.dysdk.com,
 
 ############## 圈x
 #多看点APP获取body
-http:\/\/dkd-api\.dysdk\.com\/* url script-request-body https://raw.githubusercontent.com/ziye12/JavaScript/main/Task/duokandian.js   
+http:\/\/dkd-api\.dysdk\.com\/* url script-request-body https://raw.githubusercontent.com/ziye66666/JavaScript/main/Task/duokandian.js   
 
 ############## loon
-http-request http:\/\/dkd-api\.dysdk\.com\/* script-path=https://raw.githubusercontent.com/ziye12/JavaScript/main/Task/duokandian.js,requires-body=1,max-size=0, tag=多看点APP获取body
+http-request http:\/\/dkd-api\.dysdk\.com\/* script-path=https://raw.githubusercontent.com/ziye66666/JavaScript/main/Task/duokandian.js,requires-body=1,max-size=0, tag=多看点APP获取body
 
 ############## surge
-多看点APP获取body = type=http-request,pattern=http:\/\/dkd-api\.dysdk\.com\/*,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/ziye12/JavaScript/main/Task/duokandian.js 
+多看点APP获取body = type=http-request,pattern=http:\/\/dkd-api\.dysdk\.com\/*,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/ziye66666/JavaScript/main/Task/duokandian.js 
 */
 
 
@@ -295,25 +297,20 @@ async function all() {
         await days(); //任务列表
         await lottoindex(); //转盘查询
         if ($.lottoindex.data && $.lottoindex.data.times >= 1) {
-			await $.wait(35000);
             await lotto(); //转盘抽奖
         }
         if ($.lottoindex.data && $.lottoindex.data.chip >= 4) {
-			await $.wait(2000);
             await chip(); //碎片兑换
         }
 
         if (gg && gg.status != 2) {
-			await $.wait(8000);
             await advideo(); //广告视频
             await extratime(); //时段刷新
             if ($.extratime.data && $.extratime.data.status == 1) {
-				await $.wait(2000);
                 await timeaward(); //时段奖励
                 await timeawardsss(); //时段翻倍
             }
             await extrabox(); //宝箱刷新
-			await $.wait(3500);
             await boxaward(); //宝箱奖励
             await boxbox(); //宝箱翻倍
         }
@@ -629,9 +626,7 @@ function chip(timeout = 0) {
             let url = {
                 url: `http://dkd-api.dysdk.com/lotto/convert?${duokandianbodyVal}`,
                 headers: duokandianheaderVal,
-                body: {
-                    "id": 4
-                },
+                body: `{"id": 4}`,
             }
             $.post(url, async (err, resp, data) => {
                 try {
@@ -978,6 +973,10 @@ function video(timeout = 0) {
                 if ($.awardpost && $.awardpost.status_code) {
                     console.log(`【红包奖励】：共领取${ABB}次红包奖励,共${ADD}金币\n`);
                     $.message += `【红包奖励】：共领取${ABB}次红包奖励,共${ADD}金币\n`
+                }
+                if ($.videoyz&&$.videoyz.data.status == 4) {
+                    console.log(`【红包奖励】：已完成\n`);
+                    $.message += `【红包奖励】：已完成\n`
                 }
             }, videoBODY.length * 30000 - 29000)
         }, timeout)
