@@ -6,7 +6,7 @@ name: BBB
 on:
   workflow_dispatch:
   schedule:
-     - cron: '10 0-15/2 * * *'
+     - cron: '0 0-15/6 * * *'
   watch:
     types: started
 env:
