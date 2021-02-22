@@ -30,4 +30,4 @@ jobs:
           npm install request
       - name: '运行 【步步宝】'
         run: |
-          node Task/bbb.js
+          node Task/BBB.js
