@@ -72,7 +72,7 @@ const ymzhd = process.env.YMZHD;
 const ymzbody = process.env.YMZBODY;
 const ymzbody1 = process.env.YMZBODY1;
 
-let ymzurl = 'http://ymz.iphonezhuan.com/addaction'
+let ymzurl = $.getdata('ymzurl')
 let ymztxbody = $.getdata('ymztxbody')
 
 !(async () => {
