@@ -61,9 +61,9 @@ hostname = ymz.iphonezhuan.com
 */
 const $ = new Env('羊毛赚');
 let ymzurl = 'http://ymz.iphonezhuan.com/addaction'
-let ymzhd = process.env.ymzhd
-let ymzbody = process.env.ymzbody
-let ymzbody1 = process.env.ymzbody1
+let ymzhd = process.env.YMZHD
+let ymzbody = process.env.YMZBODY
+let ymzbody1 = process.env.YMZBODY1
 let ymztxbody = $.getdata('ymztxbody')
 
 
