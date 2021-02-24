@@ -25,7 +25,7 @@ jobs:
         if: env.YMZHD
         run: |
           npm install
-      - name: '运行 【多看点视频】'
+      - name: '运行 【羊毛赚】'
         if: env.YMZHD
         run: |
           node Task/ymz.js
