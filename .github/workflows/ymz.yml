@@ -22,7 +22,6 @@ jobs:
         with:
           node-version: 14.x
       - name: npm install
-        if: env.YMZHD
         run: |
           npm install
       - name: '运行 【羊毛赚】'
