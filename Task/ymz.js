@@ -67,13 +67,13 @@ const path = require('path')
 const cktouch = require('tough-cookie')
 
 const $ = new Env('羊毛赚');
+
+const ymzhd = process.env.YMZHD;
+const ymzbody = process.env.YMZBODY;
+const ymzbody1 = process.env.YMZBODY1;
+
 let ymzurl = 'http://ymz.iphonezhuan.com/addaction'
-let ymzhd = process.env.YMZHD
-let ymzbody = process.env.YMZBODY
-let ymzbody1 = process.env.YMZBODY1
 let ymztxbody = $.getdata('ymztxbody')
-
-
 
 !(async () => {
   if (typeof $request !== "undefined") {
