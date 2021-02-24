@@ -59,6 +59,13 @@ hostname = ymz.iphonezhuan.com
 
 
 */
+const exec = require('child_process').execSync
+const fs = require('fs')
+const got = require('got')
+const axios = require('axios')
+const path = require('path') 
+const cktouch = require('tough-cookie')
+
 const $ = new Env('羊毛赚');
 let ymzurl = 'http://ymz.iphonezhuan.com/addaction'
 let ymzhd = process.env.YMZHD
