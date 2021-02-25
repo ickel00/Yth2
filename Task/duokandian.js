@@ -53,18 +53,27 @@ http-request http:\/\/dkd-api\.dysdk\.com\/* script-path=https://raw.githubuserc
 const $ = Env("多看点APP");
 $.idx = ($.idx = ($.getval('duokandianSuffix') || '1') - 1) > 0 ? ($.idx + 1 + '') : ''; // 账号扩展字符
 const notify = $.isNode() ? require("./sendNotify") : ``;
-const COOKIE = $.isNode() ? require("./duokandianCOOKIE") : ``;
 const logs = 0; // 0为关闭日志，1为开启
 const notifyttt = 1 // 0为关闭外部推送，1为12 23 点外部推送
 const notifyInterval = 2; // 0为关闭通知，1为所有通知，2为12 23 点通知  ， 3为 6 12 18 23 点通知 
 $.message = '', gg = '', sp = '', yi = '', er = '', txtx = '', COOKIES_SPLIT = '', CASH = '', ddtime = '';
 
-const duokandianbodyArr = [];
+ 
 let duokandianbodyVal = ``;
 let middleduokandianBODY = [];
-const duokandianvideobodyArr = [];
+
 let duokandianvideobodyVal = ``;
 let middleduokandianvideoBODY = [];
+duokandianbodyArr = ['token=aad2ab66b83b3bf3b48977e0530818e9'];
+
+duokandianvideobodyArr = ['"params=0wB0wAumQSalIFirqaqlgUGfte0O8amHMcUVblKdnMu8nJXNSi%2BkRoHWZqDkPDb%2Bzk9uJmftJ782Z22lUDbX56GsomBcXpw8K7YCQM4dzUg%3D&params=0wB0wAumQSalIFirqaqlgUGfte0O8amHMcUVblKdnMu8nJXNSi%2BkRoHWZqDkPDb%2BcztO6kQ65eypTdEZCybcTNoRhteIi73ZsoPGCogYeH3fl1z4PbeiLIOHtfpbPYGb&params=XjPo8SnZYpoWnT1nY6GZ9YnjNd3FRVOUKeaDQufgKGR3BRkGTKEW78LrZ%2B92YmGT2RhIDxBY7CL2uZp3Js8kFN4v09mB0eEjUPnrYAoviEv54kF4i7S2XscLYwfKu8Q4&params=0wB0wAumQSalIFirqaqlgUGfte0O8amHMcUVblKdnMu8nJXNSi%2BkRoHWZqDkPDb%2BecBIPIC5jknCDdxm6%2Biuu5yyD37Cd4rwLyA2anpPEhY%3D&params=geQFqiG89xmkFFCeFpu6x8gPJ1o490K6lGEnh7ub0q0REziDzGrWhRkq6rU/ICstE2OsRXJzhFKUy2GD7Hh0rgff%2BDNH/844fxeavNSq1Ko2OuFY2kgudh/i7QQS4%2BEk&params=geQFqiG89xmkFFCeFpu6xwoaeU9zsQNQb9AarII13N3dv5pA9GKjZJkjMJ0EimULxQaTnhjIRxzt6ogaze2xGGQ/SG83w2rNlKBFInPRHGdJXdYLw2cZOjgWBkkPClg4&params=geQFqiG89xmkFFCeFpu6xyq1NW6gFl1zJT36ug2x%2B18gS8sj3ovxuDqMPNwYAW/iiaw94wcfybIeoDtm0dXRS7TzO1faYROIkeU0vGledhA%3D&params=0wB0wAumQSalIFirqaqlgUGfte0O8amHMcUVblKdnMu8nJXNSi%2BkRoHWZqDkPDb%2BmwCrbLagh%2BdhI7zJjplbeQoamI7zLe1OZDdtocx/a84%3D&params=O4qf0BdQSDFxWUdnRz8GioYhth9YnHIapfLOdtEFRc5FxbeU83iFG8ggbm2KVOEDFwhPGaOwMViL7uCMh9hK7zHSUGwLBD8ScHTEW%2BHC6eAELPxCVIwkGtqlUxrm/U6Q&params=d1rNOZCVn7ADk9h8fXGVQXl2vyNCTaRGVgRY5tY9Cm1fOvxIsgA406Pl2IpBQFmoUeqhrZODrHj9YJ1XUnY3Lo2iafk48dBYu3yF0whYE/Y%3D"'];
+
+
+
+
+
+
+
 
 duokandianheaderVal = {
     'Accept': `*/*`,
@@ -89,105 +98,11 @@ duokandianspdhheaderVal = {
     "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 14_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148"
 };
 
+Length=duokandianbodyArr.length;
+  
+CASH = 1;
 
-if ($.isNode()) {
-    // 没有设置 DKD_duokandianCASH 则默认为 0 不提现
-    CASH = process.env.DKD_duokandianCASH || 50;
-}
-if ($.isNode() && process.env.DKD_duokandianBODY) {
-    COOKIES_SPLIT = process.env.COOKIES_SPLIT || "&";
-    console.log(
-        `============ cookies分隔符为：${JSON.stringify(
-      COOKIES_SPLIT
-    )} =============&`
-    );
-    if (
-        process.env.DKD_duokandianBODY &&
-        process.env.DKD_duokandianBODY.indexOf(COOKIES_SPLIT) > -1
-    ) {
-        middleduokandianBODY = process.env.DKD_duokandianBODY.split(COOKIES_SPLIT);
-    } else {
-        middleduokandianBODY = process.env.DKD_duokandianBODY.split();
-    }
-    if (
-        process.env.DKD_duokandianvideoBODY &&
-        process.env.DKD_duokandianvideoBODY.indexOf(COOKIES_SPLIT) > -1
-    ) {
-        middleduokandianvideoBODY = process.env.DKD_duokandianvideoBODY.split(COOKIES_SPLIT);
-    } else {
-        middleduokandianvideoBODY = process.env.DKD_duokandianvideoBODY.split();
-    }
-}
-if (COOKIE.duokandianbodyVal) {
-    DKD_COOKIES = {
-        "duokandianbodyVal": COOKIE.duokandianbodyVal.split('\n'),
-        "duokandianvideobodyVal": COOKIE.duokandianvideobodyVal.split('\n'),
-    }
-    Length = DKD_COOKIES.duokandianbodyVal.length;
-}
-if (!COOKIE.duokandianbodyVal) {
-    if ($.isNode()) {
-        Object.keys(middleduokandianBODY).forEach((item) => {
-            if (middleduokandianBODY[item]) {
-                duokandianbodyArr.push(middleduokandianBODY[item]);
-            }
-        });
-        Object.keys(middleduokandianvideoBODY).forEach((item) => {
-            if (middleduokandianvideoBODY[item]) {
-                duokandianvideobodyArr.push(middleduokandianvideoBODY[item]);
-            }
-        });
-    } else {
-        duokandianbodyArr.push($.getdata("duokandianbody"));
-        duokandianvideobodyArr.push($.getdata("duokandianvideobody"));
-        // 根据boxjs中设置的额外账号数，添加存在的账号数据进行任务处理
-        if ("duokandianCASH") {
-            CASH = $.getval("duokandianCASH") || '0';
-        }
-        let duokandianCount = ($.getval('duokandianCount') || '1') - 0;
-        for (let i = 2; i <= duokandianCount; i++) {
-            if ($.getdata(`duokandianbody${i}`)) {
-                duokandianbodyArr.push($.getdata(`duokandianbody${i}`));
-                duokandianvideobodyArr.push($.getdata(`duokandianvideobody${i}`));
-            }
-        }
-    }
-    if (duokandianbodyArr == '') {
-        Length = 0
-    } else Length = duokandianbodyArr.length
-}
 
-function GetCookie() {
-    if ($request && $request.url.indexOf("user") >= 0 && $request.url.indexOf("index") >= 0) {
-        const duokandianbodyVal = $request.body;
-        if (duokandianbodyVal) $.setdata(duokandianbodyVal, "duokandianbody" + $.idx);
-        $.log(
-            `[${$.name + $.idx}] 获取duokandianbodyVal✅: 成功,duokandianbodyVal: ${duokandianbodyVal}`
-        );
-        $.msg($.name + $.idx, `获取duokandianbodyVal: 成功🎉`, ``);
-    }
-    if ($request && $request.url.indexOf("android_video") >= 0 && $request.url.indexOf("getaward") >= 0) {
-        const duokandianvideobodyVal = $request.body
-        if (duokandianvideobodyVal) {
-            let bodys = $.getdata('duokandianvideobody' + $.idx);
-            if (bodys) {
-                if (bodys.indexOf(duokandianvideobodyVal) >= 0) {
-                    $.msg('body重复跳过');
-                    $.done();
-                }
-                duokandianBody = bodys.split('&');
-                bodys = duokandianvideobodyVal + '&' + bodys;
-            } else {
-                bodys = duokandianvideobodyVal;
-            }
-            $.setdata(bodys, "duokandianvideobody" + $.idx);
-            $.log(
-                `[${$.name + $.idx}] 获取duokandianvideobody${duokandianBody.length+1}✅: 成功,duokandianvideobody${duokandianBody.length+1}: ${duokandianvideobodyVal}`
-            );
-            $.msg($.name + $.idx, `获取duokandianvideobody${duokandianBody.length+1}✅: 成功🎉`)
-        }
-    }
-}
 console.log(
     `================== 脚本执行 - 北京时间(UTC+8)：${new Date(
     new Date().getTime() +
@@ -251,11 +166,7 @@ function time(inputTime) {
     s = date.getSeconds();
     return Y + M + D + h + m + s;
 };
-let isGetCookie = typeof $request !== 'undefined'
-if (isGetCookie) {
-    GetCookie()
-    $.done();
-} else {
+
     !(async () => {
         await all();
         //await $.wait(1000);
@@ -267,30 +178,14 @@ if (isGetCookie) {
         .finally(() => {
             $.done();
         })
-}
+
 async function all() {
-    if (!Length) {
-        $.msg(
-            $.name,
-            '提示：⚠️请点击前往获取CK  http://dkd-api.dysdk.com/share.html?uid=13209201\n',
-            'http://dkd-api.dysdk.com/share.html?uid=13209201', {
-                "open-url": "http://dkd-api.dysdk.com/share.html?uid=13209201"
-            }
-        );
-        $.done();
-    }
+
     for (let i = 0; i < Length; i++) {
-        if (COOKIE.duokandianbodyVal) {
-            duokandianbodyVal = DKD_COOKIES.duokandianbodyVal[i];
-            duokandianvideobodyVal = DKD_COOKIES.duokandianvideobodyVal[i];
-        }
-        if (!COOKIE.duokandianbodyVal) {
-            duokandianbodyVal = duokandianbodyArr[i];
-            duokandianvideobodyVal = duokandianvideobodyArr[i];
-        }
 
-
-
+        duokandianbodyVal = duokandianbodyArr[i];
+        duokandianvideobodyVal = duokandianvideobodyArr[i];
+        
         O = (`${$.name + (i + 1)}🔔`);
         await console.log(`-------------------------\n\n🔔开始运行${$.name+(i+1)}【${$.name+(i+1)}】`)
         videoBODY = duokandianvideobodyVal.split('&');
