@@ -28,12 +28,11 @@ const zhiyi = 'TT语音'
 const $ = Env(zhiyi)
 const notify = $.isNode() ?require('./sendNotify') : '';
 let status;
-status = (status = ($.getval("hsstatus") || "1") ) > 1 ? `${status}` : ""; // 账号扩展字符
+status = (status = ($.getval("TTstatus") || "1") ) > 1 ? `${status}` : ""; // 账号扩展字符
 const TTreferArr = [],TTbodyArr = []
 let TTrefer = $.getdata('TTrefer')
-let TTbody = $.getdata('TTbody')
+let TTbody= $.getdata('TTbody')
 let tz = ($.getval('tz') || '1');//0关闭通知，1默认开启
-
 const invite=1;//新用户自动邀请，0关闭，1默认开启
 const logs =0;//0为关闭日志，1为开启
 var hour=''
@@ -52,8 +51,26 @@ if (isGetCookie) {
    $.done()
 } 
 if ($.isNode()) {
-   TTrefer = process.env.TTREFER;
-   TTbody= process.env.TTBODY;
+   if (process.env.TTREFER && process.env.TTREFER .indexOf('#') > -1) {
+   TTrefer = process.env.TTREFER .split('#');
+   console.log(`您选择的是用"#"隔开\n`)
+  }
+  else if (process.env.TTREFER && process.env.TTREFER .indexOf('\n') > -1) {
+   TTrefer = process.env.TTREFER .split('\n');
+   console.log(`您选择的是用换行隔开\n`)
+  } else {
+   TTrefer = process.env.TTREFER .split()
+  };
+  if (process.env.TTBODY&& process.env.TTBODY.indexOf('#') > -1) {
+   TTbody= process.env.TTBODY.split('#');
+   console.log(`您选择的是用"#"隔开\n`)
+  }
+  else if (process.env.TTBODY&& process.env.TTBODY.indexOf('\n') > -1) {
+   TTbody= process.env.TTBODY.split('\n');
+   console.log(`您选择的是用换行隔开\n`)
+  } else {
+   TTbody= process.env.TTBODY.split()
+  };
     console.log(`============ 脚本执行-国际标准时间(UTC)：${new Date().toLocaleString()}  =============\n`)
     console.log(`============ 脚本执行-北京时间(UTC+8)：${new Date(new Date().getTime() + 8 * 60 * 60 * 1000).toLocaleString()}  =============\n`)
  } else {
@@ -66,6 +83,10 @@ if ($.isNode()) {
   }
 }
 !(async () => {
+if (!TTreferArr[0] && !TTbodyArr[0] ) {
+    $.msg($.name, '【提示】请先获取TT语音一cookie')
+    return;
+  }
    console.log(`------------- 共${TTbodyArr.length}个账号----------------\n`)
   for (let i = 0; i < TTbodyArr.length; i++) {
     if (TTbodyArr[i]) {
@@ -85,7 +106,7 @@ if ($.isNode()) {
     
 function GetCookie() {
 if($request&&$request.url.indexOf("checkin")>=0) {
-   const TTrefer = $request.headers['Refer']
+   const TTrefer = $request.headers['Referer']
    if(TTrefer)     $.setdata(TTrefer,`TTrefer${status}`)
    $.log(`[${zhiyi}] 获取TTrefer请求: 成功,TTrefer: ${TTrefer}`)
    $.msg(`TTrefer${status}: 成功🎉`, ``)
