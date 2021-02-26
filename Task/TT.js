@@ -85,7 +85,7 @@ if ($.isNode()) {
   for (let i = 2; i <= TTcount; i++) {
     TTreferArr.push($.getdata(`TTrefer${i}`))
     TTbodyArr.push($.getdata(`TTbody${i}`))
-  }
+  }}
 
 !(async () => {
 if (!TTbodyArr[0] ) {
@@ -107,7 +107,7 @@ if (!TTbodyArr[0] ) {
 })()
     .catch((e) => $.logErr(e))
     .finally(() => $.done())
-    
+
 function GetCookie() {
 if($request&&$request.url.indexOf("checkin")>=0) {
    const TTrefer = $request.headers['Referer']
