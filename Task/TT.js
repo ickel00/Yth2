@@ -59,7 +59,7 @@ if ($.isNode()) {
    TTrefer = process.env.TTREFER .split('\n');
    console.log(`您选择的是用换行隔开\n`)
   } else {
-   TTrefer = process.env.TTREFER.split()
+   TTrefer = process.env.TTREFER.split();
   };
   if (process.env.TTBODY&& process.env.TTBODY.indexOf('#') > -1) {
    TTbody= process.env.TTBODY.split('#');
@@ -69,7 +69,7 @@ if ($.isNode()) {
    TTbody= process.env.TTBODY.split('\n');
    console.log(`您选择的是用换行隔开\n`)
   } else {
-   TTbody= process.env.TTBODY.split()
+   TTbody= process.env.TTBODY.split();
   };
     console.log(`============ 脚本执行-国际标准时间(UTC)：${new Date().toLocaleString()}  =============\n`)
     console.log(`============ 脚本执行-北京时间(UTC+8)：${new Date(new Date().getTime() + 8 * 60 * 60 * 1000).toLocaleString()}  =============\n`)
