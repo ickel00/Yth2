@@ -74,16 +74,8 @@ if ($.isNode()) {
 }
 
 if ($.isNode()) {
-  Object.keys(TTrefer).forEach((item) => {
-        if (TTrefer[item]) {
-          TTreferArr.push(TTrefer[item])
-        }
-    })
-  Object.keys(TTbody).forEach((item) => {
-        if (TTbody[item]) {
-          TTbodyArr.push(TTbody[item])
-        }
-    })
+    TTreferArr.push(JSON.parse(TTrefer))
+    TTbodyArr.push(JSON.parse(TTbody))
     console.log(`============ 脚本执行-国际标准时间(UTC)：${new Date().toLocaleString()}  =============\n`)
     console.log(`============ 脚本执行-北京时间(UTC+8)：${new Date(new Date().getTime() + 8 * 60 * 60 * 1000).toLocaleString()}  =============\n`)
  } else {
