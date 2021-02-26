@@ -64,23 +64,8 @@ if ($.isNode()) {
     TTreferArr.push($.getdata(`TTrefer${i}`))
     TTbodyArr.push($.getdata(`TTbody${i}`))
   }
-    Object.keys(TTREFER).forEach((item) => {
-        if (TTREFER[item]) {
-          TTreferArr.push(TTREFER[item])
-        }
-      })
-	 
-    Object.keys(TTBODY).forEach((item) => {
-        if (TTBODY[item]) {
-          TTbodyArr.push(TTBODY[item])
-        }
-      })
 }
 !(async () => {
-if (!TTreferArr[0] && !TTbodyArr[0] ) {
-    $.msg($.name, '【提示】请先获取TT语音一cookie')
-    return;
-  }
    console.log(`------------- 共${TTbodyArr.length}个账号----------------\n`)
   for (let i = 0; i < TTbodyArr.length; i++) {
     if (TTbodyArr[i]) {
