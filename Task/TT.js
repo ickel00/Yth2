@@ -52,8 +52,8 @@ if (isGetCookie) {
    $.done()
 } 
 if ($.isNode()) {
-   TTrefer = process.env.TTREFER.split();
-   TTbody= process.env.TTBODY.split();
+   TTrefer = process.env.TTREFER;
+   TTbody= process.env.TTBODY;
     console.log(`============ 脚本执行-国际标准时间(UTC)：${new Date().toLocaleString()}  =============\n`)
     console.log(`============ 脚本执行-北京时间(UTC+8)：${new Date(new Date().getTime() + 8 * 60 * 60 * 1000).toLocaleString()}  =============\n`)
  } else {
