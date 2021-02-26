@@ -33,7 +33,7 @@ const TTreferArr = [],TTbodyArr = []
 let TTrefer = $.getdata('TTrefer')
 let TTbody= $.getdata('TTbody')
 let tz = ($.getval('tz') || '1');//0关闭通知，1默认开启
-const invite=1;//新用户自动邀请，0关闭，1默认开启
+const invite=0;//新用户自动邀请，0关闭，1默认开启
 const logs =0;//0为关闭日志，1为开启
 var hour=''
 var minute=''
@@ -71,7 +71,9 @@ if ($.isNode()) {
   } else {
    TTbody= process.env.TTBODY
   };
-  
+}
+
+if ($.isNode()) {
     Object.keys(TTrefer).forEach((item) => {
         if (TTrefer[item]) {
           TTreferArr.push(TTrefer[item])
@@ -81,8 +83,7 @@ if ($.isNode()) {
         if (TTbody[item]) {
           TTbodyArr.push(TTbody[item])
         }
-      })
-	  
+      })  
     console.log(`============ 脚本执行-国际标准时间(UTC)：${new Date().toLocaleString()}  =============\n`)
     console.log(`============ 脚本执行-北京时间(UTC+8)：${new Date(new Date().getTime() + 8 * 60 * 60 * 1000).toLocaleString()}  =============\n`)
  } else {
