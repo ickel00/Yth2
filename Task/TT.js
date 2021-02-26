@@ -56,10 +56,10 @@ if ($.isNode()) {
    console.log(`您选择的是用"#"隔开\n`)
   }
   else if (process.env.TTREFER && process.env.TTREFER.indexOf('\n') > -1) {
-   TTrefer = process.env.TTREFER .split('\n');
+   TTrefer = process.env.TTREFER.split('\n');
    console.log(`您选择的是用换行隔开\n`)
   } else {
-   TTrefer = process.env.TTREFER;
+   TTrefer = process.env.TTREFER.split()
   };
   if (process.env.TTBODY&& process.env.TTBODY.indexOf('#') > -1) {
    TTbody= process.env.TTBODY.split('#');
@@ -69,21 +69,20 @@ if ($.isNode()) {
    TTbody= process.env.TTBODY.split('\n');
    console.log(`您选择的是用换行隔开\n`)
   } else {
-   TTbody= process.env.TTBODY;
+   TTbody= process.env.TTBODY.split()
   };
-}
-
-if ($.isNode()) {
-    Object.keys(TTrefer).forEach((i) => {
-        if (TTrefer[i]) {
-          TTreferArr.push(TTrefer[i])
+  
+    Object.keys(TTrefer).forEach((item) => {
+        if (TTrefer[item]) {
+          TTreferArr.push(TTrefer[item])
         }
       })
-    Object.keys(TTbody).forEach((i) => {
-        if (TTbody[i]) {
-          TTbodyArr.push(TTbody[i])
+    Object.keys(TTbody).forEach((item) => {
+        if (TTbody[item]) {
+          TTbodyArr.push(TTbody[item])
         }
       })
+	  
     console.log(`============ 脚本执行-国际标准时间(UTC)：${new Date().toLocaleString()}  =============\n`)
     console.log(`============ 脚本执行-北京时间(UTC+8)：${new Date(new Date().getTime() + 8 * 60 * 60 * 1000).toLocaleString()}  =============\n`)
  } else {
@@ -95,8 +94,6 @@ if ($.isNode()) {
     TTbodyArr.push($.getdata(`TTbody${i}`))
   }
 }
-
-
 !(async () => {
 if (!TTreferArr[0] && !TTbodyArr[0] ) {
     $.msg($.name, '【提示】请先获取TT语音一cookie')
