@@ -64,6 +64,17 @@ if ($.isNode()) {
     TTreferArr.push($.getdata(`TTrefer${i}`))
     TTbodyArr.push($.getdata(`TTbody${i}`))
   }
+    Object.keys(TTREFER).forEach((item) => {
+        if (TTREFER[item]) {
+          TTreferArr.push(TTREFER[item])
+        }
+      })
+	 
+    Object.keys(TTBODY).forEach((item) => {
+        if (TTBODY[item]) {
+          TTbodyArr.push(TTBODY[item])
+        }
+      })
 }
 !(async () => {
 if (!TTreferArr[0] && !TTbodyArr[0] ) {
