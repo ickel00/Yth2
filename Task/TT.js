@@ -29,7 +29,7 @@ const $ = Env(zhiyi)
 const notify = $.isNode() ?require('./sendNotify') : '';
 let status;
 status = (status = ($.getval("hsstatus") || "1") ) > 1 ? `${status}` : ""; // 账号扩展字符
-const TTreferArr = ["http://appcdn.52tt.com/web/frontend-web-activity-new-user-clock-in-thirty-day/index.html?device_id=202010271452183a6c1f5c0781f693015dc56b064dc89601085c604cd9ff7d&ip=221.124.66.12&uid=216574856&version=84213766&appid=0&os_type=2&platform=1&app=0&market_id=0"],TTbodyArr = ["{"device_id":"202010271452183a6c1f5c0781f693015dc56b064dc89601085c604cd9ff7d","ip":"221.124.66.12","uid":"216574856","version":"84213766","appid":"0","os_type":"2","platform":"1","app":"0","market_id":"0","token":"eyJhbGciOiAiSFM1MTIiLCAidHlwIjogIkpXUyJ9.eyJleHAiOiAxNjE0MzMxMzI2LCAiaWF0IjogMTYxNDMzMDQyNiwgImlzcyI6ICI1MnR0LmNvbSIsICJzZXNzIjogIiIsICJzdWIiOiAidHQyNzM1NTQ1NDMiLCAidGVybSI6IDExNzk2NDgsICJ0eXAiOiAxLCAidWlkIjogMjE2NTc0ODU2fQ.4tDwmSeiMcJwMPd15W9gb0t-ehSW1Y6df1GYTqaSyxhoDVSOaLJ3r5EL6XXbPQG8Gp04RAZsYBJUFu6pNb1nyg"}"]
+const TTreferArr = [],TTbodyArr = []
 let TTrefer = $.getdata('TTrefer')
 let TTbody = $.getdata('TTbody')
 let tz = ($.getval('tz') || '1');//0关闭通知，1默认开启
