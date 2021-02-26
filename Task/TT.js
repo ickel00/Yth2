@@ -74,6 +74,7 @@ if ($.isNode()) {
 }
 
 if ($.isNode()) {
+    {
     TTreferArr.push(JSON.parse(TTrefer))
     TTbodyArr.push(JSON.parse(TTbody))
     console.log(`============ 脚本执行-国际标准时间(UTC)：${new Date().toLocaleString()}  =============\n`)
@@ -107,6 +108,7 @@ if (!TTbodyArr[0] ) {
 })()
     .catch((e) => $.logErr(e))
     .finally(() => $.done())
+ }
 
 function GetCookie() {
 if($request&&$request.url.indexOf("checkin")>=0) {
