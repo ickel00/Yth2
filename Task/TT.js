@@ -107,7 +107,6 @@ if (!TTbodyArr[0] ) {
 })()
     .catch((e) => $.logErr(e))
     .finally(() => $.done())
- }
     
 function GetCookie() {
 if($request&&$request.url.indexOf("checkin")>=0) {
