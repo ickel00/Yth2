@@ -94,7 +94,7 @@ if ($.isNode()) {
     TTreferArr.push($.getdata(`TTrefer${i}`))
     TTbodyArr.push($.getdata(`TTbody${i}`))
   }
-}
+
 !(async () => {
 if (!TTbodyArr[0] ) {
     $.msg($.name, '【提示】请先获取TT语音一cookie')
@@ -115,7 +115,7 @@ if (!TTbodyArr[0] ) {
 })()
     .catch((e) => $.logErr(e))
     .finally(() => $.done())
-    
+ }
     
 function GetCookie() {
 if($request&&$request.url.indexOf("checkin")>=0) {
