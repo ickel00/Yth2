@@ -59,7 +59,7 @@ if ($.isNode()) {
    TTrefer = process.env.TTREFER.split('\n');
    console.log(`您选择的是用换行隔开\n`)
   } else {
-   TTrefer = process.env.TTREFER.split()
+   TTrefer = process.env.TTREFER
   };
   if (process.env.TTBODY&& process.env.TTBODY.indexOf('#') > -1) {
    TTbody= process.env.TTBODY.split('#');
@@ -69,7 +69,7 @@ if ($.isNode()) {
    TTbody= process.env.TTBODY.split('\n');
    console.log(`您选择的是用换行隔开\n`)
   } else {
-   TTbody= process.env.TTBODY.split()
+   TTbody= process.env.TTBODY
   };
   
     Object.keys(TTrefer).forEach((item) => {
