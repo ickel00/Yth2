@@ -51,15 +51,15 @@ if (isGetCookie) {
    $.done()
 } 
 if ($.isNode()) {
-   if (process.env.TTREFER && process.env.TTREFER .indexOf('#') > -1) {
-   TTrefer = process.env.TTREFER .split('#');
+   if (process.env.TTREFER && process.env.TTREFER.indexOf('#') > -1) {
+   TTrefer = process.env.TTREFER.split('#');
    console.log(`您选择的是用"#"隔开\n`)
   }
-  else if (process.env.TTREFER && process.env.TTREFER .indexOf('\n') > -1) {
+  else if (process.env.TTREFER && process.env.TTREFER.indexOf('\n') > -1) {
    TTrefer = process.env.TTREFER .split('\n');
    console.log(`您选择的是用换行隔开\n`)
   } else {
-   TTrefer = process.env.TTREFER .split()
+   TTrefer = process.env.TTREFER.split()
   };
   if (process.env.TTBODY&& process.env.TTBODY.indexOf('#') > -1) {
    TTbody= process.env.TTBODY.split('#');
