@@ -3,7 +3,7 @@ name: zqshare
 on:
   workflow_dispatch:
   schedule:
-     - cron: '*/2 23,0-15 * * *'
+     - cron: '10 1-6/2 * * *'
   watch:
     types: started
 env:
@@ -24,6 +24,6 @@ jobs:
         run: |
           npm install
           npm install cron
-      - name: '运行 【zqshare】'
+      - name: '运行 【书旗小说】'
         run: |
-          node Task/youthshare2.js
+          node Task/sqxs.js
