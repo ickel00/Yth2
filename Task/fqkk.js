@@ -79,9 +79,9 @@ let fqkktz = ''
 
 if ($.isNode()) {
   if (process.env.FQKK_HEADER && process.env.FQKK_HEADER.indexOf('\n') > -1) {
-  fqkkhd = process.env.FQKK_HEADER.split('\n');
+  fqkk = process.env.FQKK_HEADER.split('\n');
   } else {
-      fqkkhd = process.env.FQKK_HEADER.split()
+      fqkk = process.env.FQKK_HEADER.split()
   };
 }
 
@@ -189,7 +189,7 @@ async function fqkkck() {
         }
       }
       fqkk[no] = {uid: userId, url: fqkkurl, hd: fqkkhd};
-      $.setdata(JSON.stringify(fqkk, null, 2), 'fqkk');
+     JSON.parse(JSON.stringify(fqkk, null, 2), 'fqkk');
       $.msg($.name, "", `番茄看看[账号${no+1}] ${status?'新增':'更新'}数据成功！`);
     } else {
       // 未获取到用户ID，提示
@@ -221,7 +221,7 @@ async function fqkkCkMove() {
         existsId.push(userId);
       }
     }
-    $.setdata(JSON.stringify(fqkk, null, 2), 'fqkk');
+   JSON.parse(JSON.stringify(fqkk, null, 2), 'fqkk');
     $.msg($.name, "", `番茄看看数据迁移后共${fqkk.length}个账号！`);
   }
   $.setval('', 'fqkkCkMove');
