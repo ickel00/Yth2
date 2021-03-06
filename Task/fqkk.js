@@ -70,8 +70,8 @@ hostname = m.*
 
 const $ = new Env('番茄看看');
 const fqkkurlArr = [], fqkkhdArr = []
-//let fqkk = $.getjson('fqkk', [])
-let fqkk = '[ { "uid": 4017528, "url": "http://m.cdyiyuan.xyz/reada/getTask", "hd": "{\"Accept\":\"*/*\",\"Accept-Encoding\":\"gzip, deflate\",\"Origin\":\"http://m.cdyiyuan.xyz\",\"Cookie\":\"autoRead=1; Hm_lpvt_84099950848427564e5e4b4310ad032e=1615000037; Hm_lvt_84099950848427564e5e4b4310ad032e=1615000012; udtauth=eb42DX0uabuD07%2Bqi5XP9bH3yMGlc16JGfk%2BX8vZZcoVuwFcWRgA2bW9fxBmjvgEK%2FsBg9aloN3DWE6rqxVQAGsQPMdr6qPkekQ60DxtDSmEi2VQCRjCf%2FWzpMDgnToBmMdWzmv4BTRSoJNBcN9j5uLmCXFutbUs4hRg2tgCu9Y; PHPSESSID=tid9jt8uianb5e72hmiie3m5c8\",\"Connection\":\"keep-alive\",\"Host\":\"m.cdyiyuan.xyz\",\"Content-Length\":\"0\",\"User-Agent\":\"Mozilla/5.0 (iPhone; CPU iPhone OS 13_6_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/8.0.2(0x18000232) NetType/WIFI Language/zh_CN\",\"Referer\":\"http://m.cdyiyuan.xyz/reada?upuid=3950781\",\"Accept-Language\":\"zh-cn\",\"X-Requested-With\":\"XMLHttpRequest\"}" } ]'
+let fqkk = $.getjson('fqkk', [])
+let fqkkBanfirstTask = $.getval('fqkkBanfirstTask') || 'false' // 禁止脚本执行首个任务，避免每日脚本跑首次任务导致微信限制
 let fqkkCkMoveFlag = $.getval('fqkkCkMove') || ''
 let fqtx = ($.getval('fqtx') || '100');  // 此处修改提现金额，0.3元等于30，默认为提现一元，也就是100
 let concurrency = ($.getval('fqkkConcurrency') || '1') - 0; // 并发执行任务的账号数，默单账号循环执行
@@ -83,9 +83,8 @@ let fqkktz = ''
   } else if (fqkkCkMoveFlag == 'true') {
     await fqkkCkMove();
   } else {
-    //let acList = fqkk.filter.(o => o.hd).map.((o, i) => ({no: i+1, uid: o.uid, gold: 0, score: 0, rest: 0, num: 0, url: o.url, headers: JSON.parse(o.hd)}));
-	await filter(acList);
-	let execAcList = [];
+    let acList = fqkk.filter(o => o.hd).map((o, i) => ({no: i+1, uid: o.uid, gold: 0, score: 0, rest: 0, num: 0, url: o.url, headers: JSON.parse(o.hd)}));
+    let execAcList = [];
     let slot = acList.length % concurrency == 0 ? acList.length / concurrency : parseInt(acList.length / concurrency) + 1;
     acList.forEach((o, i) => {
       let idx = i % slot;
@@ -103,7 +102,7 @@ let fqkktz = ''
       for (let ac of rtList) {
         let msg = '';
         if (ac.uid && ac.gold >= fqtx) {
-          $.log('检测到账号${ac.no}已满足设置的提现金额，前去执行提现任务\n')
+          $.log(`检测到账号${ac.no}已满足设置的提现金额，前去执行提现任务\n`)
           msg = await fqkktx(ac);
         }
         ac.msg = msg;
@@ -115,20 +114,17 @@ let fqkktz = ''
 .catch((e) => $.logErr(e))
   .finally(() => $.done());
 
-function acList(acList) {
-	acList1 = fqkk.filter(o => o.hd);
-	acList2 = fqkk.map((o, i) => ({no: i+1, uid: o.uid, gold: 0, score: 0, rest: 0, num: 0, url: o.url, headers: JSON.parse(o.hd)}));
-	}
-	
-
-
 function execTask(ac, i) {
   return new Promise(resolve => {
     setTimeout(async () => {
       try {
         let msg = await fqkk3(ac, '');
         if (ac.rest) {
-          if (ac.rest <= 0) {
+   let skip = false;
+if(fqkkBanfirstTask == 'ture' && ac.num <= 0){
+        saip = ture;
+}
+          if (ac.rest <= 0 || skip) {
             $.log(`账号${ac.no}今日已阅读${ac.num}次，本阶段待阅读${ac.rest}次，跳过阅读`);
           } else {
             $.log(`账号${ac.no}今日已阅读${ac.num}次，本阶段待阅读${ac.rest}次，开始阅读\n`);
@@ -189,7 +185,9 @@ async function fqkkck() {
         }
       }
       fqkk[no] = {uid: userId, url: fqkkurl, hd: fqkkhd};
-     JSON.parse(JSON.stringify(fqkk, null, 2), 'fqkk');
+      $.setdata(JSON.stringify(fqkk, null, 2), 'fqkk');
+      $.log(fqkkurl);
+      $.log(fqkkhd);
       $.msg($.name, "", `番茄看看[账号${no+1}] ${status?'新增':'更新'}数据成功！`);
     } else {
       // 未获取到用户ID，提示
@@ -221,7 +219,7 @@ async function fqkkCkMove() {
         existsId.push(userId);
       }
     }
-   JSON.parse(JSON.stringify(fqkk, null, 2), 'fqkk');
+    $.setdata(JSON.stringify(fqkk, null, 2), 'fqkk');
     $.msg($.name, "", `番茄看看数据迁移后共${fqkk.length}个账号！`);
   }
   $.setval('', 'fqkkCkMove');
@@ -272,18 +270,19 @@ function fqkk3(ac, fqkey) {
           $.log(`${$.name} ${ac.no} 请求失败，请检查网路重试\n url: ${opts.url} \n data: ${JSON.stringify(err, null, 2)}`);
         } else {
           const result = JSON.parse(data);
-          if (fqkey) {
-            if (result.code == 0) {
-              $.log(`🌝账号${ac.no}：${result.msg}`, `今日阅读次数: ${result.data.infoView.num}, 今日阅读奖励: ${result.data.infoView.score}`);
-            } else {
-              $.log(`🚫账号${ac.no}：${result.msg}`, `今日阅读次数: ${result.data.infoView.num}, 今日阅读奖励: ${result.data.infoView.score}`);
-            }
-          }
           if (result.data && result.data.infoView) {
             ac.rest = (result.data.infoView.rest || 0) - 0;
             ac.num = (result.data.infoView.num || 0) - 0;
             ac.score = (result.data.infoView.score || 0) - 0;
             msg = ac.rest > 0 ? '-' : (result.data.infoView.msg || msg);
+          }
+          if (fqkey) {
+            if (result.code == 0) {
+              $.log(`🌝账号${ac.no}：${result.msg}`, `今日阅读次数: ${result.data.infoView.num}, 今日阅读奖励: ${result.data.infoView.score}`);
+            } else {
+              ac.rest = -1;
+              $.log(`🚫账号${ac.no}：${result.msg}`, `今日阅读次数: ${result.data.infoView.num}, 今日阅读奖励: ${result.data.infoView.score}`, `resp: ${JSON.stringify(resp||'', null, 2)}`);
+            }
           }
         }
       } catch (e) {
@@ -339,7 +338,7 @@ function fqkk1(ac, fqjs, timeout = 0) {
             let jumpObj = await fqkk2(ac, result.data.jkey);
             if (jumpObj) {
               $.log(`🌝账号${ac.no}等待10秒后提交本次阅读领取奖励`);
-              await $.wait(10000);
+              await $.wait(13000);
               m = await fqkk3(ac, result.data.jkey);
               f = ac.rest;
             } else {
