@@ -87,9 +87,9 @@ let fqkktz = ''
     //let acList = fqkk.filter(o => o.hd).map((o, i) => ({no: i+1, uid: o.uid, gold: 0, score: 0, rest: 0, num: 0, url: o.url, headers: JSON.parse(o.hd)}));
     const acList = fqkk
       .filter(function(array){
-		  return (o => o.hd)}
+		  return o => o.hd}
       .map(function(array){
-	      return ((o, i) => ({no: i+1, uid: o.uid, gold: 0, score: 0, rest: 0, num: 0, url: o.url, headers: JSON.parse(o.hd)}))};
+	      return (o, i) => ({no: i+1, uid: o.uid, gold: 0, score: 0, rest: 0, num: 0, url: o.url, headers: JSON.parse(o.hd)})};
 
 	let execAcList = [];
     let slot = acList.length % concurrency == 0 ? acList.length / concurrency : parseInt(acList.length / concurrency) + 1;
