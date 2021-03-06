@@ -72,14 +72,14 @@ const ysmurlArr = [], ysmhdArr = [],ysmbodyArr = [],ysm2bodyArr = [],ysmtxArr = 
 //let ysmhd = $.getdata('ysmhd')
 //let ysmbody = $.getdata('ysmbody')
 //let ysm2body = $.getdata('ysm2body')
-let ysmtx = $.getdata('ysmtx')
+//let ysmtx = $.getdata('ysmtx')
 let ysmkey = ''
 
 const ysmurl = 'http://erd.wfxxaq.bar/yunonline/v1/task';
 const ysmhd = '{\"Accept\":\"application/json, text/javascript, */*; q=0.01\",\"Origin\":\"http://erd.gdluuq.bar\",\"Accept-Encoding\":\"gzip, deflate\",\"Content-Type\":\"application/x-www-form-urlencoded; charset=UTF-8\",\"Connection\":\"keep-alive\",\"Host\":\"erd.gdluuq.bar\",\"User-Agent\":\"Mozilla/5.0 (iPhone; CPU iPhone OS 13_6_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/8.0.2(0x18000233) NetType/WIFI Language/zh_CN\",\"Referer\":\"http://erd.gdluuq.bar/yunonline/v1/redirect/eyJpdiI6InlLaTZKT0FYSEZFNGp6ZVhQQzRxY2c9PSIsInZhbHVlIjoiOWYxRFpNcWxtaENQMTlPSU4waVBmd2NPQ1VIRGpNV2lnMnBmTUNmQ3hwWmtKQnNONzNESTJrRXRZdDhRSFJ6ampGRGtmYlV4QmtKNytQTFV3TG0zcjhHMDV4ZVZ3djVTeStRaFBCNkllaDBCMExoMXp5NmNLY1M2ejZIMGNSbERjVVwvOG1aa092U1VFVHR6MGVIUE5xd2Q5a3JLU3pHODEyT2FJSGdGMTZ1MERZaWUyaTB5SzFcLzNidTFrcXVhaHoxaHRaenYxYW9COXJicDJZa2pRRHlRPT0iLCJtYWMiOiJjYzRmZDVjMTQ1MjRmMjc4NWIzODYzNTA1YzA0Njc5Yzk1ZmI0NGM4OTI3MzFmZjg2NGMwODczMDdmNzhjZWQ4In0%3D?openid=oksnzwfxT5It62j9NjwaT7qfdO9Y\",\"Accept-Language\":\"zh-cn\",\"Content-Length\":\"613\",\"X-Requested-With\":\"XMLHttpRequest\"}';
 const ysmbody = '"secret=eyJpdiI6IjAzU3EwUHZEcE9iVU9RRXRPb3h1d2c9PSIsInZhbHVlIjoicDBiTmwwaFFjUVFXSmhacWY4ckpkYkRneHdoNXhWZFRTclc4T3Zmclk3OXZ0RDA3YjF2dk5JYzA5VGtVR3JLNmM4TFVtNGJBM2ZTUXkzTE1VS0Mrb0c4NE9oY2RCTWlHcStPT1NRbGFOSTZseUZwUG13eWVBSUJuZHlCWFdKSWp0RGxYdWMyNFIrNmFxcmlsYVUzWEZUeUV2NnIzR3JtdVh1alRFYjdWZjZqTkE0STZuaEVMYVNTK0U3TFg2bHdvTkJxM29UYzRoVnFrZjB0QVwvN0pwSU55QkR6M2hIemlISVVQcEtnZU03YWVEZ1J5YWtrbzZpNjd2b0Z5YUt0dnlkYzdCQ3RRc1wvb21sNVpNTEUxSVRHU0dxMGRZMXNPRGs4eGp6a3hodVBiSFBuWXdPSVpmbDluTEQ4N0MrZWpXaiIsIm1hYyI6ImRkZWU1NmJmYTRjYTFhNTU5ZDRlNDQ4ZjVhNTc1OTk1N2U1MGYzNDZkMGUzZWQzNTA3NzE4ZjhiMjMyOWM1YTIifQ%253D%253D&type=read\"';
 const ysm2body = 'openid=oksnzwfxT5It62j9NjwaT7qfdO9Y&time=15';
-
+const ysmtx = 'openid=oksnzwfxT5It62j9NjwaT7qfdO9Y&request_id=f50a816f2a3b88f3c3424f46ed19bac9&ua=1';
 
 
 !(async () => {
