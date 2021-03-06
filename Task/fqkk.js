@@ -71,13 +71,12 @@ hostname = m.*
 const $ = new Env('番茄看看');
 const fqkkurlArr = [], fqkkhdArr = []
 //let fqkk = $.getjson('fqkk', [])
-let fqkk = '[ { "uid": 4017528, "url": "http://m.cdyiyuan.xyz/reada/getTask", "hd": "{\"Accept\":\"*/*\",\"Accept-Encoding\":\"gzip, deflate\",\"Origin\":\"http://m.cdyiyuan.xyz\",\"Cookie\":\"autoRead=1; Hm_lpvt_84099950848427564e5e4b4310ad032e=1615000037; Hm_lvt_84099950848427564e5e4b4310ad032e=1615000012; udtauth=eb42DX0uabuD07%2Bqi5XP9bH3yMGlc16JGfk%2BX8vZZcoVuwFcWRgA2bW9fxBmjvgEK%2FsBg9aloN3DWE6rqxVQAGsQPMdr6qPkekQ60DxtDSmEi2VQCRjCf%2FWzpMDgnToBmMdWzmv4BTRSoJNBcN9j5uLmCXFutbUs4hRg2tgCu9Y; PHPSESSID=tid9jt8uianb5e72hmiie3m5c8\",\"Connection\":\"keep-alive\",\"Host\":\"m.cdyiyuan.xyz\",\"Content-Length\":\"0\",\"User-Agent\":\"Mozilla/5.0 (iPhone; CPU iPhone OS 13_6_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/8.0.2(0x18000232) NetType/WIFI Language/zh_CN\",\"Referer\":\"http://m.cdyiyuan.xyz/reada?upuid=3950781\",\"Accept-Language\":\"zh-cn\",\"X-Requested-With\":\"XMLHttpRequest\"}" } ]'
+let fqkk = '{ "uid": 4017528, "url": "http://m.cdyiyuan.xyz/reada/getTask", "hd": "{\"Accept\":\"*/*\",\"Accept-Encoding\":\"gzip, deflate\",\"Origin\":\"http://m.cdyiyuan.xyz\",\"Cookie\":\"autoRead=1; Hm_lpvt_84099950848427564e5e4b4310ad032e=1615000037; Hm_lvt_84099950848427564e5e4b4310ad032e=1615000012; udtauth=eb42DX0uabuD07%2Bqi5XP9bH3yMGlc16JGfk%2BX8vZZcoVuwFcWRgA2bW9fxBmjvgEK%2FsBg9aloN3DWE6rqxVQAGsQPMdr6qPkekQ60DxtDSmEi2VQCRjCf%2FWzpMDgnToBmMdWzmv4BTRSoJNBcN9j5uLmCXFutbUs4hRg2tgCu9Y; PHPSESSID=tid9jt8uianb5e72hmiie3m5c8\",\"Connection\":\"keep-alive\",\"Host\":\"m.cdyiyuan.xyz\",\"Content-Length\":\"0\",\"User-Agent\":\"Mozilla/5.0 (iPhone; CPU iPhone OS 13_6_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/8.0.2(0x18000232) NetType/WIFI Language/zh_CN\",\"Referer\":\"http://m.cdyiyuan.xyz/reada?upuid=3950781\",\"Accept-Language\":\"zh-cn\",\"X-Requested-With\":\"XMLHttpRequest\"}" }'
 let fqkkCkMoveFlag = $.getval('fqkkCkMove') || ''
 let fqtx = ($.getval('fqtx') || '100');  // 此处修改提现金额，0.3元等于30，默认为提现一元，也就是100
 let concurrency = ($.getval('fqkkConcurrency') || '1') - 0; // 并发执行任务的账号数，默单账号循环执行
 concurrency = concurrency < 1 ? 1 : concurrency;
 let fqkktz = ''
-
 !(async () => {
   if (typeof $request !== "undefined") {
     await fqkkck();
