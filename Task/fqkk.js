@@ -116,8 +116,8 @@ let fqkktz = ''
   .finally(() => $.done());
 
 function acList(acList) {
-	acList1 = fqkk.filter.function(o => o.hd);
-	acList1 = fqkk.map.function((o, i) => ({no: i+1, uid: o.uid, gold: 0, score: 0, rest: 0, num: 0, url: o.url, headers: JSON.parse(o.hd)}));
+	acList1 = fqkk.filter(o => o.hd);
+	acList2 = fqkk.map.((o, i) => ({no: i+1, uid: o.uid, gold: 0, score: 0, rest: 0, num: 0, url: o.url, headers: JSON.parse(o.hd)}));
 	}
 	
 
