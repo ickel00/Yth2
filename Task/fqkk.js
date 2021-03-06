@@ -71,7 +71,7 @@ hostname = m.*
 const $ = new Env('番茄看看');
 const fqkkurlArr = [], fqkkhdArr = []
 //let fqkk = $.getjson('fqkk', [])
-const fqkk = $.isNode() ? require("./fqkkck") : "";
+const fqkk = $.isNode() ? require("./fqkkCOOKIE") : "";
 let fqkkBanfirstTask = $.getval('fqkkBanfirstTask') || 'false' // 禁止脚本执行首个任务，避免每日脚本跑首次任务导致微信限制
 let fqkkCkMoveFlag = $.getval('fqkkCkMove') || ''
 let fqtx = ($.getval('fqtx') || '100');  // 此处修改提现金额，0.3元等于30，默认为提现一元，也就是100
@@ -84,8 +84,12 @@ let fqkktz = ''
   } else if (fqkkCkMoveFlag == 'true') {
     await fqkkCkMove();
   } else {
-    let acList = fqkk.filter(o => o.hd).map((o, i) => ({no: i+1, uid: o.uid, gold: 0, score: 0, rest: 0, num: 0, url: o.url, headers: JSON.parse(o.hd)}));
-    let execAcList = [];
+    //let acList = fqkk.filter(o => o.hd).map((o, i) => ({no: i+1, uid: o.uid, gold: 0, score: 0, rest: 0, num: 0, url: o.url, headers: JSON.parse(o.hd)}));
+    const acList = fqkk
+      .filter(o => o.hd)
+      .map((o, i) => ({no: i+1, uid: o.uid, gold: 0, score: 0, rest: 0, num: 0, url: o.url, headers: JSON.parse(o.hd)}));
+
+	let execAcList = [];
     let slot = acList.length % concurrency == 0 ? acList.length / concurrency : parseInt(acList.length / concurrency) + 1;
     acList.forEach((o, i) => {
       let idx = i % slot;
