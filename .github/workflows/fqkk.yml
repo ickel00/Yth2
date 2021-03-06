@@ -15,8 +15,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     if: github.event.repository.owner.id == github.event.sender.id
-    env:
-        fqkk: ${{ secrets.FQKK_HEADER }}
     steps:
       - uses: actions/checkout@v1
       - name: Use Node.js 14.x
@@ -27,6 +25,5 @@ jobs:
         run: |
           npm install
       - name: '运行 【番茄看看】'
-        if: env.FQKK_HEADER
         run: |
           node Task/fqkk.js
