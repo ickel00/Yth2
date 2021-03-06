@@ -11,7 +11,7 @@ let fqkk = {
   
 }
 
-module.exports =  fqkkcookie
+module.exports = fqkkCOOKIE
   
 
 
