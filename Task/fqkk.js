@@ -86,9 +86,9 @@ let fqkktz = ''
   } else {
     //let acList = fqkk.filter(o => o.hd).map((o, i) => ({no: i+1, uid: o.uid, gold: 0, score: 0, rest: 0, num: 0, url: o.url, headers: JSON.parse(o.hd)}));
     const acList = fqkk
-      .filter(function(item){
+      .filter(function(){
 		  return (o => o.hd)})
-      .map(function(array){
+      .map(function(){
 	      return ((o, i) => ({no: i+1, uid: o.uid, gold: 0, score: 0, rest: 0, num: 0, url: o.url, headers: JSON.parse(o.hd)}))
 		  });
 
