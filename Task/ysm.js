@@ -100,21 +100,13 @@ const ysm2body = 'openid=oksnzwcqstCcdL4jkmuFeQTeXtz0&time=39';
     ysmtxArr.push($.getdata(`ysmtx${i}`))
   }
     console.log(`------------- 共${ysmhdArr.length}个账号-------------\n`)
-      for (let i = 0; i < ysmhdArr.length; i++) {
-        if (ysmhdArr[i]) {
-         
-          ysmurl = ysmurlArr[i];
-          ysmhd = ysmhdArr[i];
-          ysmbody = ysmbodyArr[i];
-          ysm2body = ysm2bodyArr[i];
-          ysmtx = ysmtxArr[i];
-          $.index = i + 1;
-          console.log(`\n开始【云扫码${$.index}】`)
+
+    console.log(`\n开始【云扫码${$.index}】`)
     await ysm1();
 
-  }
+  
   //await ysmtx();
-}}
+}
 
 })()
   .catch((e) => $.logErr(e))
