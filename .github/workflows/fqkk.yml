@@ -24,6 +24,7 @@ jobs:
       - name: npm install
         run: |
           npm install
+          npm install array
       - name: '运行 【番茄看看】'
         run: |
           node Task/fqkk.js
