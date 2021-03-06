@@ -70,7 +70,8 @@ hostname = m.*
 
 const $ = new Env('番茄看看');
 const fqkkurlArr = [], fqkkhdArr = []
-let fqkk = $.getjson('fqkk', [])
+//let fqkk = $.getjson('fqkk', [])
+const fqkk = $.isNode() ? require("./fqkkCOOKIE") : "";
 let fqkkBanfirstTask = $.getval('fqkkBanfirstTask') || 'false' // 禁止脚本执行首个任务，避免每日脚本跑首次任务导致微信限制
 let fqkkCkMoveFlag = $.getval('fqkkCkMove') || ''
 let fqtx = ($.getval('fqtx') || '100');  // 此处修改提现金额，0.3元等于30，默认为提现一元，也就是100
@@ -338,7 +339,7 @@ function fqkk1(ac, fqjs, timeout = 0) {
             let jumpObj = await fqkk2(ac, result.data.jkey);
             if (jumpObj) {
               $.log(`🌝账号${ac.no}等待10秒后提交本次阅读领取奖励`);
-              await $.wait(13000);
+              await $.wait(10000);
               m = await fqkk3(ac, result.data.jkey);
               f = ac.rest;
             } else {
