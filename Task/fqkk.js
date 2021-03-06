@@ -79,9 +79,9 @@ let fqkktz = ''
 
 if ($.isNode()) {
   if (process.env.FQKK_HEADER && process.env.FQKK_HEADER.indexOf('\n') > -1) {
-  fqkk = process.env.FQKK_HEADER.split('\n');
+  fqkkhd = process.env.FQKK_HEADER.split('\n');
   } else {
-      fqkk = process.env.FQKK_HEADER.split()
+      fqkkhd = process.env.FQKK_HEADER.split()
   };
 }
 
