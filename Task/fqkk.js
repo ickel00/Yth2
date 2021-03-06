@@ -88,9 +88,9 @@ let fqkktz = ''
     //let acList = fqkk.filter(o => o.hd).map((o, i) => ({no: i+1, uid: o.uid, gold: 0, score: 0, rest: 0, num: 0, url: o.url, headers: JSON.parse(o.hd)}));
     let acList = Object.keys(fqkk)
       .filter(function(){
-		  return (o => o.hd)})
+		  (o => o.hd)})
       .map(function(){
-	      return ((o, i) => ({no: i+1, uid: o.uid, gold: 0, score: 0, rest: 0, num: 0, url: o.url, headers:JSON.parse(o.hd)}))
+	      ((o, i) => ({no: i+1, uid: o.uid, gold: 0, score: 0, rest: 0, num: 0, url: o.url, headers:JSON.parse(o.hd)}))
 		  });
 
 	let execAcList = [];
