@@ -168,7 +168,7 @@ function execTask(ac, i) {
 async function fqkkck() {
   if ($request.url.indexOf("getTask") > -1) {
     const fqkkurl = $request.url;
-    const fqkkhd = JSON.stringify($request.headers);
+    const fqkkhd = JSON.stringify(fqkkhd);
     let host = fqkkurl.match(/http?:\/\/(.+?)\//)[1];
     let ck = $request.headers['Cookie'] || $request.headers['cookie'];
     let [userId, gold] = await userInfo(host, ck);
