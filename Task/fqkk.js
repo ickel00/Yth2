@@ -72,7 +72,7 @@ const $ = new Env('番茄看看');
 const fqkkurlArr = [], fqkkhdArr = []
 //let fqkk = $.getjson('fqkk', [])
 //const fqkk = $.isNode() ? require("./fqkkck") : "";
-let fqkk = require('./fqkkck.json', []);
+let fqkk = require('./fqkkck.json');
 let fqkkBanfirstTask = $.getval('fqkkBanfirstTask') || 'false' // 禁止脚本执行首个任务，避免每日脚本跑首次任务导致微信限制
 let fqkkCkMoveFlag = $.getval('fqkkCkMove') || ''
 let fqtx = ($.getval('fqtx') || '100');  // 此处修改提现金额，0.3元等于30，默认为提现一元，也就是100
@@ -86,12 +86,10 @@ let fqkktz = ''
     await fqkkCkMove();
   } else {
     //let acList = fqkk.filter(o => o.hd).map((o, i) => ({no: i+1, uid: o.uid, gold: 0, score: 0, rest: 0, num: 0, url: o.url, headers: JSON.parse(o.hd)}));
-    let acList = Object.keys(fqkk)
+    const acList = Object.keys(fqkk)
       .filter(function(){
 		  (o => o.hd)})
-      .map(function(){
-	      ((o, i) => ({no: i+1, uid: o.uid, gold: 0, score: 0, rest: 0, num: 0, url: o.url, headers:JSON.parse(o.hd)}))
-		  });
+      .map((o, i) => ({no: i+1, uid: o.uid, gold: 0, score: 0, rest: 0, num: 0, url: o.url, headers: JSON.parse(o.hd)}));
 
 	let execAcList = [];
     let slot = acList.length % concurrency == 0 ? acList.length / concurrency : parseInt(acList.length / concurrency) + 1;
@@ -105,7 +103,7 @@ let fqkktz = ''
     });
     $.log(`番茄看看当前设置的提现金额为: ${fqtx / 100} 元`, `----------- 共${acList.length}个账号分${execAcList.length}组去执行 -----------`);
     for (let arr of execAcList) {
-      let allAc = arr.map(function(){(ac=>ac.no).join(', ')});
+      let allAc = arr.map(ac=>ac.no).join(', ');
       $.log(`\n=======================================\n开始【${$.name}账号：${allAc}】`);
       let rtList = await Promise.all(arr.map((ac, i) => execTask(ac, i)));
       for (let ac of rtList) {
@@ -116,7 +114,7 @@ let fqkktz = ''
         }
         ac.msg = msg;
       }
-      fqkktz += rtList.map(function(){(ac => `【账号${ac.no}】\n余额：${ac.gold}币\n今日奖励：${ac.score}\n已阅读数：${ac.num}\n待阅读数：${ac.rest}${ac.msg?'\n'+ac.msg:''}`).join('\n\n')});
+      fqkktz += rtList.map(ac => `【账号${ac.no}】\n余额：${ac.gold}币\n今日奖励：${ac.score}\n已阅读数：${ac.num}\n待阅读数：${ac.rest}${ac.msg?'\n'+ac.msg:''}`).join('\n\n');
     }
   $.log('\n======== [脚本运行完毕,打印日志结果] ========\n'+fqkktz)  }
 })()
@@ -212,7 +210,7 @@ async function fqkkCkMove() {
     fqkkhdArr.push($.getdata(`fqkkhd${i>1?i:''}`))
   }
   if (fqkkhdArr.length > 0) {
-    let existsId = fqkk.map(function(){(o => o.uid - 0)});
+    let existsId = fqkk.map(o => o.uid - 0);
     for (let i = 0, len = fqkkhdArr.length; i < len; i++) {
       fqkkurl = fqkkurlArr[i];
       fqkkhd = fqkkhdArr[i];
@@ -263,8 +261,6 @@ function userInfo(host, ck) {
     })
   })
 }
-
-//const acurl = ac.url;
 
 //番茄看看领取
 function fqkk3(ac, fqkey) {
