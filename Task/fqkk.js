@@ -105,9 +105,9 @@ let fqkktz = ''
     });
     $.log(`番茄看看当前设置的提现金额为: ${fqtx / 100} 元`, `----------- 共${acList.length}个账号分${execAcList.length}组去执行 -----------`);
     for (let arr of execAcList) {
-      let allAc = arr.map(ac=>ac.no).join(', ');
+      let allAc = arr.map(function(){(ac=>ac.no).join(', ')});
       $.log(`\n=======================================\n开始【${$.name}账号：${allAc}】`);
-      let rtList = await Promise.all(arr.map((ac, i) => execTask(ac, i)));
+      let rtList = await Promise.all(arr.map(function(){((ac, i) => execTask(ac, i)))});
       for (let ac of rtList) {
         let msg = '';
         if (ac.uid && ac.gold >= fqtx) {
@@ -116,7 +116,7 @@ let fqkktz = ''
         }
         ac.msg = msg;
       }
-      fqkktz += rtList.map(ac => `【账号${ac.no}】\n余额：${ac.gold}币\n今日奖励：${ac.score}\n已阅读数：${ac.num}\n待阅读数：${ac.rest}${ac.msg?'\n'+ac.msg:''}`).join('\n\n');
+      fqkktz += rtList.map(function(){(ac => `【账号${ac.no}】\n余额：${ac.gold}币\n今日奖励：${ac.score}\n已阅读数：${ac.num}\n待阅读数：${ac.rest}${ac.msg?'\n'+ac.msg:''}`).join('\n\n')});
     }
   $.log('\n======== [脚本运行完毕,打印日志结果] ========\n'+fqkktz)  }
 })()
@@ -212,7 +212,7 @@ async function fqkkCkMove() {
     fqkkhdArr.push($.getdata(`fqkkhd${i>1?i:''}`))
   }
   if (fqkkhdArr.length > 0) {
-    let existsId = fqkk.map(o => o.uid - 0);
+    let existsId = fqkk.map(function(){(o => o.uid - 0)});
     for (let i = 0, len = fqkkhdArr.length; i < len; i++) {
       fqkkurl = fqkkurlArr[i];
       fqkkhd = fqkkhdArr[i];
