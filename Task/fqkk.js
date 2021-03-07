@@ -107,7 +107,7 @@ let fqkktz = ''
     for (let arr of execAcList) {
       let allAc = arr.map(function(){(ac=>ac.no).join(', ')});
       $.log(`\n=======================================\n开始【${$.name}账号：${allAc}】`);
-      let rtList = await Promise.all(arr.map(function(){((ac, i) => execTask(ac, i))}));
+      let rtList = await Promise.all(arr.map((ac, i) => execTask(ac, i)));
       for (let ac of rtList) {
         let msg = '';
         if (ac.uid && ac.gold >= fqtx) {
