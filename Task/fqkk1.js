@@ -72,7 +72,7 @@ const $ = new Env('番茄看看');
 const fqkkurlArr = [], fqkkhdArr = []
 //let fqkk = $.getjson('fqkk', [])
 //const fqkk = $.isNode() ? require("./fqkkck") : "";
-let fqkk = require('./fqkkck.json');
+let fqkk = require('./fqkkck.json',[]);
 let fqkkBanfirstTask = $.getval('fqkkBanfirstTask') || 'false' // 禁止脚本执行首个任务，避免每日脚本跑首次任务导致微信限制
 let fqkkCkMoveFlag = $.getval('fqkkCkMove') || ''
 let fqtx = ($.getval('fqtx') || '100');  // 此处修改提现金额，0.3元等于30，默认为提现一元，也就是100
@@ -87,11 +87,9 @@ let fqkktz = ''
   } else {
     //let acList = fqkk.filter(o => o.hd).map((o, i) => ({no: i+1, uid: o.uid, gold: 0, score: 0, rest: 0, num: 0, url: o.url, headers: JSON.parse(o.hd)}));
     const acList = Object.keys(fqkk)
-      .filter(function(array){
-		  return (o => o.hd)})
-      .map(function(array){
-	      return ((o, i) => ({no: i+1, uid: o.uid, gold: 0, score: 0, rest: 0, num: 0, url: o.url, headers: JSON.parse(o.hd)}))
-		  });
+      .filter(function(){
+		 return (o => o.hd)})
+      .map((o, i) => ({no: i+1, uid: o.uid, gold: 0, score: 0, rest: 0, num: 0, url: o.url, headers: JSON.parse(o.hd)}));
 
 	let execAcList = [];
     let slot = acList.length % concurrency == 0 ? acList.length / concurrency : parseInt(acList.length / concurrency) + 1;
@@ -156,7 +154,7 @@ if(fqkkBanfirstTask == 'ture' && ac.num <= 0){
         } else {
           $.log(`账号${ac.no}今日已阅读${ac.num}次，本阶段还有${ac.rest}次待阅读：\n${msg}`);
         }
-        let host = acurl.match(/http?:\/\/(.+?)\//)[1];
+        let host = ac.url.match(/http?:\/\/(.+?)\//)[1];
         let ck = ac.headers['Cookie'] || ac.headers['cookie'];
         let [userId, gold] = await userInfo(host, ck);
         ac.gold = gold;
@@ -268,7 +266,7 @@ function userInfo(host, ck) {
 function fqkk3(ac, fqkey) {
   return new Promise(resolve => {
     let opts = {
-      url: acurl.replace('getTask', 'finishTask'),
+      url: ac.url.replace('getTask', 'finishTask'),
       headers: ac.headers,
       body: `readLastKey=${fqkey||''}`,
     }
@@ -307,7 +305,7 @@ function fqkk3(ac, fqkey) {
 function fqkk2(ac, fqkey) {
   return new Promise((resolve) => {
     let opts = {
-      url: acurl.replace('getTask', `jump?key=${fqkey}`),
+      url: ac.url.replace('getTask', `jump?key=${fqkey}`),
       headers: ac.headers
     };
     $.get(opts, (err, resp, data) => {
@@ -333,7 +331,7 @@ function fqkk1(ac, fqjs, timeout = 0) {
   return new Promise((resolve) => {
     setTimeout(() => {
       let opts = {
-        url: acurl,
+        url: ac.url,
         headers: ac.headers,
         body: '',
       }
@@ -372,7 +370,7 @@ function fqkk1(ac, fqjs, timeout = 0) {
 function fqkktx(ac) {
   return new Promise((resolve) => {
     let opts = {
-      url: acurl.match(/^(https?:\/\/.+?)\//)[1] + '/withdrawal/doWithdraw',
+      url: ac.url.match(/^(https?:\/\/.+?)\//)[1] + '/withdrawal/doWithdraw',
       headers: ac.headers,
       body: `amount=${fqtx}`
     }
