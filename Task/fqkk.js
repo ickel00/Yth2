@@ -264,13 +264,13 @@ function userInfo(host, ck) {
   })
 }
 
-const acurl = ac.url;
+//const acurl = ac.url;
 
 //番茄看看领取
 function fqkk3(ac, fqkey) {
   return new Promise(resolve => {
     let opts = {
-      url: acurl.replace('getTask', 'finishTask'),
+      url: ac.url.replace('getTask', 'finishTask'),
       headers: ac.headers,
       body: `readLastKey=${fqkey||''}`,
     }
@@ -309,7 +309,7 @@ function fqkk3(ac, fqkey) {
 function fqkk2(ac, fqkey) {
   return new Promise((resolve) => {
     let opts = {
-      url: acurl.replace('getTask', `jump?key=${fqkey}`),
+      url: ac.url.replace('getTask', `jump?key=${fqkey}`),
       headers: ac.headers
     };
     $.get(opts, (err, resp, data) => {
