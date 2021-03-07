@@ -71,7 +71,6 @@ hostname = m.*
 const $ = new Env('番茄看看');
 const fqkkurlArr = [], fqkkhdArr = []
 //let fqkk = $.getjson('fqkk', [])
-//const fqkk = $.isNode() ? require("./fqkkck") : "";
 let fqkk = require('./fqkkck.json');
 let fqkkBanfirstTask = $.getval('fqkkBanfirstTask') || 'false' // 禁止脚本执行首个任务，避免每日脚本跑首次任务导致微信限制
 let fqkkCkMoveFlag = $.getval('fqkkCkMove') || ''
@@ -85,14 +84,8 @@ let fqkktz = ''
   } else if (fqkkCkMoveFlag == 'true') {
     await fqkkCkMove();
   } else {
-    //let acList = fqkk.filter(o => o.hd).map((o, i) => ({no: i+1, uid: o.uid, gold: 0, score: 0, rest: 0, num: 0, url: o.url, headers: JSON.parse(o.hd)}));
-    const acList = Object.keys(fqkk)
-      .filter(function(){
-		  (o => o.hd)})
-      .map(function(){
-	      ((o, i) => ({no: i+1, uid: o.uid, gold: 0, score: 0, rest: 0, num: 0, url: o.url, headers: JSON.parse(o.hd)}))});
-
-	let execAcList = [];
+    let acList = fqkk.filter(o => o.hd).map((o, i) => ({no: i+1, uid: o.uid, gold: 0, score: 0, rest: 0, num: 0, url: o.url, headers: JSON.parse(o.hd)}));
+    let execAcList = [];
     let slot = acList.length % concurrency == 0 ? acList.length / concurrency : parseInt(acList.length / concurrency) + 1;
     acList.forEach((o, i) => {
       let idx = i % slot;
@@ -115,7 +108,7 @@ let fqkktz = ''
         }
         ac.msg = msg;
       }
-      fqkktz += rtList.map(ac => `【账号${ac.no}】\n余额：${ac.gold}币\n今日奖励：${ac.score}\n已阅读数：${ac.num}\n待阅读数：${ac.rest}${ac.msg?'\n'+ac.msg:''}`).join('\n\n');
+      fqkktz += rtList.map(ac => `\n【账号${ac.no}】\n余额：${ac.gold}币\n今日奖励：${ac.score}\n已阅读数：${ac.num}\n待阅读数：${ac.rest}${ac.msg?'\n'+ac.msg:''}`).join('\n');
     }
   $.log('\n======== [脚本运行完毕,打印日志结果] ========\n'+fqkktz)  }
 })()
@@ -129,11 +122,11 @@ function execTask(ac, i) {
         let msg = await fqkk3(ac, '');
         if (ac.rest) {
    let skip = false;
-if(fqkkBanfirstTask == 'ture' && ac.num <= 0){
-        saip = ture;
+if(fqkkBanfirstTask == 'true' && ac.num <= 0){
+        skip = true;
 }
           if (ac.rest <= 0 || skip) {
-            $.log(`账号${ac.no}今日已阅读${ac.num}次，本阶段待阅读${ac.rest}次，跳过阅读`);
+            $.log(`账号${ac.no}今日已阅读${ac.num}次，本阶段待阅读${ac.rest}次，跳过阅读，\n您已开启了限制脚本首次阅读，请前去扫码手动阅读一次，如需关闭该功能请前往Boxjs关闭限制脚本跑每日首次任务`);
           } else {
             $.log(`账号${ac.no}今日已阅读${ac.num}次，本阶段待阅读${ac.rest}次，开始阅读\n`);
             let flag = 0;
@@ -194,8 +187,8 @@ async function fqkkck() {
       }
       fqkk[no] = {uid: userId, url: fqkkurl, hd: fqkkhd};
       $.setdata(JSON.stringify(fqkk, null, 2), 'fqkk');
-      $.log(fqkkurl);
-      $.log(fqkkhd);
+      $.log(fqkkhd)
+      $.log(fqkkurl)
       $.msg($.name, "", `番茄看看[账号${no+1}] ${status?'新增':'更新'}数据成功！`);
     } else {
       // 未获取到用户ID，提示
