@@ -22,6 +22,6 @@ jobs:
         run: |
           npm install
           npm install cron
-      - name: '运行 【书旗小说】'
+      - name: '运行 【书旗小说极速版】'
         run: |
           node Task/mysqxs.js
