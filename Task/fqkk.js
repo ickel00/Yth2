@@ -339,7 +339,7 @@ function fqkk1(ac, fqjs, timeout = 0) {
             let jumpObj = await fqkk2(ac, result.data.jkey);
             if (jumpObj) {
               $.log(`🌝账号${ac.no}等待10秒后提交本次阅读领取奖励`);
-              await $.wait(10000);
+              await $.wait(15300);
               m = await fqkk3(ac, result.data.jkey);
               f = ac.rest;
             } else {
