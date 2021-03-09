@@ -1,6 +1,6 @@
 /*
 软件名称:云扫码 微信扫描二维码打开
-更新时间：2021-03-08 @肥皂
+更新时间：2021-03-09 @肥皂
 脚本说明：云扫码自动阅读
 脚本为自动完成云扫码的阅读任务
 每日收益1元左右，可多号撸。提现秒到
@@ -26,6 +26,7 @@ TG电报群: https://t.me/hahaha802
 解决多账号问题，可以多账号撸了
 3.2更新,新增判断，如果提示当前任务已结束脚本会尝试继续执行不会终止循环，key提交提示失败也会尝试重新执行，增加了提现成功的通知
 3.8更新，修复因官方更新无法提交key和领取任务奖励的问题
+3.9更新 修复云扫码官方更新无法自动阅读的问题
 
 boxjs地址 :  
 
@@ -80,6 +81,7 @@ const ysmhd = '{"Accept":"application/json, text/javascript, */*; q=0.01","Origi
 const ysmbody = '"secret=eyJpdiI6InZienRha3RuSDBJY25sRjA3QitJRmc9PSIsInZhbHVlIjoiUU1ETzlMckRzRWgrRktPaXloclp6U3hOXC9sT2ZjNlwvRjlZTFZRQUNrV0RDMW9JSCttTFFydTJsazFPYlRQY3ZFVXBvUWVFUE5ZbFc4eWc2emN5MWhCRjZCeUgzeStrUTNqS3pKV1czNjNGcnRsRkRRdkxSVDhEdE10aVJteVRFc0I4SEo5TXZleUZYUnhqazJtYThFZm4xbk02dThnT0VyWE16SmszdEpPRHpHdmhVUUl2THloR0lPR2hxODFQdjEyaUpYalhaZjFzdzJQQTlxeFNNeVFTbHBQWFhSbU5HQ09lSFBxUm9KQzRURGYyUHlnU2txM2ZzZVU4UCtcLzYwdjNKRVJaa284dEtjcEdkV2QwUVFiajlPSlpOZDliWVNqSW4reE1vWTRTbEE4emhqQXhGdVN4UWdxRW10cWxpRTAiLCJtYWMiOiIwNDdmZDRjMjNhNjI1NTIyNmFhODY0NWU5ZGFhMzE1YmEyN2RhZWU4MmE2MTM3NWU5MzM4OWQ5MmIyNDE2NDhjIn0%253D&type=read"';
 const ysm2body = 'openid=oksnzwfxT5It62j9NjwaT7qfdO9Y&time=17';
 const ysmtx = 'openid=oksnzwfxT5It62j9NjwaT7qfdO9Y&request_id=f50a816f2a3b88f3c3424f46ed19bac9&ua=1';
+
 
 
 !(async () => {
@@ -238,9 +240,8 @@ let url = {
       if(result.data.link === undefined){
        console.log('\n🧼来自肥皂的提示:没有匹配到key'+result.data.msg)
 } else {
-        ysmkey = result.data.link.match(/redirect_uri=(.*?)#wechat/)[1]
-        ysmkey = unescape(ysmkey)
-//$.log(unescape(ysmkey))
+        ysmkey = result.data.link
+        //$.log(ysmkey)
         await $.wait(1000);
         await ysm2();
         
