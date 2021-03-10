@@ -109,11 +109,6 @@ if (isxyzdck = typeof $request !== 'undefined') {
     $.msg($.name, '【提示】请先获取幸运赚点一header')
     return;
   }
-  for (let i = 2; i <= xyzdcount; i++) {
-    xyzdurlArr.push($.getdata(`xyzdurl${i}`))
-    xyzdhdArr.push($.getdata(`xyzdhd${i}`))
-    xyzdbodyArr.push($.getdata(`xyzdbody${i}`))
-  }
     console.log(`------------- 共${xyzdhdArr.length}个账号-------------\n`)
       for (let i = 0; i < xyzdhdArr.length; i++) {
         if (xyzdhdArr[i]) {
