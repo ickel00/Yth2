@@ -12,9 +12,9 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event.repository.owner.id == github.event.sender.id
     env:
-        xyzdhd: ${{ secrets.XYZD_HD }}
-        xyzdurl: ${{ secrets.XYZD_URL }}
-        xyzdbody: ${{ secrets.XYZD_BODY }}
+        XYZD_HD: ${{ secrets.XYZD_HD }}
+        XYZD_URL: ${{ secrets.XYZD_URL }}
+        XYZD_BODY: ${{ secrets.XYZD_BODY }}
     steps:
       - uses: actions/checkout@v1
       - name: Use Node.js 14.x
