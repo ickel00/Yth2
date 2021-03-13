@@ -201,7 +201,7 @@ let url = {
         await hldspsp();
         
 } else {
-console.log('哈喽短视频[签到]回执:失败🚫 '+result.message)
+console.log('哈喽短视频[签到]回执:失败🚫 '+result.message);
      await hldspsp();
 }
         } catch (e) {
