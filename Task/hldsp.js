@@ -117,6 +117,7 @@ if (ishldspck = typeof $request !== 'undefined') {
           console.log(`\n开始【哈喽短视频${$.index}】`)
           //await hldsphhb();
             await hldspqd();
+			await hldspsp();
             
   }
 }}
