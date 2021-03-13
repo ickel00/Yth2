@@ -177,7 +177,7 @@ console.log('\n哈喽短视频[领取视频红包]回执:失败🚫')
 function hldspqd(timeout = 0) {
   return new Promise((resolve) => {
     setTimeout( ()=>{
-      if (typeof $.getdata('hldsphd') === "undefined") {
+      if (ishldsphd = typeof $.getdata('hldsphd') === "undefined") {
         $.msg($.name,"",'请先获取哈喽短视频数据!😓',)
         $.done()
       }
