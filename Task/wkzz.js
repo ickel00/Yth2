@@ -74,10 +74,14 @@ if(!$.isNode()&&wkzzhd.indexOf("\n") ==-1){
     if($.isNode()){
     if (process.env.WKZZ_HD && process.env.WKZZ_HD.indexOf('\n') > -1) {
         wkzzhd = process.env.WKZZ_HD.split('\n');
-    } ;
+    } else {
+        wkzzhd = [process.env.WKZZ_HD]
+    };
     if (process.env.WKZZ_URL && process.env.WKZZ_URL.indexOf('\n') > -1) {
         wkzzurl = process.env.WKZZ_URL.split('\n');
-    } ;
+    } else {
+        wkzzurl = [process.env.WKZZ_URL]
+    };
     console.log(` ============脚本执行 - 北京时间 (UTC + 8)：${new Date(new Date().getTime() + 8 * 60 * 60 * 1000).toLocaleString()} =============\n`);
  } else if(!$.isNode()&&wkzzhd.indexOf("\n")>-1){
    wkzzhd = wkzzhd.split("&")
