@@ -62,15 +62,15 @@ if(!$.isNode()&&hldsphd.indexOf("\n") ==-1){
     hldsphdArr.push($.getdata('hldsphd'))
 } else {
     if($.isNode()){
-    if (process.env.DLDSP_HD && process.env.DLDSP_HD.indexOf('\n') > -1) {
-        hldsphd = process.env.DLDSP_HD.split('\n');
+    if (process.env.HLDSP_HD && process.env.HLDSP_HD.indexOf('\n') > -1) {
+        hldsphd = process.env.HLDSP_HD.split('\n');
     } else {
-        hldsphd = [process.env.DLDSP_HD]
+        hldsphd = [process.env.HLDSP_HD]
     };
-    if (process.env.DLDSP_URL && process.env.DLDSP_URL.indexOf('\n') > -1) {
-        hldspurl = process.env.DLDSP_URL.split('\n');
+    if (process.env.HLDSP_URL && process.env.HLDSP_URL.indexOf('\n') > -1) {
+        hldspurl = process.env.HLDSP_URL.split('\n');
     } else {
-        hldspurl = [process.env.DLDSP_URL]
+        hldspurl = [process.env.HLDSP_URL]
     };
     console.log(` ============脚本执行 - 北京时间 (UTC + 8)：${new Date(new Date().getTime() + 8 * 60 * 60 * 1000).toLocaleString()} =============\n`);
  } else if(!$.isNode()&&hldsphd.indexOf("\n")>-1){
@@ -87,7 +87,7 @@ if(!$.isNode()&&hldsphd.indexOf("\n") ==-1){
             hldspurlArr.push(hldspurl[item])
         }
     });	
- console.log(` ============= 您共提供${hldsphdArr.length}个幸运赚点账号 =============`);
+ console.log(` ============= 您共提供${hldsphdArr.length}个哈喽短视频账号 =============`);
 }
 
 if (ishldspck = typeof $request !== 'undefined') {
@@ -107,7 +107,7 @@ if (ishldspck = typeof $request !== 'undefined') {
     hldspurlArr.push($.getdata(`hldspurl${i}`))
     hldsphdArr.push($.getdata(`hldsphd${i}`))
   }
-    console.log(`------------- 共${hldsphdArr.length}个账号-------------\n`)
+    //console.log(`------------- 共${hldsphdArr.length}个账号-------------\n`)
       for (let i = 0; i < hldsphdArr.length; i++) {
         if (hldsphdArr[i]) {
          
@@ -117,7 +117,6 @@ if (ishldspck = typeof $request !== 'undefined') {
           console.log(`\n开始【哈喽短视频${$.index}】`)
           //await hldsphhb();
             await hldspqd();
-			await hldspsp();
             
   }
 }}
