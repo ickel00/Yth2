@@ -3,7 +3,7 @@ name: 微客2
 on:
   workflow_dispatch:
   schedule:
-     - cron: '22,37 0-14 * * *'
+     - cron: '22,52 0-14 * * *'
   watch:
     types: started
 
