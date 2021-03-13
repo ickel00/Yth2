@@ -1,4 +1,4 @@
-name: 微客
+name: 微客2
 
 on:
   workflow_dispatch:
