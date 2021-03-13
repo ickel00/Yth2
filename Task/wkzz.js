@@ -74,18 +74,14 @@ if(!$.isNode()&&wkzzhd.indexOf("\n") ==-1){
     if($.isNode()){
     if (process.env.WKZZ_HD && process.env.WKZZ_HD.indexOf('\n') > -1) {
         wkzzhd = process.env.WKZZ_HD.split('\n');
-    } else {
-        wkzzhd = [process.env.WKZZ_HD]
-    };
+    } ;
     if (process.env.WKZZ_URL && process.env.WKZZ_URL.indexOf('\n') > -1) {
         wkzzurl = process.env.WKZZ_URL.split('\n');
-    } else {
-        wkzzurl = [process.env.WKZZ_URL]
-    };
+    } ;
     console.log(` ============脚本执行 - 北京时间 (UTC + 8)：${new Date(new Date().getTime() + 8 * 60 * 60 * 1000).toLocaleString()} =============\n`);
  } else if(!$.isNode()&&wkzzhd.indexOf("\n")>-1){
-   wkzzhd = wkzzhd.split("\n")
-   wkzzurl = wkzzurl.split("\n")
+   wkzzhd = wkzzhd.split("&")
+   wkzzurl = wkzzurl.split("&")
 };
     Object.keys(wkzzhd).forEach((item) =>{
         if (wkzzhd[item]) {
@@ -106,7 +102,7 @@ if (iswkzzck = typeof $request !== 'undefined') {
 };
 
 !(async () => {
-  if (!wkzzhdArr[0]) {
+  if (!wkzzhd[0]) {
     $.msg($.name, '【提示】请先获取微众众智一header')
     return;
   } else {wkzzurlArr.push($.getdata('wkzzurl'))
@@ -210,7 +206,7 @@ name =data.match(/"content_url":"(.*?)",/)[1]
 
         console.log('\n微客众智获取任务ID成功\n当前任务ID: '+uid+' '+tid+'\n开始循环阅读:')
         await $.wait(1000);
-        await wkzzwz();
+        await wkzzyd();
 } else {
        console.log('\n微客众智获取任务ID失败  '+result.data.message)
 }
