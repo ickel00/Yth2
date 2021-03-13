@@ -116,7 +116,7 @@ if (iswkzzck = typeof $request !== 'undefined') {
     wkzzurlArr.push($.getdata(`wkzzurl${i}`))
     wkzzhdArr.push($.getdata(`wkzzhd${i}`))
   }
-    console.log(`------------- 共${wkzzhdArr.length}个账号-------------\n`)
+    //console.log(`------------- 共${wkzzhdArr.length}个账号-------------\n`)
       for (let i = 0; i < wkzzhdArr.length; i++) {
         if (wkzzhdArr[i]) {
          
