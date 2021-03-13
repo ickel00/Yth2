@@ -77,7 +77,7 @@ if(!$.isNode()&&xyzdhd.indexOf("\n") ==-1){
     };	
     console.log(` ============脚本执行 - 北京时间 (UTC + 8)：${new Date(new Date().getTime() + 8 * 60 * 60 * 1000).toLocaleString()} =============\n`);
  } else if(!$.isNode()&&xyzdhd.indexOf("\n")>-1){
-   xyzdhd = xyzdurl.split("\n")
+   xyzdhd = xyzdhd.split("\n")
    xyzdurl = xyzdurl.split("\n")
    xyzdbody = xyzdbody.split("\n")
 };
@@ -254,10 +254,10 @@ let url = {
 function cgrwlb(timeout = 0) {
   return new Promise((resolve) => {
     setTimeout( ()=>{
-      if (typeof $.getdata('xyzdhd') === "undefined") {
-        $.msg($.name,"",'请先获取幸运赚点数据!😓',)
-        $.done()
-      }
+      //if (typeof $.getdata('xyzdhd') === "undefined") {
+        //$.msg($.name,"",'请先获取幸运赚点数据!😓',)
+        //$.done()
+      //}
     xyzdsign = xyzdurl.match(/sign=(\w+)/)[1]
     xyzdtoken = xyzdbody.match(/token=(\w+)/)[1]
 let url = {
