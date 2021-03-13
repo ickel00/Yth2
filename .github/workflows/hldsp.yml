@@ -12,8 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event.repository.owner.id == github.event.sender.id
     env:
-        DLDSP_HD: ${{ secrets.DLDSP_HD }}
-        DLDSP_URL: ${{ secrets.DLDSP_URL }}
+        HLDSP_HD: ${{ secrets.HLDSP_HD }}
+        HLDSP_URL: ${{ secrets.HLDSP_URL }}
     steps:
       - uses: actions/checkout@v1
       - name: Use Node.js 14.x
@@ -21,10 +21,10 @@ jobs:
         with:
           node-version: 14.x
       - name: npm install
-        if: env.DLDSP_HD
+        if: env.HLDSP_HD
         run: |
           npm install
       - name: '运行 【哈喽短视频】'
-        if: env.DLDSP_HD
+        if: env.HLDSP_HD
         run: |
           node Task/hldsp.js
