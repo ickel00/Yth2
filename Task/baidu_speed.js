@@ -23,7 +23,7 @@ const notify = $.isNode() ? require('./sendNotify') : '';
 const baiducks = $.getdata('bdspeed')
 let baiducash = $.getdata(`cash_baidu`);
 
-let baidu_nick = $.getdata('baidu_nick`):vccde;
+let baidu_nick = $.getdata('baidu_nick`)||"vccde";
 
 let taskON = $.getdata(`task_baidu`)||"true"//除提现和兑换外其他任务开关;
 let isblack = "false";
