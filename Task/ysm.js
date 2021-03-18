@@ -148,7 +148,7 @@ if(!$.isNode()&&ysmhd.indexOf("\n") ==-1){
             ysmtxArr.push(ysmtx[item])
         }
     });	
- console.log(` ============= 您共提供${wkzzhdArr.length}个微众众智账号 =============`);
+ console.log(` ============= 您共提供${ysmhdArr.length}个微众众智账号 =============`);
 }
 
 if (isysmck = typeof $request !== 'undefined') {
