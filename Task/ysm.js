@@ -148,7 +148,7 @@ if(!$.isNode()&&ysmhd.indexOf("\n") ==-1){
             ysmtxArr.push(ysmtx[item])
         }
     });	
- console.log(` ============= 您共提供${ysmhdArr.length}个微众众智账号 =============`);
+ console.log(` ============= 您共提供${ysmhdArr.length}个云扫码账号 =============`);
 }
 
 if (isysmck = typeof $request !== 'undefined') {
@@ -173,7 +173,7 @@ if (isysmck = typeof $request !== 'undefined') {
     ysm2bodyArr.push($.getdata(`ysm2body${i}`))
     ysmtxArr.push($.getdata(`ysmtx${i}`))
   }
-    console.log(`------------- 共${ysmhdArr.length}个账号-------------\n`)
+    //console.log(`------------- 共${ysmhdArr.length}个账号-------------\n`)
       for (let i = 0; i < ysmhdArr.length; i++) {
         if (ysmhdArr[i]) {
          
