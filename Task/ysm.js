@@ -75,7 +75,7 @@ const $ = new Env('云扫码')
 let ysm = require('./ysmck.json');
 let needNotice = $.getval('ysmNotice') == 'true'
 let ysmBanfirstTask = $.getval('ysmBanfirstTask') == 'true' // 禁止脚本执行首个任务，避免每日脚本跑首次任务导致微信限制
-let ysmtxAmt = ($.getval('ysmtxAmt') || '1') - 1  // 此处修改提现金额，0.3元等于3000币，默认不提现
+let ysmtxAmt = ($.getval('ysmtxAmt') || '0') - 5000  // 此处修改提现金额，0.3元等于3000币，默认不提现
 ysmtxAmt = ysmtxAmt > 3000 ? (parseInt(ysmtxAmt / 1000) * 1000) : ysmtxAmt > 0 ? 3000 : 0
 let concurrency = ($.getval('ysmConcurrency') || '1') - 0 // 并发执行任务的账号数，默单账号循环执行
 concurrency = concurrency < 1 ? 1 : concurrency
