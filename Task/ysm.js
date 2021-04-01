@@ -1,6 +1,6 @@
 /*
 软件名称:云扫码 微信扫描二维码打开
-更新时间：2021-03-31 @肥皂
+更新时间：2021-03-26 @肥皂
 脚本说明：云扫码自动阅读
 脚本为自动完成云扫码的阅读任务
 每日收益1元左右，可多号撸。提现秒到
@@ -31,7 +31,6 @@ TG电报群: https://t.me/hahaha8028
 
 3.26更新，云扫码多账号更新优化，加入多账号并发执行，获取ck方式改为和番茄看看一样的方式，不用手动选择抓包账号几，加入通知开关和首次阅读开关限制，自定义提现金额，比例为1:10000，最低提现金额为0.3元，即填写提现金额最少填写3000，注意需要重新更改重写的链接，请在下方获取替换以前的重写，该版本为@ztxtop大佬提交的pr。感谢大佬
 
-3.31更新,修复官方域名更换无法正常跑脚本的问题，请更换一下重写重新抓包
 PS:
 一般两篇文章过后还能阅读那么当天一般都能跑满任务的，需要手动阅读两篇的原因是和番茄看看一样，前两篇文章是调用微信接口鉴权的(这个没有办法解决)，鉴权通过可以继续阅读，不通过则限制阅读(如果你不手动阅读鉴权,直接跑脚本很大几率直接就限制了)，云扫码和番茄看看鉴权通过的话是不会有任务冲突的，一般情况下这两个平台手动阅读了两篇文章都能跑满全部任务。阅读三兄弟的微客众智则不需要手动阅读可以直接跑脚本(可惜ck过期太快，但是不会限制，我的ck最长坚持了四天，有些人就只能坚持一天，建议微客众智的重写保持开启状态。)
 
@@ -49,18 +48,18 @@ https://raw.githubusercontent.com/age174/-/main/feizao.box.json
 
 [rewrite_local]
 #云扫码
-^http://.+?/yunonline/v\d+/redirect/(?!undefined) url script-request-header https://raw.githubusercontent.com/age174/-/main/ysm.js
+^http://erd.+?/yunonline/v\d+/redirect/(?!undefined) url script-request-header https://raw.githubusercontent.com/age174/-/main/ysm.js
 
 
 
 #loon
-^http://.+?/yunonline/v\d+/redirect/(?!undefined) script-path=https://raw.githubusercontent.com/age174/-/main/ysm.js, requires-body=true, timeout=10, tag=云扫码
+^http://erd.+?/yunonline/v\d+/redirect/(?!undefined) script-path=https://raw.githubusercontent.com/age174/-/main/ysm.js, requires-body=true, timeout=10, tag=云扫码
 
 
 
 #surge
 
-云扫码 = type=http-request,pattern=^http://.+?/yunonline/v\d+/redirect/(?!undefined),requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/age174/-/main/ysm.js,script-update-interval=0
+云扫码 = type=http-request,pattern=^http://erd.+?/yunonline/v\d+/redirect/(?!undefined),requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/age174/-/main/ysm.js,script-update-interval=0
 
 
 
@@ -77,7 +76,7 @@ let ysm = require('./ysmck.json');
 let needNotice = $.getval('ysmNotice') == 'true'
 let ysmBanfirstTask = $.getval('ysmBanfirstTask') == 'true' // 禁止脚本执行首个任务，避免每日脚本跑首次任务导致微信限制
 let ysmBanhalfTask = $.getval('ysmBanhalfTask') == 'true' // 脚本执行完第50个任务时退出任务，再手动阅读2篇避免出现微信限制
-let ysmtxAmt = ($.getval('ysmtxAmt') || '5000') - 0  // 此处修改提现金额，0.3元等于3000币，默认不提现
+let ysmtxAmt = ($.getval('ysmtxAmt') || '0') - 0  // 此处修改提现金额，0.3元等于3000币，默认不提现
 ysmtxAmt = ysmtxAmt > 3000 ? (parseInt(ysmtxAmt / 1000) * 1000) : ysmtxAmt > 0 ? 3000 : 0
 let concurrency = ($.getval('ysmConcurrency') || '1') - 0 // 并发执行任务的账号数，默单账号循环执行
 concurrency = concurrency < 1 ? 1 : concurrency
