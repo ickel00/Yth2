@@ -1,6 +1,10 @@
+ 
+ const ck = $.getdata('jukan_ck');
+ const body = $.getdata('jukan_body');
+ 
  !(async () => {
-	console.log(`聚看点ck为：$.getdata('jukan_ck')`)
-	console.log(`聚看点body为：$.getdata('jukan_body')`)
+	console.log(`聚看点ck为：${ck}`)
+	console.log(`聚看点body为：${body}`)
 
 })()
     .catch((e) => {
